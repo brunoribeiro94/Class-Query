@@ -1,5 +1,9 @@
 <?php
 
+$autoloadManager = new autoloadManager(null, autoloadManager::SCAN_ONCE);
+$autoloadManager->addFolder(__DIR__ . '/src/');
+$autoloadManager->register();
+
 /**
  *
  * Class query
