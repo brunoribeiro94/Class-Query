@@ -1,0 +1,40 @@
+table.results th a, table.results th a:visited { padding-right: 12px; margin-right: 2px;}
+
+.prettyprint td.source {
+  white-space: pre;
+  word-wrap: break-word;
+  width: 75em !important;
+}
+
+.issuedescription pre, .issuecomment pre {
+  white-space: pre;
+  word-wrap: break-word;
+  width: 70em;
+}
+
+#ac-list {
+  max-height: none;
+}
+
+input[type=button], input[type=submit] {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.capsule_left, .capsule_right, .capsule_middle {
+    border: none;
+    text-decoration: underline;
+    padding: 0 .5em;
+    color: blue !important;
+    background: none;
+}
+
+.capsule_left, .capsule_middle {
+    border-right: 1px solid #000;
+}
+
+.mode_button_active {
+    text-decoration: none;
+    font-weight: bold;
+    color: black !important;
+}
