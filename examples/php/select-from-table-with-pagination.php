@@ -4,8 +4,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
         <title>class-query</title>
-        <link type="text/css" rel="stylesheet" href="../../examples/css/core.css">
-        <link type="text/css" rel="stylesheet" href="../../examples/css/ph_detail.css" >
+        <link type="text/css" rel="stylesheet" href="../css/core.css">
+        <link type="text/css" rel="stylesheet" href="../css/ph_detail.css" >
 
         <style>
             body {
@@ -99,7 +99,7 @@
             }
         </style>
         <!--[if IE]>
-         <link type="text/css" rel="stylesheet" href="../../css/d_ie.css" >
+         <link type="text/css" rel="stylesheet" href="../css/d_ie.css" >
         <![endif]-->
     </head>
     <body class="t1">
