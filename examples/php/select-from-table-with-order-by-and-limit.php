@@ -106,9 +106,9 @@
         LIMIT
                 10
 */</pre>
-            <script src="../../examples/js/prettify/prettify_core_compiled.js"></script>
+            <script src="../js/prettify/prettify_core_compiled.js"></script>
             <script type="text/javascript">prettyPrint();</script>
-            <script type="text/javascript" src="../../examples/js/ph_core.js"></script>
+            <script type="text/javascript" src="../js/ph_core.js"></script>
         </div>
     </body>
 </html>
