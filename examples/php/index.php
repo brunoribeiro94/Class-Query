@@ -147,7 +147,12 @@
     </div>
     <?php
     $get_page = filter_input(INPUT_GET, 'page');
-    $page = $get_page . '.php';
+    if (!isset($get_page)) {
+        $page = 'select-from-table.php';
+    } else {
+        $page = $get_page . '.php';
+    }
     ?>
     <iframe name="frame" id="frame" src="<?php echo $page; ?>" width="100%" height="100%"></iframe>
+
 </body>
