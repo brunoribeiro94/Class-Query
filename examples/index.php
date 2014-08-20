@@ -4,8 +4,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" >
         <title>class-query</title>
-        <link type="text/css" rel="stylesheet" href="examples/css/core.css">
-        <link type="text/css" rel="stylesheet" href="examples/css/ph_detail.css" >
+        <link type="text/css" rel="stylesheet" href="css/core.css">
+        <link type="text/css" rel="stylesheet" href="css/ph_detail.css" >
         <!--[if IE]>
          <link type="text/css" rel="stylesheet" href="css/d_ie.css" >
         <![endif]-->
@@ -327,7 +327,7 @@ $q
 if ($q)
     echo 'user deleted with success !';
 else
-    echo 'was not possible to delete the user';</pre><p><br></br> </p><h1><a name="Usage"></a>Usage<a href="#Usage" class="section_anchor"></a></h1><h2><a name="Quick_Install"></a>Quick Install<a href="#Quick_Install" class="section_anchor"></a></h2><ol><li>include &#x27;lib/config.inc.php&#x27;; </li><li>include &#x27;lib/class.query.php&#x27;; </li><li>See <a href="examples/php" rel="nofollow">examples</a> for usage. </li></ol><h2><a name="Example"></a>Example<a href="#Example" class="section_anchor"></a></h2><ol><li>include &#x27;lib/config.inc.php&#x27;; </li><li>include &#x27;lib/class-query.php&#x27;; </li><li>Initialized the Query class and chain parameters. </li><li>Call run(), show() or get() as the last chained function. That is, run the query, show/&quot;echo&quot; the query or return the query; </li><pre class="prettyprint">
+    echo 'was not possible to delete the user';</pre><p><br></br> </p><h1><a name="Usage"></a>Usage<a href="#Usage" class="section_anchor"></a></h1><h2><a name="Quick_Install"></a>Quick Install<a href="#Quick_Install" class="section_anchor"></a></h2><ol><li>include &#x27;lib/config.inc.php&#x27;; </li><li>include &#x27;lib/class.query.php&#x27;; </li><li>See <a href="php" rel="nofollow">examples</a> for usage. </li></ol><h2><a name="Example"></a>Example<a href="#Example" class="section_anchor"></a></h2><ol><li>include &#x27;lib/config.inc.php&#x27;; </li><li>include &#x27;lib/class-query.php&#x27;; </li><li>Initialized the Query class and chain parameters. </li><li>Call run(), show() or get() as the last chained function. That is, run the query, show/&quot;echo&quot; the query or return the query; </li><pre class="prettyprint">
 // require database config  
 // remember to configure mysql or mysqli
 require &#x27;lib/config.inc.php&#x27;; 
@@ -362,13 +362,13 @@ if($q){
 }
 else{
 	echo &#x27;Sorry, user &#x27;.$user_id.&#x27; not found.&#x27;;
-}</pre></ol><h2><a name="See_All_Examples"></a>See examples running<a href="#See_All_Examples" class="section_anchor"></a></h2><p><a href="examples/php" rel="nofollow">See all class-query examples.</a> </p><p><br></br> </p>
+}</pre></ol><h2><a name="See_All_Examples"></a>See examples running<a href="#See_All_Examples" class="section_anchor"></a></h2><p><a href="php" rel="nofollow">See all class-query examples.</a> </p><p><br></br> </p>
                 </td>
                 </tr>
             </table>
-            <script src="examples/js/prettify/prettify_core_compiled.js"></script>
+            <script src="js/prettify/prettify_core_compiled.js"></script>
             <script type="text/javascript">prettyPrint();</script>
-            <script type="text/javascript" src="examples/js/ph_core.js"></script>
+            <script type="text/javascript" src="js/ph_core.js"></script>
         </div>
     </body>
 </html>
