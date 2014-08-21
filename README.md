@@ -28,7 +28,7 @@ Best way to do is cloning via git: `git clone https://github.com/offboard/class-
 
 #### CONFIGS IN THE CODE:
 
-In *lib/Query/config.inc.php*:
+In *lib/Query/src/Config.php*:
 
 5. enter your database credentials in $DB_USER, $DB_PASS etc.
 6. enter your charset in $charset (we can do the configuration before using the code).
