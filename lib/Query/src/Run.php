@@ -127,9 +127,9 @@ class Run extends Get {
             $this->mysql_error = mysqli_error($mysqli);
 
             if ($this->debug) {
-                $this->error = PAGINATION_TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
+                $this->error = $this->PAGINATION_TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
             } else {
-                $this->error = PAGINATION_TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
+                $this->error = $this->PAGINATION_TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
             }
 
             if (function_exists('error')) {
