@@ -51,7 +51,7 @@ class Run extends Get {
                     }
                     break;
                 default:
-                    die(PAGINATION_TEXT_ERRO_QUERY . $this->query_type);
+                    die($this->PAGINATION_TEXT_ERRO_QUERY . $this->query_type);
                     break;
             }
         }
