@@ -8,40 +8,30 @@
 class Config extends Run {
 
     /**
-     * database host, usually it's "127.0.0.1" or "localhost", some servers also need port info
-     * @var mixed 
+     * Multiple Database Conection
+     * @var Array 
      */
-    protected $DB_HOST = "127.0.0.1";
-
-    /**
-     * name of the database. please note: database and database table are not the same thing
-     * @var mixed 
-     */
-    protected $DB_NAME = "class_Query";
-
-    /**
-     * user for your database. the user needs to have rights for SELECT, UPDATE, DELETE and INSERT.
-     * by the way, it's bad style to use "root", but for development it will work.
-     * @var mixed 
-     */
-    protected $DB_USER = "root";
-
-    /**
-     * the password of the above user
-     * @var mixed 
-     */
-    protected $DB_PASS = "";
+    protected $Conections_Settings = array(
+        'Data1' => array(
+            'DB_HOST' => '127.0.0.1',
+            'DB_NAME' => 'class_Query',
+            'DB_USER' => 'root',
+            'DB_PASS' => ''
+        ),
+        'Data2' => array(
+            'DB_HOST' => '127.0.0.1',
+            'DB_NAME' => 'class_Query_dev',
+            'DB_USER' => 'root',
+            'DB_PASS' => ''
+        )
+    );
 
     /**
      * Link mysqli please no put nothing here
-     * @var unknow 
+     * @var array 
      */
-    protected $link_mysqi = NULL;
+    protected $link_mysqi = array();
 
-    /**
-     * set charset
-     * @var string 
-     */
     protected $charset = 'UTF8';
 
     // pagination configure
@@ -101,13 +91,15 @@ class Config extends Run {
      * @return Void
      */
     private function mysqli_connection() {
-        try {
-            $mysqli = new mysqli($this->DB_HOST, $this->DB_USER, $this->DB_PASS, $this->DB_NAME);
-        } catch (Exception $e) {
-            exit($this->PAGINATION_TEXT_DB_NAME . $e->message);
+        foreach ($this->Conections_Settings as $key => $value) {
+            try {
+                $mysqli = new mysqli($value['DB_HOST'], $value['DB_USER'], $value['DB_PASS'], $value['DB_NAME']);
+            } catch (Exception $e) {
+                exit($this->PAGINATION_TEXT_DB_NAME . $e->message);
+            }
+            $mysqli->set_charset($this->charset);
+            $this->link_mysqi[$key] = $mysqli;
         }
-        $mysqli->set_charset($this->charset);
-        $this->link_mysqi = $mysqli;
     }
 
     /**
