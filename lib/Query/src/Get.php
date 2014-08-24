@@ -1,10 +1,13 @@
 <?php
 
 class Get extends Insert {
-    /* GET */
 
+    /**
+     * returns select, insert or update query
+     * @param type $use_limit
+     * @return boolean
+     */
     public function get($use_limit = false) {
-        // returns select, insert or update query
         if (self::_get_delete_query()) {
             return $this->delete_query;
         } elseif (self::_get_insert_query()) {
@@ -257,6 +260,10 @@ class Get extends Insert {
         return false;
     }
 
+    /**
+     * load all where's options
+     * @return string
+     */
     private function _get_where() {
         $wheres = array();
         $where_greater_than = self::_get_where_greater_than();
@@ -391,8 +398,11 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * = Equal to
+     * @return string
+     */
     private function _get_where_equal_to() {
-        // = Equal to
         if (!isset($this->where_equal_to) || !is_array($this->where_equal_to) || empty($this->where_equal_to)) {
             return '';
         } else {
@@ -416,8 +426,11 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * > greater than
+     * @return string
+     */
     private function _get_where_greater_than() {
-        // > greater than
         if (!isset($this->where_greater_than) || !is_array($this->where_greater_than) || empty($this->where_greater_than)) {
             return '';
         } else {
@@ -461,8 +474,11 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * IN Checks for values in a list
+     * @return string
+     */
     private function _get_where_in() {
-        // IN Checks for values in a list
         if (!isset($this->where_in) || !is_array($this->where_in) || empty($this->where_in)) {
             return '';
         } else {
@@ -492,8 +508,11 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * < Less than
+     * @return string
+     */
     private function _get_where_less_than() {
-        // < Less than
         if (!isset($this->where_less_than) || !is_array($this->where_less_than) || empty($this->where_less_than)) {
             return '';
         } else {
@@ -513,8 +532,11 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * <= Less than or equal to
+     * @return string
+     */
     private function _get_where_less_than_or_equal_to() {
-        // <= Less than or equal to
         if (!isset($this->where_less_than_or_equal_to) || !is_array($this->where_less_than_or_equal_to) || empty($this->where_less_than_or_equal_to)) {
             return '';
         } else {
@@ -624,9 +646,11 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * <> Not equal to | != Not equal to
+     * @return string
+     */
     private function _get_where_not_equal_or() {
-        // <> Not equal to
-        // != Not equal to
         if (!isset($this->where_not_equal_or) || !is_array($this->where_not_equal_or) || empty($this->where_not_equal_or)) {
             return '';
         } else {
@@ -648,9 +672,11 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * <> Not equal to | != Not equal to
+     * @return string
+     */
     private function _get_where_not_equal_to() {
-        // <> Not equal to
-        // != Not equal to
         if (!isset($this->where_not_equal_to) || !is_array($this->where_not_equal_to) || empty($this->where_not_equal_to)) {
             return '';
         } else {
@@ -673,8 +699,11 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * NOT IN Ensures the value is not in the list
+     * @return string
+     */
     private function _get_where_not_in() {
-        // NOT IN Ensures the value is not in the list
         if (!isset($this->where_not_in) || !is_array($this->where_not_in) || empty($this->where_not_in)) {
             return '';
         } else {
@@ -708,8 +737,11 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * NOT LIKE Used to compare strings
+     * @return string
+     */
     private function _get_where_not_like() {
-        // NOT LIKE Used to compare strings
         if (!isset($this->where_not_like) || !is_array($this->where_not_like) || empty($this->where_not_like)) {
             return '';
         } else {
