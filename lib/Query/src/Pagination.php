@@ -5,7 +5,7 @@
  * Class query - Pagination
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 1.2
+ * @version 1.3
  * @access public
  * @package Language
  * */
@@ -61,12 +61,11 @@ class Pagination extends Language {
     var $class_after = NULL;
 
     public function get_page() {
-        $q = new Query();
-        return $q->page;
+        return $this->page;
     }
 
     public function get_pages() {
-        return @$this->pages;
+        return $this->pages;
     }
 
     public function get_perpage() {
@@ -85,7 +84,6 @@ class Pagination extends Language {
      * @return string
      */
     private function verify_current($value, $param) {
-        $c = new Config();
         switch (true) {
             case (isset($this->class_active, $this->class_inative)) :
                 if ($value == $param) {
