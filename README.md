@@ -29,17 +29,20 @@ Best way to do is cloning via git: `git clone https://github.com/offboard/class-
 #### CONFIGS IN THE CODE:
 
 In *lib/Query/src/Config.php*:
+5. enter you array conection in $Conections_Settings
+6. enter your database credentials in value DB_USER, $DB_PASS etc.
+7. enter your charset in value charset.
 
-5. enter your database credentials in $DB_USER, $DB_PASS etc.
-6. enter your charset in $charset (we can do the configuration before using the code).
-7. in $li you can Use true to enable li tag in your page with pagination.
-8. in $after you decide whether to show the "after" button.
-9. in $before you decide whether to show the "before" button.
-10. in $message put true if you do not want the button before and after receive text messages put false will show symbols.
-11. in $class_active is the class name of your stylesheet, if your page is active paging (put null if you want to put anything).
-12. in $class_inactive is the class name of your stylesheet, if your page is inactive paging (put null if you want to put anything).
-13. in $class_before use a class on the "before" (put null if you want to put anything).
-14. in $class_after use a class on the "after" (put null if you want to put anything).
+In *lib/Query/src/Pagination.php*:
+8. you can set the default settings for paging numbered below
+9. in $li you can Use true to enable li tag in your page with pagination.
+10. in $after you decide whether to show the "after" button.
+11. in $before you decide whether to show the "before" button.
+12. in $message put true if you do not want the button before and after receive text messages put false will show symbols.
+13. in $class_active is the class name of your stylesheet, if your page is active paging (put null if you want to put anything).
+14. in $class_inactive is the class name of your stylesheet, if your page is inactive paging (put null if you want to put anything).
+15. in $class_before use a class on the "before" (put null if you want to put anything).
+16. in $class_after use a class on the "after" (put null if you want to put anything).
 
 
 ## Quick Install
