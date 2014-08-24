@@ -345,14 +345,13 @@ class Get extends Insert {
      * @return string
      */
     private function _get_where_between() {
-        $mysqli = $this->link_mysqi;
         if (!isset($this->where_between) || !is_array($this->where_between) || empty($this->where_between)) {
             return '';
         } else {
             $where_between = array();
             foreach ($this->where_between as $k => $v) {
-                $min = mysqli_real_escape_string($mysqli, $v[0]);
-                $max = mysqli_real_escape_string($mysqli, $v[1]);
+                $min = $this->_check_link_mysqli($v[0]);
+                $max = $this->_check_link_mysqli($v[1]);
                 if (is_array($v)) {
                     $where_between[] = $k . ' BETWEEN ' . $min . ' AND ' . $max;
                 } else {
