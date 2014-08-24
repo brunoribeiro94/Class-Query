@@ -1,5 +1,6 @@
 <?php
 
+// autoload function call all classes from src folder
 $autoloadManager = new autoloadManager(null, autoloadManager::SCAN_ONCE);
 $autoloadManager->addFolder(__DIR__ . '/src/');
 $autoloadManager->register();
@@ -19,18 +20,15 @@ class Query extends Config {
 
     public function __construct() {
         parent::__construct(); // conect database
-        // set charset
-        # $this->link_mysqi->set_charset($this->charset);
         $this->debug = defined('DEBUG') && DEBUG === true;
         $this->having = '';
     }
 
     /**
-     * Returns the number of records
+     * alias for get_selected_count()
      * @return Integer
      */
     public function count() {
-        // alias for get_selected_count()
         return self::get_selected_count();
     }
 
