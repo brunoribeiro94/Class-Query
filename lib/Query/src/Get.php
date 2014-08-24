@@ -169,8 +169,6 @@ class Get extends Insert {
     }
 
     private function _get_select() {
-        $mysqli = $this->link_mysqi;
-
         if (is_array($this->select)) {
             $selects = array();
             foreach ($this->select as $k => $v) {
@@ -216,7 +214,6 @@ class Get extends Insert {
     }
 
     private function _get_set() {
-        $mysqli = $this->link_mysqi;
         $sets = array();
         $set_equals = array();
         foreach ($this->set as $k => $v) {
@@ -363,8 +360,6 @@ class Get extends Insert {
     }
 
     private function _get_where_equal_or() {
-        $mysqli = $this->link_mysqi;
-
         if (!isset($this->where_equal_or) || !is_array($this->where_equal_or) || empty($this->where_equal_or)) {
             return '';
         } else {
@@ -540,7 +535,6 @@ class Get extends Insert {
     }
 
     private function _get_where_like_after() {
-        $mysqli = $this->link_mysqi;
         if (!isset($this->where_like_after) || !is_array($this->where_like_after) || empty($this->where_like_after)) {
             return '';
         } else {
