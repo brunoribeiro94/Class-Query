@@ -51,7 +51,7 @@ class Run extends Get {
                     }
                     break;
                 default:
-                    die($this->PAGINATION_TEXT_ERRO_QUERY . $this->query_type);
+                    die($this->TEXT_ERRO_QUERY . $this->query_type);
                     break;
             }
         }
@@ -116,24 +116,20 @@ class Run extends Get {
     /**
      * Run Query
      * @param type $query
-     * @version 1.2
+     * @version 1.3
      * @return Object
      */
     private function _run_query($query) {
-        $mysqli = $this->link_mysqi;
-        $this->result = mysqli_query($mysqli, $query);
-
+        $this->result = mysqli_query($this->link_mysqi, $query);
         if (!$this->result) {
-            $this->mysql_error = mysqli_error($mysqli);
-
+            $this->mysql_error = mysqli_error($this->link_mysqi);
             if ($this->debug) {
-                $this->error = $this->PAGINATION_TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
+                $this->error = $this->TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
             } else {
-                $this->error = $this->PAGINATION_TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
+                $this->error = $this->TEXT_ERRO_TYPE_QUERY;
             }
-
             if (function_exists('error')) {
-                error($this->error);
+                error_log($this->error);
             }
             die($this->error);
         }
