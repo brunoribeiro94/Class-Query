@@ -58,8 +58,11 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * GROUP BY Determines how the records should be grouped.
+     * @return type
+     */
     private function _get_group_by() {
-        // GROUP BY Determines how the records should be grouped.
         if (isset($this->group_by)) {
             if (is_array($this->group_by)) {
                 $this->group_by = implode(',' . "\n\t", $this->group_by);
@@ -114,7 +117,6 @@ class Get extends Insert {
     }
 
     private function _get_join() {
-        // FINISH
         return self::_get_inner_join();
     }
 
@@ -135,12 +137,12 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * ORDER BY to order the records.
+     * @return string
+     */
     private function _get_order_by() {
-        // ORDER BY to order the records.
-        if (
-                !isset($this->order_by) ||
-                empty($this->order_by)
-        ) {
+        if (!isset($this->order_by) || empty($this->order_by)) {
             return '';
         } else {
             if (is_array($this->order_by)) {
@@ -173,7 +175,7 @@ class Get extends Insert {
             $selects = array();
             foreach ($this->select as $k => $v) {
                 if (false !== strpos($k, '%s')) {
-                    $selects[] = sprintf($k, mysqli_real_escape_string($mysqli, $v));
+                    $selects[] = sprintf($k, $this->_check_link_mysqli($v));
                 } else {
                     $selects[] = $v;
                 }
@@ -215,19 +217,17 @@ class Get extends Insert {
 
     private function _get_set() {
         $mysqli = $this->link_mysqi;
-
         $sets = array();
         $set_equals = array();
-
         foreach ($this->set as $k => $v) {
             if (is_null($v)) {
                 $set_equals[] = $k . ' = NULL';
             } elseif (is_int($k)) {
                 $set_equals[] = $v;
             } elseif (is_int($v)) {
-                $set_equals[] = sprintf($k . ' = %s', mysqli_real_escape_string($mysqli, $v));
+                $set_equals[] = sprintf($k . ' = %s', $this->_check_link_mysqli($v));
             } else {
-                $set_equals[] = sprintf($k . ' = "%s"', mysqli_real_escape_string($mysqli, $v));
+                $set_equals[] = sprintf($k . ' = "%s"', $this->_check_link_mysqli($v));
             }
         }
 
@@ -340,9 +340,12 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * between min AND max
+     * @return string
+     */
     private function _get_where_between() {
         $mysqli = $this->link_mysqi;
-        // between min AND max
         if (!isset($this->where_between) || !is_array($this->where_between) || empty($this->where_between)) {
             return '';
         } else {
@@ -379,11 +382,11 @@ class Get extends Insert {
                         } elseif (is_int($k)) {
                             $where_equal_or[] = $value;
                         } else {
-                            $where_equal_or[] = sprintf($k . ' = "%s"', mysqli_real_escape_string($mysqli, $value));
+                            $where_equal_or[] = sprintf($k . ' = "%s"', $this->_check_link_mysqli($value));
                         }
                     }
                 } else {
-                    $where_equal_or[] = sprintf($k . ' = "%s"', mysqli_real_escape_string($mysqli, $v));
+                    $where_equal_or[] = sprintf($k . ' = "%s"', $this->_check_link_mysqli($v));
                 }
             }
             return
@@ -395,7 +398,6 @@ class Get extends Insert {
     }
 
     private function _get_where_equal_to() {
-        $mysqli = $this->link_mysqi;
         // = Equal to
         if (!isset($this->where_equal_to) || !is_array($this->where_equal_to) || empty($this->where_equal_to)) {
             return '';
@@ -407,13 +409,13 @@ class Get extends Insert {
                 } elseif (is_int($k)) {
                     $where_equal_to[] = $v;
                 } elseif (is_int($v)) {
-                    $where_equal_to[] = sprintf($k . ' = %s', mysqli_real_escape_string($mysqli, $v));
+                    $where_equal_to[] = sprintf($k . ' = %s', $this->_check_link_mysqli($v));
                 } elseif (is_array($v)) {
                     foreach ($v as $key => $value) {
-                        $where_equal_to[] = sprintf($k . ' = "%s"', mysqli_real_escape_string($mysqli, $value));
+                        $where_equal_to[] = sprintf($k . ' = "%s"', $this->_check_link_mysqli($value));
                     }
                 } else {
-                    $where_equal_to[] = sprintf($k . ' = "%s"', mysqli_real_escape_string($mysqli, $v));
+                    $where_equal_to[] = sprintf($k . ' = "%s"', $this->_check_link_mysqli($v));
                 }
             }
             return implode(' AND' . "\n\t", $where_equal_to) . ' ';
@@ -421,7 +423,6 @@ class Get extends Insert {
     }
 
     private function _get_where_greater_than() {
-        $mysqli = $this->link_mysqi;
         // > greater than
         if (!isset($this->where_greater_than) || !is_array($this->where_greater_than) || empty($this->where_greater_than)) {
             return '';
@@ -433,9 +434,9 @@ class Get extends Insert {
                 } elseif (is_int($k)) {
                     $where_greater_than[] = $v;
                 } elseif (is_int($v)) {
-                    $where_greater_than[] = sprintf($k . ' > %s', mysqli_real_escape_string($mysqli, $v));
+                    $where_greater_than[] = sprintf($k . ' > %s', $this->_check_link_mysqli($v));
                 } else {
-                    $where_greater_than[] = sprintf($k . ' > "%s"', mysqli_real_escape_string($mysqli, $v));
+                    $where_greater_than[] = sprintf($k . ' > "%s"', $this->_check_link_mysqli($v));
                 }
             }
             return implode(' AND' . "\n\t", $where_greater_than) . ' ';
@@ -447,7 +448,6 @@ class Get extends Insert {
      * @return string
      */
     private function _get_where_greater_than_or_equal_to() {
-        $mysqli = $this->link_mysqi;
         if (!isset($this->where_greater_than_or_equal_to) || !is_array($this->where_greater_than_or_equal_to) || empty($this->where_greater_than_or_equal_to)) {
             return '';
         } else {
@@ -458,9 +458,9 @@ class Get extends Insert {
                 } elseif (is_int($k)) {
                     $where_greater_than_or_equal_to[] = $v;
                 } elseif (is_int($v)) {
-                    $where_greater_than_or_equal_to[] = sprintf($k . ' >= %s', mysqli_real_escape_string($mysqli, $v));
+                    $where_greater_than_or_equal_to[] = sprintf($k . ' >= %s', $this->_check_link_mysqli($v));
                 } else {
-                    $where_greater_than_or_equal_to[] = sprintf($k . ' >= "%s"', mysqli_real_escape_string($mysqli, $v));
+                    $where_greater_than_or_equal_to[] = sprintf($k . ' >= "%s"', $this->_check_link_mysqli($v));
                 }
             }
             return implode(' AND' . "\n\t", $where_greater_than_or_equal_to) . ' ';
@@ -468,7 +468,6 @@ class Get extends Insert {
     }
 
     private function _get_where_in() {
-        $mysqli = $this->link_mysqi;
         // IN Checks for values in a list
         if (!isset($this->where_in) || !is_array($this->where_in) || empty($this->where_in)) {
             return '';
@@ -481,17 +480,17 @@ class Get extends Insert {
                 } elseif (is_int($k)) {
                     $where_in[] = $v;
                 } elseif (is_int($v)) {
-                    $where_in[] = sprintf($k . ' IN(%s)', mysqli_real_escape_string($mysqli, $v));
+                    $where_in[] = sprintf($k . ' IN(%s)', $this->_check_link_mysqli($v));
                 } elseif (is_array($v)) {
 
                     $values = array();
 
                     foreach ($v as $value) {
-                        $values[] = '"' . mysqli_real_escape_string($mysqli, $value) . '"';
+                        $values[] = '"' . $this->_check_link_mysqli($value) . '"';
                     }
                     $where_in[] = sprintf($k . ' IN(%s)', implode(', ', $values));
                 } else {
-                    $where_in[] = sprintf($k . ' IN(%s)', mysqli_real_escape_string($mysqli, $v));
+                    $where_in[] = sprintf($k . ' IN(%s)', $this->_check_link_mysqli($v));
                 }
             }
 
@@ -500,7 +499,6 @@ class Get extends Insert {
     }
 
     private function _get_where_less_than() {
-        $mysqli = $this->link_mysqi;
         // < Less than
         if (!isset($this->where_less_than) || !is_array($this->where_less_than) || empty($this->where_less_than)) {
             return '';
@@ -512,9 +510,9 @@ class Get extends Insert {
                 } elseif (is_int($k)) {
                     $where_less_than[] = $v;
                 } elseif (is_int($v)) {
-                    $where_less_than[] = sprintf($k . ' < %s', mysqli_real_escape_string($mysqli, $v));
+                    $where_less_than[] = sprintf($k . ' < %s', $this->_check_link_mysqli($v));
                 } else {
-                    $where_less_than[] = sprintf($k . ' < "%s"', mysqli_real_escape_string($mysqli, $v));
+                    $where_less_than[] = sprintf($k . ' < "%s"', $this->_check_link_mysqli($v));
                 }
             }
             return implode(' AND' . "\n\t", $where_less_than) . ' ';
@@ -522,7 +520,6 @@ class Get extends Insert {
     }
 
     private function _get_where_less_than_or_equal_to() {
-        $mysqli = $this->link_mysqi;
         // <= Less than or equal to
         if (!isset($this->where_less_than_or_equal_to) || !is_array($this->where_less_than_or_equal_to) || empty($this->where_less_than_or_equal_to)) {
             return '';
@@ -534,9 +531,9 @@ class Get extends Insert {
                 } elseif (is_int($k)) {
                     $where_less_than_or_equal_to[] = $v;
                 } elseif (is_int($v)) {
-                    $where_less_than_or_equal_to[] = sprintf($k . ' <= %s', mysqli_real_escape_string($mysqli, $v));
+                    $where_less_than_or_equal_to[] = sprintf($k . ' <= %s', $this->_check_link_mysqli($v));
                 } else {
-                    $where_less_than_or_equal_to[] = sprintf($k . ' <= "%s"', mysqli_real_escape_string($mysqli, $v));
+                    $where_less_than_or_equal_to[] = sprintf($k . ' <= "%s"', $this->_check_link_mysqli($v));
                 }
             }
             return implode(' AND' . "\n\t", $where_less_than_or_equal_to) . ' ';
@@ -545,7 +542,6 @@ class Get extends Insert {
 
     private function _get_where_like_after() {
         $mysqli = $this->link_mysqi;
-
         if (!isset($this->where_like_after) || !is_array($this->where_like_after) || empty($this->where_like_after)) {
             return '';
         } else {
@@ -553,10 +549,10 @@ class Get extends Insert {
             foreach ($this->where_like_after as $k => $v) {
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
-                        $where_like_after[] = sprintf($k . ' LIKE "%s%%"', mysqli_real_escape_string($mysqli, $value));
+                        $where_like_after[] = sprintf($k . ' LIKE "%s%%"', $this->_check_link_mysqli($value));
                     }
                 } else {
-                    $where_like_after[] = sprintf($k . ' LIKE "%s%%"', mysqli_real_escape_string($mysqli, $v));
+                    $where_like_after[] = sprintf($k . ' LIKE "%s%%"', $this->_check_link_mysqli($v));
                 }
             }
             return implode(' AND' . "\n\t", $where_like_after) . ' ';
@@ -564,8 +560,6 @@ class Get extends Insert {
     }
 
     private function _get_where_like_before() {
-        $mysqli = $this->link_mysqi;
-
         if (!isset($this->where_like_before) || !is_array($this->where_like_before) || empty($this->where_like_before)) {
             return '';
         } else {
@@ -573,10 +567,10 @@ class Get extends Insert {
             foreach ($this->where_like_before as $k => $v) {
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
-                        $where_like_before[] = sprintf($k . ' LIKE "%%%s"', mysqli_real_escape_string($mysqli, $value));
+                        $where_like_before[] = sprintf($k . ' LIKE "%%%s"', $this->_check_link_mysqli($value));
                     }
                 } else {
-                    $where_like_before[] = sprintf($k . ' LIKE "%%%s"', mysqli_real_escape_string($mysqli, $v));
+                    $where_like_before[] = sprintf($k . ' LIKE "%%%s"', $this->_check_link_mysqli($v));
                 }
             }
             return implode(' AND' . "\n\t", $where_like_before) . ' ';
@@ -584,8 +578,6 @@ class Get extends Insert {
     }
 
     private function _get_where_like_both() {
-        $mysqli = $this->link_mysqi;
-
         if (!isset($this->where_like_both) || !is_array($this->where_like_both) || empty($this->where_like_both)) {
             return '';
         } else {
@@ -593,10 +585,10 @@ class Get extends Insert {
             foreach ($this->where_like_both as $k => $v) {
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
-                        $where_like_both[] = sprintf($k . ' LIKE "%%%s%%"', mysqli_real_escape_string($mysqli, $value));
+                        $where_like_both[] = sprintf($k . ' LIKE "%%%s%%"', $this->_check_link_mysqli($value));
                     }
                 } else {
-                    $where_like_both[] = sprintf($k . ' LIKE "%%%s%%"', mysqli_real_escape_string($mysqli, $v));
+                    $where_like_both[] = sprintf($k . ' LIKE "%%%s%%"', $this->_check_link_mysqli($v));
                 }
             }
             return implode(' AND' . "\n\t", $where_like_both) . ' ';
@@ -604,15 +596,13 @@ class Get extends Insert {
     }
 
     private function _get_where_like_binary() {
-        $mysqli = $this->link_mysqi;
-
         if (!isset($this->where_like_binary) || !is_array($this->where_like_binary) || empty($this->where_like_binary)) {
             return '';
         } else {
             $where_like_binary = array();
             foreach ($this->where_like_binary as $k => $v) {
                 if (!is_null($v)) {
-                    $where_like_binary[] = sprintf($k . ' LIKE BINARY "%s"', mysqli_real_escape_string($mysqli, $v));
+                    $where_like_binary[] = sprintf($k . ' LIKE BINARY "%s"', $this->_check_link_mysqli($v));
                 }
             }
             return implode(' AND' . "\n\t", $where_like_binary) . ' ';
@@ -620,7 +610,6 @@ class Get extends Insert {
     }
 
     private function _get_where_like_or() {
-        $mysqli = $this->link_mysqi;
         if (!isset($this->where_like_or) || !is_array($this->where_like_or) || empty($this->where_like_or)) {
             return '';
         } else {
@@ -628,10 +617,10 @@ class Get extends Insert {
             foreach ($this->where_like_or as $k => $v) {
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
-                        $where_like_or[] = sprintf($k . ' LIKE "%%%s%%"', mysqli_real_escape_string($mysqli, $value));
+                        $where_like_or[] = sprintf($k . ' LIKE "%%%s%%"', $this->_check_link_mysqli($value));
                     }
                 } else {
-                    $where_like_or[] = sprintf($k . ' LIKE "%%%s%%"', mysqli_real_escape_string($mysqli, $v));
+                    $where_like_or[] = sprintf($k . ' LIKE "%%%s%%"', $this->_check_link_mysqli($v));
                 }
             }
             return
@@ -643,8 +632,6 @@ class Get extends Insert {
     }
 
     private function _get_where_not_equal_or() {
-        $mysqli = $this->link_mysqi;
-
         // <> Not equal to
         // != Not equal to
         if (!isset($this->where_not_equal_or) || !is_array($this->where_not_equal_or) || empty($this->where_not_equal_or)) {
@@ -654,10 +641,10 @@ class Get extends Insert {
             foreach ($this->where_not_equal_or as $k => $v) {
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
-                        $where_not_equal_or[] = sprintf($k . ' <> "%%%s%%"', mysqli_real_escape_string($mysqli, $value));
+                        $where_not_equal_or[] = sprintf($k . ' <> "%%%s%%"', $this->_check_link_mysqli($value));
                     }
                 } else {
-                    $where_not_equal_or[] = sprintf($k . ' <> "%%%s%%"', mysqli_real_escape_string($mysqli, $v));
+                    $where_not_equal_or[] = sprintf($k . ' <> "%%%s%%"', $this->_check_link_mysqli($v));
                 }
             }
             return
@@ -669,25 +656,20 @@ class Get extends Insert {
     }
 
     private function _get_where_not_equal_to() {
-        $mysqli = $this->link_mysqi;
-
         // <> Not equal to
         // != Not equal to
-        if (
-                !isset($this->where_not_equal_to) ||
-                !is_array($this->where_not_equal_to) ||
-                empty($this->where_not_equal_to)
-        ) {
+        if (!isset($this->where_not_equal_to) || !is_array($this->where_not_equal_to) || empty($this->where_not_equal_to)) {
             return '';
         } else {
             $where_not_equal_to = array();
             foreach ($this->where_not_equal_to as $k => $v) {
+                // check type the data received
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
-                        $where_not_equal_to[] = is_null($value) ? $key . ' IS NOT NULL' : sprintf($k . ' != "%s"', mysqli_real_escape_string($mysqli, $value));
+                        $where_not_equal_to[] = is_null($value) ? $key . ' IS NOT NULL' : sprintf($k . ' != "%s"', $this->_check_link_mysqli($value));
                     }
                 } else {
-                    $where_not_equal_to[] = is_null($v) ? $k . ' IS NOT NULL' : sprintf($k . ' != "%s"', mysqli_real_escape_string($mysqli, $v));
+                    $where_not_equal_to[] = is_null($v) ? $k . ' IS NOT NULL' : sprintf($k . ' != "%s"', $this->_check_link_mysqli($v));
                 }
             }
             return
@@ -699,7 +681,6 @@ class Get extends Insert {
     }
 
     private function _get_where_not_in() {
-        $mysqli = $this->link_mysqi;
         // NOT IN Ensures the value is not in the list
         if (!isset($this->where_not_in) || !is_array($this->where_not_in) || empty($this->where_not_in)) {
             return '';
@@ -709,15 +690,17 @@ class Get extends Insert {
             foreach ($this->where_not_in as $key => $values) {
                 if (is_array($values)) {
                     $vs = array();
+
                     foreach ($values as $k => $v) {
                         if (is_null($v)) {
                             $vs[] = 'NULL';
                         } elseif (is_int($v)) {
                             $vs[] = $v;
                         } else {
-                            $vs[] = sprintf('"%s"', mysqli_real_escape_string($mysqli, $v));
+                            $vs[] = sprintf('"%s"', $this->_check_link_mysqli($v));
                         }
                     }
+
                     $where_not_in[] = $key . ' NOT IN (' . "\n\t\t" .
                             implode(', ' . "\n\t\t", $vs) . "\n\t" .
                             ')';
@@ -733,7 +716,6 @@ class Get extends Insert {
     }
 
     private function _get_where_not_like() {
-        $mysqli = $this->link_mysqi;
         // NOT LIKE Used to compare strings
         if (!isset($this->where_not_like) || !is_array($this->where_not_like) || empty($this->where_not_like)) {
             return '';
@@ -742,10 +724,10 @@ class Get extends Insert {
             foreach ($this->where_not_like as $k => $v) {
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
-                        $where_not_like[] = sprintf($k . ' NOT LIKE "%%%s%%"', mysqli_real_escape_string($mysqli, $value));
+                        $where_not_like[] = sprintf($k . ' NOT LIKE "%%%s%%"', $this->_check_link_mysqli($value));
                     }
                 } else {
-                    $where_not_like[] = sprintf($k . ' NOT LIKE "%%%s%%"', mysqli_real_escape_string($mysqli, $v));
+                    $where_not_like[] = sprintf($k . ' NOT LIKE "%%%s%%"', $this->_check_link_mysqli($v));
                 }
             }
             return implode(' AND' . "\n\t", $where_not_like) . ' ';
@@ -757,8 +739,7 @@ class Get extends Insert {
      * @return Integer Returns number of affected rows by the last INSERT, UPDATE, REPLACE or DELETE 
      */
     public function get_affected() {
-        $mysqli = $this->link_mysqi;
-        return mysqli_affected_rows($mysqli);
+        return mysqli_affected_rows($this->link_mysqi);
     }
 
 }
