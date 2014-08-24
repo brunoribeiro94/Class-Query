@@ -55,8 +55,6 @@ class Insert extends Delete {
     }
 
     public function insert_into($table, $keys_and_values, $on_duplicate_key_update = '', $insert_options = '') {
-        $mysqli = $this->link_mysqi;
-
         self::_set_table($table);
         self::_set_keys_and_values($keys_and_values);
         $insert_keys = array();
@@ -69,10 +67,10 @@ class Insert extends Delete {
                 $insert_values[] = $value;
             } elseif (is_array($value)) {
                 foreach ($value as $k => $v) {
-                    $insert_values[] = sprintf('%s', mysqli_real_escape_string($mysqli, $v));
+                    $insert_values[] = sprintf('%s', $this->_check_link_mysqli($v));
                 }
             } else {
-                $insert_values[] = sprintf('"%s"', mysqli_real_escape_string($mysqli, $value));
+                $insert_values[] = sprintf('"%s"', $this->_check_link_mysqli($value));
             }
         }
         self::_set_keys($insert_keys);
@@ -112,7 +110,6 @@ class Insert extends Delete {
      * @return \Insert
      */
     public function insert_multiple($table, $keys, $values, $on_duplicate_key_update = '') {
-        $mysqli = $this->link_mysqi;
         self::_set_table($table);
         $insert_keys = $keys;
         $insert_values = array();
@@ -120,11 +117,11 @@ class Insert extends Delete {
             $vs = array();
             if (is_array($v)) {
                 foreach ($v as $value) {
-                    $vs[] = (!is_null($value) ? sprintf('"%s"', mysqli_real_escape_string($mysqli, $value)) : 'NULL');
+                    $vs[] = (!is_null($value) ? sprintf('"%s"', $this->_check_link_mysqli($value)) : 'NULL');
                 }
                 $insert_values[] = '(' . implode(',', $vs) . ')';
             } else {
-                $insert_values[] = '(' . mysqli_real_escape_string($mysqli, $v) . ')';
+                $insert_values[] = '(' . $this->_check_link_mysqli($v) . ')';
             }
         }
         self::_set_keys($insert_keys);
@@ -142,7 +139,6 @@ class Insert extends Delete {
     }
 
     private function _on_duplicate_key_update($on_duplicate_key_update) {
-        $mysqli = $this->link_mysqi;
         $this->on_duplicate_key_update = '';
         if ('' !== $on_duplicate_key_update && is_array($on_duplicate_key_update)) {
             $update = array();
@@ -158,11 +154,11 @@ class Insert extends Delete {
                         } elseif (is_int($k)) {
                             $update[] = $value;
                         } else {
-                            $update[] = sprintf($k . ' = "%s"', mysqli_real_escape_string($mysqli, $value));
+                            $update[] = sprintf($k . ' = "%s"', $this->_check_link_mysqli($value));
                         }
                     }
                 } else {
-                    $update[] = sprintf($k . ' = "%s"', mysqli_real_escape_string($mysqli, $v));
+                    $update[] = sprintf($k . ' = "%s"', $this->_check_link_mysqli($v));
                 }
             }
             $this->on_duplicate_key_update = 'ON DUPLICATE KEY UPDATE ' . "\n" .
