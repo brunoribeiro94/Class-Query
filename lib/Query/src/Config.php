@@ -41,57 +41,6 @@ class Config extends Run {
     */
     protected $charset = 'UTF8';
 
-    // pagination configure
-
-    /**
-     * put true if you for use tag li also put false
-     * @var Boolean 
-     */
-    var $li = false;
-
-    /**
-     * put false if you no want the button after
-     * @var Boolean 
-     */
-    var $after = true;
-
-    /**
-     * put false if you no want the button before
-     * @var Boolean 
-     */
-    var $before = true;
-
-    /**
-     * put true if you do not want the button before and after receive text messages put false will show symbols.
-     * @see <code>lamguage.php</code>
-     * @var Boolean 
-     */
-    var $message = true;
-
-    /**
-     * Class name for element active, use NULL if you want not put nothing
-     * @var String 
-     */
-    var $class_active = NULL;
-
-    /**
-     * Class name for element inactive, use NULL if you want not put nothing
-     * @var String 
-     */
-    var $class_inactive = NULL;
-
-    /**
-     * Class name for element before, use NULL if you want not put nothing
-     * @var String 
-     */
-    var $class_before = NULL;
-
-    /**
-     * Class name for element after, use NULL if you want not put nothing
-     * @var String 
-     */
-    var $class_after = NULL;
-
     /**
      * Make Conection Mysqi (recommended)
      * @access Private
@@ -102,7 +51,7 @@ class Config extends Run {
             try {
                 $mysqli = new mysqli($value['DB_HOST'], $value['DB_USER'], $value['DB_PASS'], $value['DB_NAME']);
             } catch (Exception $e) {
-                exit($this->PAGINATION_TEXT_DB_NAME . $e->message);
+                exit($this->TEXT_DB_NAME . $e->message);
             }
             $mysqli->set_charset($this->charset);
             $this->link_mysqi[$key] = $mysqli;
