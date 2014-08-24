@@ -291,7 +291,14 @@ class Query extends Config {
         self::offset($offset);
         return $this;
     }
-
+    /**
+     * 
+     * @param String $key
+     * @param mixed $value
+     * @param String $operator
+     * @return mixed
+     * @deprecated since version 2.2
+     */
     private function _key_value($key, $value, $operator = '=') {
         $mysqli = $this->link_mysqi;
         $value = (substr($value, 0, 1) == '!' ? substr($value, 1) : '"' . $value . '"');
