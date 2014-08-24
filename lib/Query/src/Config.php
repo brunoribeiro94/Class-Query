@@ -11,27 +11,34 @@ class Config extends Run {
      * Multiple Database Conection
      * @var Array 
      */
-    protected $Conections_Settings = array(
+    public $Conections_Settings = array(
         'Data1' => array(
             'DB_HOST' => '127.0.0.1',
             'DB_NAME' => 'class_Query',
             'DB_USER' => 'root',
-            'DB_PASS' => ''
+            'DB_PASS' => '',
+            'DB_CHARSET' => 'utf8'
         ),
         'Data2' => array(
-            'DB_HOST' => '127.0.0.1',
+            'DB_HOST' => 'localhost',
             'DB_NAME' => 'class_Query_dev',
             'DB_USER' => 'root',
-            'DB_PASS' => ''
+            'DB_PASS' => '',
+            'DB_CHARSET' => 'utf8'
         )
     );
 
     /**
      * Link mysqli please no put nothing here
      * @var array 
-     */
+    */
     protected $link_mysqi = array();
-
+    
+    /**
+     * set charset
+     * @deprecated since version 2.2
+     * @var string 
+    */
     protected $charset = 'UTF8';
 
     // pagination configure
