@@ -4,10 +4,10 @@ This script connects to the database using mysqli method further down has some u
 
 ### Key Features
 * uses Mysqli for database access (more security)
-* Where between added
-* Inner join added
+* added Where between
+* added Inner join
+* added multiple connection to the database
 * Builds pagination numbering added
-* Can be used with friendly URL
 * Queries using the class-Query is simple and practical
 * Can use $q>show() and shows the SQL query
 * Taken almost all functions have already been implemented in SQL
