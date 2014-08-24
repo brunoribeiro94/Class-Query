@@ -1,13 +1,16 @@
 <?php
 
+$autoloadManager = new autoloadManager(null, autoloadManager::SCAN_ONCE);
+$autoloadManager->addFolder(__DIR__ . '/src/');
+$autoloadManager->register();
+
 /**
- *
  * Class query
  * This class works with mysqli onlys, anti-SQL injection techniques were added.
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 2.2
+ * @version 2.3
  * @access public
  * @package Config
  * @todo Finish the functions : SUM, DISTINCT.
@@ -16,6 +19,8 @@ class Query extends Config {
 
     public function __construct() {
         parent::__construct(); // conect database
+        // set charset
+        # $this->link_mysqi->set_charset($this->charset);
         $this->debug = defined('DEBUG') && DEBUG === true;
         $this->having = '';
     }
@@ -63,15 +68,7 @@ class Query extends Config {
         }
         return $results;
     }
-    /**
-     * Select database
-     * @param String $DB
-     * @return \Query
-     */
-    public function select_database($db = NULL) {
-        $this->select_database = $db;
-        return $this;
-    }
+
     /**
      * SELECT Retrieves fields from one or more tables.
      * @param String $select
@@ -150,6 +147,7 @@ class Query extends Config {
      */
     public function having($having = '', $comparison = '=', $boolean_operator = 'AND') {
         $mysqli = $this->link_mysqi;
+
         if (empty($having)) {
             $this->having = '';
         } else {
@@ -222,8 +220,7 @@ class Query extends Config {
      * @return \Query
      */
     public function limit($limit) {
-        // LIMIT Limit the number of records selected or deleted.
-        $this->limit = (int) $limit;
+        $this->limit = (int) $limit; // LIMIT Limit the number of records selected or deleted.
         return $this;
     }
 
@@ -291,6 +288,7 @@ class Query extends Config {
         self::offset($offset);
         return $this;
     }
+
     /**
      * 
      * @param String $key
