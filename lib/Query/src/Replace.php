@@ -8,13 +8,11 @@ class Replace extends Pagination {
     }
 
     public function replace($table, $keys_and_values) {
-        $mysqli = $this->link_mysqi;
-
         $replace_keys = array();
         $replace_values = array();
         foreach ($keys_and_values as $key => $value) {
             $replace_keys[] = $key;
-            $replace_values[] = (!is_null($value) ? sprintf('"%s"', mysqli_real_escape_string($mysqli, $value)) : 'NULL');
+            $replace_values[] = (!is_null($value) ? sprintf('"%s"', $this->_check_link_mysqli($value)) : 'NULL');
         }
         $this->replace_into = "\n" .
                 'REPLACE INTO ' . $table . ' (' . "\n" .
