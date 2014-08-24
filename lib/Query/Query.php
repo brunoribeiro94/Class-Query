@@ -7,7 +7,7 @@
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 2.1
+ * @version 2.2
  * @access public
  * @package Config
  * @todo Finish the functions : SUM, DISTINCT.
@@ -15,10 +15,7 @@
 class Query extends Config {
 
     public function __construct() {
-        // conect database
-        parent::__construct();
-        // set charset
-        $this->link_mysqi->set_charset($this->charset);
+        parent::__construct(); // conect database
         $this->debug = defined('DEBUG') && DEBUG === true;
         $this->having = '';
     }
@@ -66,7 +63,15 @@ class Query extends Config {
         }
         return $results;
     }
-
+    /**
+     * Select database
+     * @param String $DB
+     * @return \Query
+     */
+    public function select_database($db = NULL) {
+        $this->select_database = $db;
+        return $this;
+    }
     /**
      * SELECT Retrieves fields from one or more tables.
      * @param String $select
@@ -145,7 +150,6 @@ class Query extends Config {
      */
     public function having($having = '', $comparison = '=', $boolean_operator = 'AND') {
         $mysqli = $this->link_mysqi;
-
         if (empty($having)) {
             $this->having = '';
         } else {
