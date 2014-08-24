@@ -1,6 +1,7 @@
 <?php
 
 class Run extends Get {
+
     /**
      * Execute Query
      * runs query, returns mysql result
@@ -19,6 +20,7 @@ class Run extends Get {
                     return self::$function();
                     break;
                 case 'select':
+                    $query = new Query();
                     if (!(isset($this->page) || isset($this->offset))) {
                         // no pagination
                         return self::$function();
@@ -26,19 +28,19 @@ class Run extends Get {
                         // with pagination
                         if (self::$function()) {
                             // for pagination:
-                            $this->perpage = $this->limit; // for get_perpage()
-                            $this->total = $this->results; // for get_total()
+                            $query->perpage = $this->limit; // for get_perpage()
+                            $query->total = $this->results; // for get_total()
                             // calculate pages
-                            $this->pages = (int) ceil($this->results / $this->limit);
+                            $query->pages = (int) ceil($this->results / $this->limit);
                             // set offset
-                            if (!isset($this->offset)) {
-                                self::offset(($this->page * $this->limit) - $this->limit);
+                            if (!isset($query->offset)) {
+                                $query->offset(($this->page * $this->limit) - $this->limit);
                             } else {
                                 // calculate page using offset and perpage
                                 // determine on what page the offset would be on
                                 for ($page = 1; $page <= $this->pages; $page++) {
-                                    if ($this->offset - 1 < $page * $this->perpage) {
-                                        $this->page = $page;
+                                    if ($query->offset - 1 < $page * $query->perpage) {
+                                        $query->page = $page;
                                         break;
                                     }
                                 }
@@ -55,7 +57,6 @@ class Run extends Get {
                     break;
             }
         }
-
         return false;
     }
 
@@ -120,16 +121,25 @@ class Run extends Get {
      * @return Object
      */
     private function _run_query($query) {
-        $this->result = mysqli_query($this->link_mysqi, $query);
+        for ($i = 0; $i < count($this->Conections_Settings); $i++) {
+            $link = $this->link_mysqi[$i];
+            if (mysqli_query($link, $query)) {
+                $result = mysqli_query($link, $query);
+                $mysqli = $link;
+            }
+        }
+        $this->result = $result;
         if (!$this->result) {
-            $this->mysql_error = mysqli_error($this->link_mysqi);
+            $this->mysql_error = mysqli_error($mysqli);
+
             if ($this->debug) {
                 $this->error = $this->TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
             } else {
                 $this->error = $this->TEXT_ERRO_TYPE_QUERY;
             }
+
             if (function_exists('error')) {
-                error_log($this->error);
+                error($this->error);
             }
             die($this->error);
         }
