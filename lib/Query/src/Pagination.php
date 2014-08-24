@@ -11,8 +11,58 @@
  * */
 class Pagination extends Language {
 
+    /**
+     * put true if you for use tag li also put false
+     * @var Boolean 
+     */
+    var $li = false;
+
+    /**
+     * put false if you no want the button after
+     * @var Boolean 
+     */
+    var $after = true;
+
+    /**
+     * put false if you no want the button before
+     * @var Boolean 
+     */
+    var $before = true;
+
+    /**
+     * put true if you do not want the button before and after receive text messages put false will show symbols.
+     * @see <code>lamguage.php</code>
+     * @var Boolean 
+     */
+    var $message = true;
+
+    /**
+     * Class name for element active, use NULL if you want not put nothing
+     * @var String 
+     */
+    var $class_active = NULL;
+
+    /**
+     * Class name for element inactive, use NULL if you want not put nothing
+     * @var String 
+     */
+    var $class_inactive = NULL;
+
+    /**
+     * Class name for element before, use NULL if you want not put nothing
+     * @var String 
+     */
+    var $class_before = NULL;
+
+    /**
+     * Class name for element after, use NULL if you want not put nothing
+     * @var String 
+     */
+    var $class_after = NULL;
+
     public function get_page() {
-        return $this->page;
+        $q = new Query();
+        return $q->page;
     }
 
     public function get_pages() {
@@ -35,6 +85,7 @@ class Pagination extends Language {
      * @return string
      */
     private function verify_current($value, $param) {
+        $c = new Config();
         switch (true) {
             case (isset($this->class_active, $this->class_inative)) :
                 if ($value == $param) {
@@ -157,7 +208,6 @@ class Pagination extends Language {
      * @return Object
      */
     private function call_all_object_pagination($URL, $page_param) {
-
         return $this->make_button_before($URL, $page_param)
                 . $this->loop($URL, $page_param)
                 . $this->make_button_after($URL, $page_param, $this->get_pages());
