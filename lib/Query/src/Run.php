@@ -20,7 +20,6 @@ class Run extends Get {
                     return self::$function();
                     break;
                 case 'select':
-                    $query = new Query();
                     if (!(isset($this->page) || isset($this->offset))) {
                         // no pagination
                         return self::$function();
@@ -28,19 +27,19 @@ class Run extends Get {
                         // with pagination
                         if (self::$function()) {
                             // for pagination:
-                            $query->perpage = $this->limit; // for get_perpage()
-                            $query->total = $this->results; // for get_total()
+                            $this->perpage = $this->limit; // for get_perpage()
+                            $this->total = $this->results; // for get_total()
                             // calculate pages
-                            $query->pages = (int) ceil($this->results / $this->limit);
+                            $this->pages = (int) ceil($this->results / $this->limit);
                             // set offset
-                            if (!isset($query->offset)) {
-                                $query->offset(($this->page * $this->limit) - $this->limit);
+                            if (!isset($this->offset)) {
+                                $this->offset(($this->page * $this->limit) - $this->limit);
                             } else {
                                 // calculate page using offset and perpage
                                 // determine on what page the offset would be on
                                 for ($page = 1; $page <= $this->pages; $page++) {
-                                    if ($query->offset - 1 < $page * $query->perpage) {
-                                        $query->page = $page;
+                                    if ($this->offset - 1 < $page * $this->perpage) {
+                                        $this->page = $page;
                                         break;
                                     }
                                 }
