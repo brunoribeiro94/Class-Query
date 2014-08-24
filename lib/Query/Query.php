@@ -144,8 +144,6 @@ class Query extends Config {
      * @return \Query
      */
     public function having($having = '', $comparison = '=', $boolean_operator = 'AND') {
-        $mysqli = $this->link_mysqi;
-
         if (empty($having)) {
             $this->having = '';
         } else {
@@ -158,10 +156,10 @@ class Query extends Config {
                 foreach ($having as $k => $v) {
                     if (is_array($v)) {
                         foreach ($v as $key => $value) {
-                            $array[] = sprintf($k . ' NOT LIKE "%%%s%%"', mysqli_real_escape_string($mysqli, $value));
+                            $array[] = sprintf($k . ' NOT LIKE "%%%s%%"', $this->_check_link_mysqli($value));
                         }
                     } else {
-                        $array[] = sprintf($k . ' NOT LIKE "%%%s%%"', mysqli_real_escape_string($mysqli, $v));
+                        $array[] = sprintf($k . ' NOT LIKE "%%%s%%"', $this->_check_link_mysqli($v));
                     }
                 }
 
