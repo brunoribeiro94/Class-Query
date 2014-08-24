@@ -138,6 +138,13 @@
                                 <span class="creativeBar">Select</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="index.php?page=select-from-multiples-conections">Select Other Database                  
+                                <span class="creativeBar">Select</span>
+                            </a>
+                        </li>
+                        
+                        
                     </ul>  
                 </div> 		
             </div>
