@@ -60,6 +60,21 @@ class Config extends Run {
     }
 
     /**
+     * checks which connection is active and returns the correct (no errors)
+     * @param mixed $value
+     * @return mixed
+     */
+    protected function _check_link_mysqli($value) {
+        for ($i = 0; $i < count($this->Conections_Settings); $i++) {
+            $link = $this->link_mysqi[$i];
+            if (mysqli_real_escape_string($link, $value)) {
+                $result = mysqli_real_escape_string($link, $value);
+            }
+        }
+        return $result;
+    }
+
+    /**
      * Make Conection
      * @return void
      */
