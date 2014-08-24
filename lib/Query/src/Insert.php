@@ -19,9 +19,14 @@ class Insert extends Delete {
      * @return Integer
      */
     public function get_inserted_id($select = '') {
-        $mysqli = $this->link_mysqi;
+        for ($i = 0; $i < count($this->Connections_Settings); $i++) {
+            $link = $this->link_mysqi[$i];
+            if (mysqli_insert_id($link)) {
+                $result = mysqli_insert_id($link);
+            }
+        }
 
-        $this->inserted = mysqli_insert_id($mysqli);
+        $this->inserted = $result;
 
         if ('' == $select && 'insert_multiple' != $this->query_type) {
             return $this->inserted;
