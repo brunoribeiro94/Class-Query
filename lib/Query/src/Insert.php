@@ -1,15 +1,22 @@
 <?php
 
 class Insert extends Delete {
-    /* INSERT */
 
+    /**
+     * alias for get_inserted_id()
+     * @param String $select
+     * @return Integer
+     */
     public function get_insert_id($select = '') {
-        // alias for get_inserted_id()
         return self::get_inserted_id($select);
     }
 
+    /**
+     * alias for get_inserted_id()
+     * @param String $select
+     * @return Integer
+     */
     public function get_inserted($select = '') {
-        // alias for get_inserted_id()
         return self::get_inserted_id($select);
     }
 
@@ -50,15 +57,37 @@ class Insert extends Delete {
         }
     }
 
+    /**
+     * insert_into() alias
+     * @param String $table
+     * @param mixed $keys_and_values
+     * @param String $on_duplicate_key_update
+     * @param String $insert_options
+     * @return \Insert
+     */
     public function insert($table, $keys_and_values, $on_duplicate_key_update = '', $insert_options = '') {
-        // insert_into() alias
         return self::insert_into($table, $keys_and_values, $on_duplicate_key_update, $insert_options);
     }
 
+    /**
+     * Ignore on insert
+     * @param String $table
+     * @param mixed $keys_and_values
+     * @param String $on_duplicate_key_update
+     * @return \Insert
+     */
     public function insert_ignore($table, $keys_and_values, $on_duplicate_key_update = '') {
         return self::insert_into($table, $keys_and_values, $on_duplicate_key_update, 'IGNORE');
     }
 
+    /**
+     * Insert new registry
+     * @param String $table
+     * @param mixed $keys_and_values
+     * @param String $on_duplicate_key_update
+     * @param String $insert_options
+     * @return \Insert
+     */
     public function insert_into($table, $keys_and_values, $on_duplicate_key_update = '', $insert_options = '') {
         self::_set_table($table);
         self::_set_keys_and_values($keys_and_values);
