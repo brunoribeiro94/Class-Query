@@ -120,7 +120,7 @@ class Run extends Get {
      * @return Object
      */
     private function _run_query($query) {
-        for ($i = 0; $i < count($this->Conections_Settings); $i++) {
+        for ($i = 0; $i < count($this->Connections_Settings); $i++) {
             $link = $this->link_mysqi[$i];
             if (mysqli_query($link, $query)) {
                 $result = mysqli_query($link, $query);
