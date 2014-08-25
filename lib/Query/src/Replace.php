@@ -3,10 +3,20 @@
 class Replace extends Pagination {
     /* REPLACE */
 
+    /**
+     * returns last get replaced
+     * @return unknow
+     */
     public function get_replaced() {
         return self::get_affected();
     }
 
+    /**
+     * Function Query replace
+     * @param String $table
+     * @param mixed $keys_and_values
+     * @return \Replace
+     */
     public function replace($table, $keys_and_values) {
         $replace_keys = array();
         $replace_values = array();
@@ -25,6 +35,12 @@ class Replace extends Pagination {
         return $this;
     }
 
+    /**
+     * alias for replace()
+     * @param string $table
+     * @param mixed $keys_and_values
+     * @return \Replace
+     */
     public function replace_into($table, $keys_and_values) {
         return self::replace($table, $keys_and_values);
     }
