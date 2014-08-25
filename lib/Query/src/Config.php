@@ -17,7 +17,7 @@ class Config extends Run {
      * DB_PASS - the password of the above user
      * @var Array 
      */
-    public $Conections_Settings = array(
+    public $Connections_Settings = array(
         'Data1' => array(
             'DB_HOST' => '127.0.0.1',
             'DB_NAME' => 'class_Query',
@@ -48,7 +48,7 @@ class Config extends Run {
      * @return Void
      */
     private function mysqli_connection() {
-        foreach ($this->Conections_Settings as $key => $value) {
+        foreach ($this->Connections_Settings as $key => $value) {
             try {
                 $mysqli = new mysqli($value['DB_HOST'], $value['DB_USER'], $value['DB_PASS'], $value['DB_NAME']);
                 $mysqli->set_charset($value['DB_CHARSET']);
@@ -65,7 +65,7 @@ class Config extends Run {
      * @return mixed
      */
     protected function _check_link_mysqli($value) {
-        for ($i = 0; $i < count($this->Conections_Settings); $i++) {
+        for ($i = 0; $i < count($this->Connections_Settings); $i++) {
             $link = $this->link_mysqi[$i];
             if (mysqli_real_escape_string($link, $value)) {
                 $result = mysqli_real_escape_string($link, $value);
