@@ -34,7 +34,8 @@ In *lib/Query/src/Config.php*:
 7. enter your charset in value charset.
 
 In *lib/Query/src/Pagination.php*:
-8. you can set the default settings for paging numbered below
+
+8. you can set the default settings for paging numbered below.
 9. in $li you can Use true to enable li tag in your page with pagination.
 10. in $after you decide whether to show the "after" button.
 11. in $before you decide whether to show the "before" button.
