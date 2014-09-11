@@ -6,10 +6,10 @@ require_once( __DIR__ . '/../../lib/autoload.php');
 $id = 1;
 $q = new Query;
 $q
-        ->delete_from('`user`')
+        ->delete_from('user')
         ->where_equal_to(
                 array(
-                    '`user`.`id`' => $id,
+                    'id' => $id,
                 )
         )
         ->limit(1)
