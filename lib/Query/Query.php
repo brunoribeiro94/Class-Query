@@ -17,7 +17,11 @@ $autoloadManager->register();
  * @todo Finish the functions : SUM, DISTINCT, and commands of tools to database.
  * */
 class Query extends Config {
-
+    
+    /**
+     * Method Magic
+     * @return void
+     */
     public function __construct() {
         parent::__construct(); // conect database
         $this->debug = defined('DEBUG') && DEBUG === true;
@@ -48,9 +52,7 @@ class Query extends Config {
         if (isset($this->limit) && 1 == $this->limit) {
             // for use when selecting with limit(1)
             $result = array();
-            while ($this->result && $result[] = mysqli_fetch_assoc($this->result)) {
-                
-            }
+            while ($this->result && $result[] = mysqli_fetch_assoc($this->result)) {}
             array_pop($result);
             $results = array();
             foreach ($result as $values) {
@@ -59,9 +61,7 @@ class Query extends Config {
         } else {
             // for use when selecting with no limit or a limit > 1
             $results = array();
-            while ($this->result && $results[] = mysqli_fetch_assoc($this->result)) {
-                
-            }
+            while ($this->result && $results[] = mysqli_fetch_assoc($this->result)) {}
             array_pop($results);
         }
         return $results;
