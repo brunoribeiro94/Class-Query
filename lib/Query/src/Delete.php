@@ -24,7 +24,7 @@ class Delete extends Update {
 
     /**
      * returns get affected last registry delete
-     * @return unknow
+     * @return array
      */
     public function get_deleted() {
         return self::get_affected();
