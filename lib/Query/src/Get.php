@@ -20,9 +20,8 @@ class Get extends Insert {
             return $this->update_query;
         } elseif (self::_get_insert_multiple()) {
             return $this->insert_multiple_query;
-        } else {
+        } 
             return false;
-        }
     }
 
     private function _get_distinct() {
@@ -63,7 +62,7 @@ class Get extends Insert {
 
     /**
      * GROUP BY Determines how the records should be grouped.
-     * @return type
+     * @return string
      */
     private function _get_group_by() {
         if (isset($this->group_by)) {
