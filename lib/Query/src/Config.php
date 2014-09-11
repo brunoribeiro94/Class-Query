@@ -23,16 +23,14 @@ class Config extends Run {
             'DB_NAME' => 'class_Query',
             'DB_USER' => 'root',
             'DB_PASS' => '',
-            'DB_CHARSET' => 'utf8',
-            'DB_Status' => false
+            'DB_CHARSET' => 'utf8'
         ),
         'Data2' => array(
             'DB_HOST' => 'localhost',
             'DB_NAME' => 'class_Query_dev',
             'DB_USER' => 'root',
             'DB_PASS' => '',
-            'DB_CHARSET' => 'utf8',
-            'DB_Status' => false
+            'DB_CHARSET' => 'utf8'
         )
     );
 
@@ -61,6 +59,9 @@ class Config extends Run {
 
     /**
      * checks which connection is active and returns the correct (no errors)
+     * @param array $value
+     * @deprecated 2.1
+     * @return array
      * @param mixed $value
      * @return mixed
      */
