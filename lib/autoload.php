@@ -349,7 +349,6 @@ class autoloadManager {
      * File is generated under the _savePath folder.
      *
      * @param array $classes Contains all the classes found and the corresponding filename (e.g. {$className} => {fileName})
-     * @param string $folder Folder to process
      * @return void
      */
     private function saveToFile(array $classes) {
