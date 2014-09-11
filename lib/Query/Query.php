@@ -14,7 +14,7 @@ $autoloadManager->register();
  * @version 2.3
  * @access public
  * @package Config
- * @todo Finish the functions : SUM, DISTINCT.
+ * @todo Finish the functions : SUM, DISTINCT, and commands of tools to database.
  * */
 class Query extends Config {
 
