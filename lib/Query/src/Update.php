@@ -5,7 +5,7 @@ class Update extends Where {
 
     /**
      * return last get updated
-     * @return unknow
+     * @return array
      */
     public function get_updated() {
         return self::get_affected();
