@@ -4,7 +4,7 @@ class Get extends Insert {
 
     /**
      * returns select, insert or update query
-     * @param type $use_limit
+     * @param boolean $use_limit
      * @return boolean
      */
     public function get($use_limit = false) {
