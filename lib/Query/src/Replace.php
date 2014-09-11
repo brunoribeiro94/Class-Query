@@ -5,7 +5,7 @@ class Replace extends Pagination {
 
     /**
      * returns last get replaced
-     * @return unknow
+     * @return array
      */
     public function get_replaced() {
         return self::get_affected();
