@@ -22,6 +22,10 @@ class Delete extends Update {
         return $this;
     }
 
+    /**
+     * returns get affected last registry delete
+     * @return unknow
+     */
     public function get_deleted() {
         return self::get_affected();
     }
@@ -31,8 +35,13 @@ class Delete extends Update {
      * @return Integer Returns number of affected rows by the last INSERT, UPDATE, REPLACE or DELETE 
      */
     public function get_affected() {
-        $mysqli = $this->link_mysqi;
-        return mysqli_affected_rows($mysqli);
+        for ($i = 0; $i < count($this->Connections_Settings); $i++) {
+            $link = $this->link_mysqi[$i];
+            if (mysqli_affected_rows($link)) {
+                $result = mysqli_affected_rows($link);
+            }
+        }
+        return $result;
     }
 
 }

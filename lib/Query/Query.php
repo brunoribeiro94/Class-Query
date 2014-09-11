@@ -1,17 +1,17 @@
 <?php
 
+// autoload function call all classes from src folder
 $autoloadManager = new autoloadManager(null, autoloadManager::SCAN_ONCE);
 $autoloadManager->addFolder(__DIR__ . '/src/');
 $autoloadManager->register();
 
 /**
- *
  * Class query
  * This class works with mysqli onlys, anti-SQL injection techniques were added.
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 2.1
+ * @version 2.3
  * @access public
  * @package Config
  * @todo Finish the functions : SUM, DISTINCT.
@@ -19,20 +19,16 @@ $autoloadManager->register();
 class Query extends Config {
 
     public function __construct() {
-        // conect database
-        parent::__construct();
-        // set charset
-        $this->link_mysqi->set_charset($this->charset);
+        parent::__construct(); // conect database
         $this->debug = defined('DEBUG') && DEBUG === true;
         $this->having = '';
     }
 
     /**
-     * Returns the number of records
+     * alias for get_selected_count()
      * @return Integer
      */
     public function count() {
-        // alias for get_selected_count()
         return self::get_selected_count();
     }
 
@@ -148,8 +144,6 @@ class Query extends Config {
      * @return \Query
      */
     public function having($having = '', $comparison = '=', $boolean_operator = 'AND') {
-        $mysqli = $this->link_mysqi;
-
         if (empty($having)) {
             $this->having = '';
         } else {
@@ -162,10 +156,10 @@ class Query extends Config {
                 foreach ($having as $k => $v) {
                     if (is_array($v)) {
                         foreach ($v as $key => $value) {
-                            $array[] = sprintf($k . ' NOT LIKE "%%%s%%"', mysqli_real_escape_string($mysqli, $value));
+                            $array[] = sprintf($k . ' NOT LIKE "%%%s%%"', $this->_check_link_mysqli($value));
                         }
                     } else {
-                        $array[] = sprintf($k . ' NOT LIKE "%%%s%%"', mysqli_real_escape_string($mysqli, $v));
+                        $array[] = sprintf($k . ' NOT LIKE "%%%s%%"', $this->_check_link_mysqli($v));
                     }
                 }
 
@@ -222,8 +216,7 @@ class Query extends Config {
      * @return \Query
      */
     public function limit($limit) {
-        // LIMIT Limit the number of records selected or deleted.
-        $this->limit = (int) $limit;
+        $this->limit = (int) $limit; // LIMIT Limit the number of records selected or deleted.
         return $this;
     }
 
@@ -292,6 +285,14 @@ class Query extends Config {
         return $this;
     }
 
+    /**
+     * 
+     * @param String $key
+     * @param mixed $value
+     * @param String $operator
+     * @return mixed
+     * @deprecated since version 2.2
+     */
     private function _key_value($key, $value, $operator = '=') {
         $mysqli = $this->link_mysqi;
         $value = (substr($value, 0, 1) == '!' ? substr($value, 1) : '"' . $value . '"');

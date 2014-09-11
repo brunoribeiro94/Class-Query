@@ -5,18 +5,67 @@
  * Class query - Pagination
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 1.2
+ * @version 1.3
  * @access public
  * @package Language
  * */
 class Pagination extends Language {
+
+    /**
+     * put true if you for use tag li also put false
+     * @var Boolean 
+     */
+    var $li = false;
+
+    /**
+     * put false if you no want the button after
+     * @var Boolean 
+     */
+    var $after = true;
+
+    /**
+     * put false if you no want the button before
+     * @var Boolean 
+     */
+    var $before = true;
+
+    /**
+     * put true if you do not want the button before and after receive text messages put false will show symbols.
+     * @see <code>lamguage.php</code>
+     * @var Boolean 
+     */
+    var $message = true;
+
+    /**
+     * Class name for element active, use NULL if you want not put nothing
+     * @var String 
+     */
+    var $class_active = NULL;
+
+    /**
+     * Class name for element inactive, use NULL if you want not put nothing
+     * @var String 
+     */
+    var $class_inactive = NULL;
+
+    /**
+     * Class name for element before, use NULL if you want not put nothing
+     * @var String 
+     */
+    var $class_before = NULL;
+
+    /**
+     * Class name for element after, use NULL if you want not put nothing
+     * @var String 
+     */
+    var $class_after = NULL;
 
     public function get_page() {
         return $this->page;
     }
 
     public function get_pages() {
-        return @$this->pages;
+        return $this->pages;
     }
 
     public function get_perpage() {
@@ -157,7 +206,6 @@ class Pagination extends Language {
      * @return Object
      */
     private function call_all_object_pagination($URL, $page_param) {
-
         return $this->make_button_before($URL, $page_param)
                 . $this->loop($URL, $page_param)
                 . $this->make_button_after($URL, $page_param, $this->get_pages());

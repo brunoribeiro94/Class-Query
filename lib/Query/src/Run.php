@@ -1,6 +1,7 @@
 <?php
 
 class Run extends Get {
+
     /**
      * Execute Query
      * runs query, returns mysql result
@@ -32,7 +33,7 @@ class Run extends Get {
                             $this->pages = (int) ceil($this->results / $this->limit);
                             // set offset
                             if (!isset($this->offset)) {
-                                self::offset(($this->page * $this->limit) - $this->limit);
+                                $this->offset(($this->page * $this->limit) - $this->limit);
                             } else {
                                 // calculate page using offset and perpage
                                 // determine on what page the offset would be on
@@ -51,11 +52,10 @@ class Run extends Get {
                     }
                     break;
                 default:
-                    die(PAGINATION_TEXT_ERRO_QUERY . $this->query_type);
+                    die($this->TEXT_ERRO_QUERY . $this->query_type);
                     break;
             }
         }
-
         return false;
     }
 
@@ -116,20 +116,25 @@ class Run extends Get {
     /**
      * Run Query
      * @param type $query
-     * @version 1.2
+     * @version 1.3
      * @return Object
      */
     private function _run_query($query) {
-        $mysqli = $this->link_mysqi;
-        $this->result = mysqli_query($mysqli, $query);
-
+        for ($i = 0; $i < count($this->Connections_Settings); $i++) {
+            $link = $this->link_mysqi[$i];
+            if (mysqli_query($link, $query)) {
+                $result = mysqli_query($link, $query);
+                $mysqli = $link;
+            }
+        }
+        $this->result = $result;
         if (!$this->result) {
             $this->mysql_error = mysqli_error($mysqli);
 
             if ($this->debug) {
-                $this->error = PAGINATION_TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
+                $this->error = $this->TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
             } else {
-                $this->error = PAGINATION_TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
+                $this->error = $this->TEXT_ERRO_TYPE_QUERY;
             }
 
             if (function_exists('error')) {

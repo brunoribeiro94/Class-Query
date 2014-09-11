@@ -3,109 +3,75 @@
 /**
  * Configuration for: Database Connection
  * This is the place where your database constants are saved
+ * @version 2.3
  *
  */
 class Config extends Run {
 
     /**
      * Multiple Database Conection
+     * DB_HOST - database host, usually it's "127.0.0.1" or "localhost", some servers also need port info
+     * DB_NAME - for set name of the database. please note: database and database table are not the same thing
+     * DB_USER - for your database. the user needs to have rights for SELECT, UPDATE, DELETE and INSERT.
+     * by the way, it's bad style to use "root", but for development it will work.
+     * DB_PASS - the password of the above user
      * @var Array 
      */
-    protected $Conections_Settings = array(
+    public $Connections_Settings = array(
         'Data1' => array(
             'DB_HOST' => '127.0.0.1',
             'DB_NAME' => 'class_Query',
             'DB_USER' => 'root',
             'DB_PASS' => '',
-            'DB_CHARSET' => 'UTF8'
+            'DB_CHARSET' => 'utf8',
+            'DB_Status' => false
         ),
         'Data2' => array(
-            'DB_HOST' => '127.0.0.1',
+            'DB_HOST' => 'localhost',
             'DB_NAME' => 'class_Query_dev',
             'DB_USER' => 'root',
             'DB_PASS' => '',
-            'DB_CHARSET' => 'UTF8'
+            'DB_CHARSET' => 'utf8',
+            'DB_Status' => false
         )
     );
 
     /**
      * Link mysqli please no put nothing here
-     * @var array 
+     * @var Array 
      */
     protected $link_mysqi = array();
 
     /**
-     * set charset
-     * @var string 
-     */
-    protected $charset = 'UTF8';
-
-    // pagination configure
-
-    /**
-     * put true if you for use tag li also put false
-     * @var Boolean 
-     */
-    var $li = false;
-
-    /**
-     * put false if you no want the button after
-     * @var Boolean 
-     */
-    var $after = true;
-
-    /**
-     * put false if you no want the button before
-     * @var Boolean 
-     */
-    var $before = true;
-
-    /**
-     * put true if you do not want the button before and after receive text messages put false will show symbols.
-     * @see <code>lamguage.php</code>
-     * @var Boolean 
-     */
-    var $message = true;
-
-    /**
-     * Class name for element active, use NULL if you want not put nothing
-     * @var String 
-     */
-    var $class_active = NULL;
-
-    /**
-     * Class name for element inactive, use NULL if you want not put nothing
-     * @var String 
-     */
-    var $class_inactive = NULL;
-
-    /**
-     * Class name for element before, use NULL if you want not put nothing
-     * @var String 
-     */
-    var $class_before = NULL;
-
-    /**
-     * Class name for element after, use NULL if you want not put nothing
-     * @var String 
-     */
-    var $class_after = NULL;
-
-    /**
-     * Make Conection Mysqi (recommended)
+     * Make a conection or multiples conections Mysqi (recommended)
      * @access Private
      * @return Void
      */
     private function mysqli_connection() {
-        foreach ($this->Conections_Settings as $key => $value) {
+        foreach ($this->Connections_Settings as $key => $value) {
             try {
                 $mysqli = new mysqli($value['DB_HOST'], $value['DB_USER'], $value['DB_PASS'], $value['DB_NAME']);
+                $mysqli->set_charset($value['DB_CHARSET']);
+                $this->link_mysqi[] = $mysqli;
             } catch (Exception $e) {
-                exit($this->PAGINATION_TEXT_DB_NAME . $e->message);
+                exit($this->TEXT_DB_NAME . $e->message);
             }
-            $mysqli->set_charset($this->charset);
-            $this->link_mysqi[$key] = $mysqli;
         }
+    }
+
+    /**
+     * checks which connection is active and returns the correct (no errors)
+     * @param mixed $value
+     * @return mixed
+     */
+    protected function _check_link_mysqli($value) {
+        for ($i = 0; $i < count($this->Connections_Settings); $i++) {
+            $link = $this->link_mysqi[$i];
+            if (mysqli_real_escape_string($link, $value)) {
+                $result = mysqli_real_escape_string($link, $value);
+            }
+        }
+        return $result;
     }
 
     /**
