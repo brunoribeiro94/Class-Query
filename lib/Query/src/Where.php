@@ -423,7 +423,26 @@ class Where extends Replace {
         $this->where_not_equal_to = $where_not_equal_to;
         return $this;
     }
-
+    
+    /**
+     * Function Query where not in
+     * 
+     * Example Query output :
+     * 
+     * <pre>
+     * <code>
+     * SELECT 
+     *          *
+     * FROM
+     *          `table`
+     * WHERE
+     *           `column` <b> NOT IN</b>(value)
+     * </code>
+     * </pre>
+     * @param Array $where_in Used to compare strings.
+     * @access public
+     * @return \Query
+     */
     public function where_not_in($where_not_in) {
         $this->where_not_in = $where_not_in;
         return $this;
