@@ -60,16 +60,18 @@ class Config extends Run {
     /**
      * checks which connection is active and returns the correct (no errors)
      * @param array $value
-     * @deprecated 2.1
-     * @return array
      * @param mixed $value
-     * @return mixed
+     * @return array
      */
     protected function _check_link_mysqli($value) {
-        for ($i = 0; $i < count($this->Connections_Settings); $i++) {
-            $link = $this->link_mysqi[$i];
-            if (mysqli_real_escape_string($link, $value)) {
-                $result = mysqli_real_escape_string($link, $value);
+        if (count($this->Connections_Settings) == 1) {
+            return mysqli_real_escape_string($this->link_mysqi[0], $value);
+        } else {
+            for ($i = 0; $i < count($this->Connections_Settings); $i++) {
+                $link = $this->link_mysqi[$i];
+                if (mysqli_real_escape_string($link, $value)) {
+                    $result = mysqli_real_escape_string($link, $value);
+                }
             }
         }
         return $result;

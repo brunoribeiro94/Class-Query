@@ -120,11 +120,16 @@ class Run extends Get {
      * @return Object
      */
     private function _run_query($query) {
-        for ($i = 0; $i < count($this->Connections_Settings); $i++) {
-            $link = $this->link_mysqi[$i];
-            if (mysqli_query($link, $query)) {
-                $result = mysqli_query($link, $query);
-                $mysqli = $link;
+        if (count($this->Connections_Settings) == 1) {
+            $result = mysqli_query($this->link_mysqi[0], $query);
+            $mysqli = $this->link_mysqi[0];
+        } else {
+            for ($i = 0; $i < count($this->Connections_Settings); $i++) {
+                $link = $this->link_mysqi[$i];
+                if (mysqli_query($link, $query)) {
+                    $result = mysqli_query($link, $query);
+                    $mysqli = $link;
+                }
             }
         }
         $this->result = $result;
