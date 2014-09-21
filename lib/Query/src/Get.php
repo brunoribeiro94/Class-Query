@@ -192,18 +192,7 @@ class Get extends Insert {
      * @return Void
      */
     protected function _get_results() {
-        // check which database must call
-        if (count($this->Connections_Settings) == 1) {
-            $mysqli = $this->link_mysqi[0];
-        } else {
-            for ($i = 0; $i < count($this->Connections_Settings); $i++) {
-                $link = $this->link_mysqi[$i];
-                if (mysqli_num_rows($link)) {
-                    $mysqli = $link;
-                }
-            }
-        }
-        $this->results = mysqli_num_rows($mysqli);
+       $this->results = mysqli_num_rows($this->result);
     }
 
     /**
