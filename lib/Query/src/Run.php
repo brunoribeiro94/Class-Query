@@ -1,5 +1,7 @@
 <?php
 
+namespace Developer\Query;
+
 class Run extends Get {
 
     /**
@@ -135,12 +137,7 @@ class Run extends Get {
         $this->result = $result;
         if (!$this->result) {
             $this->mysql_error = mysqli_error($mysqli);
-
-            if ($this->debug) {
-                $this->error = $this->TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
-            } else {
-                $this->error = $this->TEXT_ERRO_TYPE_QUERY;
-            }
+            $this->error = $this->TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
 
             if (function_exists('error')) {
                 error($this->error);
