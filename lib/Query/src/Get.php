@@ -1,5 +1,7 @@
 <?php
 
+namespace Developer\Query;
+
 class Get extends Insert {
 
     /**
@@ -20,14 +22,18 @@ class Get extends Insert {
             return $this->update_query;
         } elseif (self::_get_insert_multiple()) {
             return $this->insert_multiple_query;
-        } 
-            return false;
+        }
+        return false;
     }
 
     private function _get_distinct() {
         // FINISH
     }
 
+    /**
+     * get delete from
+     * @return string
+     */
     private function _get_delete_from() {
         return
                 'DELETE FROM' . "\n" .
@@ -35,6 +41,10 @@ class Get extends Insert {
                 '';
     }
 
+    /**
+     * get delete query
+     * @return boolean
+     */
     protected function _get_delete_query() {
         if (isset($this->delete_from)) {
             $this->query_type = 'delete';
@@ -49,6 +59,10 @@ class Get extends Insert {
         return false;
     }
 
+    /**
+     * get from
+     * @return string
+     */
     private function _get_from() {
         if (isset($this->from)) {
             return
@@ -96,6 +110,10 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * get insert query
+     * @return boolean
+     */
     private function _get_insert_query() {
         if (isset($this->insert_into)) {
             $this->query_type = 'insert_into';
@@ -109,6 +127,10 @@ class Get extends Insert {
         return false;
     }
 
+    /**
+     * get insert multiple
+     * @return boolean
+     */
     private function _get_insert_multiple() {
         if (isset($this->insert_multiple)) {
             $this->query_type = 'insert_multiple';
@@ -118,10 +140,18 @@ class Get extends Insert {
         return false;
     }
 
+    /**
+     * Alias to _get_inner_join
+     * @return Object
+     */
     private function _get_join() {
         return self::_get_inner_join();
     }
 
+    /**
+     * get limit
+     * @return string
+     */
     private function _get_limit() {
         if (!isset($this->limit)) {
             return '';
@@ -157,10 +187,29 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * get results
+     * @return Void
+     */
     protected function _get_results() {
-        $this->results = mysqli_num_rows($this->result);
+        // check which database must call
+        if (count($this->Connections_Settings) == 1) {
+            $mysqli = $this->link_mysqi[0];
+        } else {
+            for ($i = 0; $i < count($this->Connections_Settings); $i++) {
+                $link = $this->link_mysqi[$i];
+                if (mysqli_num_rows($link)) {
+                    $mysqli = $link;
+                }
+            }
+        }
+        $this->results = mysqli_num_rows($mysqli);
     }
 
+    /**
+     * get replace query
+     * @return boolean
+     */
     private function _get_replace_query() {
         if (isset($this->replace_into)) {
             $this->query_type = 'replace_into';
@@ -170,6 +219,10 @@ class Get extends Insert {
         return false;
     }
 
+    /**
+     * get select
+     * @return string
+     */
     private function _get_select() {
         if (is_array($this->select)) {
             $selects = array();
@@ -197,6 +250,11 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * get select query
+     * @param int $use_limit Limit, used null for disable
+     * @return boolean
+     */
     protected function _get_select_query($use_limit = null) {
         if (isset($this->select)) {
             $this->query_type = 'select';
@@ -215,6 +273,10 @@ class Get extends Insert {
         return false;
     }
 
+    /**
+     * get set
+     * @return string
+     */
     private function _get_set() {
         $sets = array();
         $set_equals = array();
@@ -238,6 +300,10 @@ class Get extends Insert {
                 '';
     }
 
+    /**
+     * get update
+     * @return string
+     */
     private function _get_update() {
         return
                 'UPDATE' . "\n" .
@@ -245,6 +311,10 @@ class Get extends Insert {
                 '';
     }
 
+    /**
+     * get update query
+     * @return boolean
+     */
     private function _get_update_query() {
         if (isset($this->update)) {
             $this->query_type = 'update';
@@ -365,6 +435,10 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * get where equal or
+     * @return string
+     */
     private function _get_where_equal_or() {
         if (!isset($this->where_equal_or) || !is_array($this->where_equal_or) || empty($this->where_equal_or)) {
             return '';
@@ -555,6 +629,10 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * get where like after
+     * @return string
+     */
     private function _get_where_like_after() {
         if (!isset($this->where_like_after) || !is_array($this->where_like_after) || empty($this->where_like_after)) {
             return '';
@@ -573,6 +651,10 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * get where like before
+     * @return string
+     */
     private function _get_where_like_before() {
         if (!isset($this->where_like_before) || !is_array($this->where_like_before) || empty($this->where_like_before)) {
             return '';
@@ -591,6 +673,10 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * get where like both
+     * @return string
+     */
     private function _get_where_like_both() {
         if (!isset($this->where_like_both) || !is_array($this->where_like_both) || empty($this->where_like_both)) {
             return '';
@@ -609,6 +695,10 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * get where like binary
+     * @return string
+     */
     private function _get_where_like_binary() {
         if (!isset($this->where_like_binary) || !is_array($this->where_like_binary) || empty($this->where_like_binary)) {
             return '';
@@ -623,6 +713,10 @@ class Get extends Insert {
         }
     }
 
+    /**
+     * get where like or
+     * @return string
+     */
     private function _get_where_like_or() {
         if (!isset($this->where_like_or) || !is_array($this->where_like_or) || empty($this->where_like_or)) {
             return '';
