@@ -1,7 +1,5 @@
 <?php
 
-namespace Developer\Query;
-
 class Get extends Insert {
 
     /**
