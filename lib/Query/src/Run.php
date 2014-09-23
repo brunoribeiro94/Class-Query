@@ -1,7 +1,5 @@
 <?php
 
-namespace Developer\Query;
-
 class Run extends Get {
 
     /**
