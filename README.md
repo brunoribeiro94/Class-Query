@@ -250,9 +250,6 @@ Please commit only in *develop* branch. The *master* branch will always contain 
 See active issues and requested features here:
 https://github.com/offboard/class-query/issues?state=open
 
-See the milestone tracking of 2.0 and the upcoming 3.0 (early 2015) here:
-https://github.com/offboard/class-query/issues/milestones
-
 ## License
 
 Licensed under [MIT](http://www.opensource.org/licenses/mit-license.php). Totally free for private or commercial projects.
