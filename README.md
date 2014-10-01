@@ -3,7 +3,7 @@ This is a script to make life easier for beginners, medium and advanced programm
 This script connects to the database using mysqli method further down has some usage examples. 
 
 ### Key Features
-* uses Mysqli for database access (more security)
+* Uses Mysqli to check for database access (more security)
 * added Where between
 * added Inner join
 * added multiple connection to the database
