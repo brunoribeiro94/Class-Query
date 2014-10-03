@@ -16,98 +16,115 @@ $autoloadManager->register();
  * @package Config
  * @todo Finish the functions : SUM, DISTINCT, and commands of tools to database.
  * */
-class Query extends Config {
+class Query extends Config
+  {
     
     /**
      * Method Magic
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+      {
         parent::__construct(); // conect database
-        $this->debug = defined('DEBUG') && DEBUG === true;
+        $this->debug  = defined('DEBUG') && DEBUG === true;
         $this->having = '';
-    }
-
+      }
+    
     /**
      * alias for get_selected_count()
      * @return Integer
      */
-    public function count() {
+    public function count()
+      {
         return self::get_selected_count();
-    }
-
+      }
+    
     /**
      * Returns the number of records
      * @return Integer
      */
-    public function get_selected_count() {
+    public function get_selected_count()
+      {
         return $this->results;
-    }
-
+      }
+    
     /**
      * returns an array of the SELECT result(s)
      * @return Array
      */
-    public function get_selected() {
-        if (isset($this->limit) && 1 == $this->limit) {
+    public function get_selected()
+      {
+        if (isset($this->limit) && 1 == $this->limit)
+          {
             // for use when selecting with limit(1)
             $result = array();
-            while ($this->result && $result[] = mysqli_fetch_assoc($this->result)) {}
+            while ($this->result && $result[] = mysqli_fetch_assoc($this->result))
+              {
+              }
             array_pop($result);
             $results = array();
-            foreach ($result as $values) {
+            foreach ($result as $values)
+              {
                 $results = $values;
-            }
-        } else {
+              }
+          }
+        else
+          {
             // for use when selecting with no limit or a limit > 1
             $results = array();
-            while ($this->result && $results[] = mysqli_fetch_assoc($this->result)) {}
+            while ($this->result && $results[] = mysqli_fetch_assoc($this->result))
+              {
+              }
             array_pop($results);
-        }
+          }
         return $results;
-    }
-
+      }
+    
     /**
      * SELECT Retrieves fields from one or more tables.
-     * @param String $select
+     * @param String $select standard *
      * @return \Query
      */
-    public function select($select = '*') {
+    public function select($select = '*')
+      {
         $this->select = $select;
         return $this;
-    }
-
+      }
+    
     /**
      * alias for select() instead of using both select() && from()
-     * @param String $select
-     * @param String $table
+     * @param array $select Select Column is key and Value to add is value
+     * @param String $table Table name
      * @return \Query
      */
-    public function select_from($select, $table) {
+    public function select_from($select, $table)
+      {
         self::select($select);
         self::from($table);
         return $this;
-    }
-
+      }
+    
     /* Query helpers */
-
-    public function distinct($distinct) {
+    
+    public function distinct($distinct)
+      {
         $this->distinct = $distinct;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query
      * FROM target the specifed tables.
      * @param String $from Used to specify the table
      * @return \Query
      */
-    public function from($from) {
+    public function from($from)
+      {
         // FROM target the specifed tables.
         $this->from = $from;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query 
      * GROUP BY Determines how the records should be grouped.
@@ -129,11 +146,12 @@ class Query extends Config {
      * @param Array $group_by A string can be used if only one column
      * @return \Query 
      */
-    public function group_by($group_by) {
+    public function group_by($group_by)
+      {
         $this->group_by = $group_by;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query having
      * Used with GROUP BY to specify the criteria for the grouped records.
@@ -143,35 +161,43 @@ class Query extends Config {
      * @access public
      * @return \Query
      */
-    public function having($having = '', $comparison = '=', $boolean_operator = 'AND') {
-        if (empty($having)) {
+    public function having($having = '', $comparison = '=', $boolean_operator = 'AND')
+      {
+        if (empty($having))
+          {
             $this->having = '';
-        } else {
-            if (!is_array($having)) {
-                $this->having = 'HAVING' . "\n" .
-                        "\t" . $having . "\n" .
-                        '';
-            } else {
+          }
+        else
+          {
+            if (!is_array($having))
+              {
+                $this->having = 'HAVING' . "\n" . "\t" . $having . "\n" . '';
+              }
+            else
+              {
                 $array = array();
-                foreach ($having as $k => $v) {
-                    if (is_array($v)) {
-                        foreach ($v as $key => $value) {
+                foreach ($having as $k => $v)
+                  {
+                    if (is_array($v))
+                      {
+                        foreach ($v as $key => $value)
+                          {
                             $array[] = sprintf($k . ' NOT LIKE "%%%s%%"', $this->_check_link_mysqli($value));
-                        }
-                    } else {
+                          }
+                      }
+                    else
+                      {
                         $array[] = sprintf($k . ' NOT LIKE "%%%s%%"', $this->_check_link_mysqli($v));
-                    }
-                }
-
-                $this->having = 'HAVING' . "\n" .
-                        "\t" . implode(' ' . $boolean_operator . "\n\t", $array) . "\n" .
-                        '';
-            }
-        }
-
+                      }
+                  }
+                
+                $this->having = 'HAVING' . "\n" . "\t" . implode(' ' . $boolean_operator . "\n\t", $array) . "\n" . '';
+              }
+          }
+        
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query inner join
      * 
@@ -191,11 +217,12 @@ class Query extends Config {
      * @access public
      * @return \Query
      */
-    public function inner_join($inner_join) {
+    public function inner_join($inner_join)
+      {
         $this->inner_join = $inner_join;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query limit
      * 
@@ -215,11 +242,12 @@ class Query extends Config {
      * @access public
      * @return \Query
      */
-    public function limit($limit) {
+    public function limit($limit)
+      {
         $this->limit = (int) $limit; // LIMIT Limit the number of records selected or deleted.
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query offset
      * to use also requires using the limit
@@ -239,11 +267,12 @@ class Query extends Config {
      * @access public
      * @return \Query
      */
-    public function offset($offset) {
+    public function offset($offset)
+      {
         $this->offset = (int) $offset;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query order by
      * 
@@ -263,28 +292,31 @@ class Query extends Config {
      * @access public
      * @return \Query
      */
-    public function order_by($order_by) {
+    public function order_by($order_by)
+      {
         $this->order_by = $order_by;
         return $this;
-    }
-
-    public function page($page) {
+      }
+    
+    public function page($page)
+      {
         $this->page = (int) $page;
         return $this;
-    }
-
+      }
+    
     /**
      * alias instead of using both limit() && offset()
      * @param Integer $limit
      * @param Integer $offset
      * @return \Query
      */
-    public function range($limit, $offset) {
+    public function range($limit, $offset)
+      {
         self::limit($limit);
         self::offset($offset);
         return $this;
-    }
-
+      }
+    
     /**
      * 
      * @param String $key
@@ -293,28 +325,31 @@ class Query extends Config {
      * @return mixed
      * @deprecated since version 2.2
      */
-    private function _key_value($key, $value, $operator = '=') {
+    private function _key_value($key, $value, $operator = '=')
+      {
         $mysqli = $this->link_mysqi;
-        $value = (substr($value, 0, 1) == '!' ? substr($value, 1) : '"' . $value . '"');
+        $value  = (substr($value, 0, 1) == '!' ? substr($value, 1) : '"' . $value . '"');
         return sprintf($key . $operator . ' %s ', mysqli_real_escape_string($mysqli, $value));
-    }
-
+      }
+    
     /**
      * * Displaying SQL
      * * @access public
      * * @return String
      */
-    public function show() {
+    public function show()
+      {
         echo "<pre>" . self::get(true) . "</pre>";
         return $this;
-    }
-
+      }
+    
     /**
      * alias show() 
      * @return String
      */
-    public function display() {
+    public function display()
+      {
         return self::show();
-    }
-
-}
+      }
+    
+  }
