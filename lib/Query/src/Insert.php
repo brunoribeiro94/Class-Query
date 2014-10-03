@@ -4,7 +4,7 @@ class Insert extends Delete {
 
     /**
      * alias for get_inserted_id()
-     * @param String $select
+     * @param String $select Standard ''
      * @return Integer
      */
     public function get_insert_id($select = '') {
@@ -13,7 +13,7 @@ class Insert extends Delete {
 
     /**
      * alias for get_inserted_id()
-     * @param String $select
+     * @param String $select Standard ''
      * @return Integer
      */
     public function get_inserted($select = '') {
@@ -22,7 +22,7 @@ class Insert extends Delete {
 
     /**
      * Return last id inserted
-     * @param mixed $select
+     * @param mixed $select Standard ''
      * @return Integer
      */
     public function get_inserted_id($select = '') {
@@ -59,10 +59,10 @@ class Insert extends Delete {
 
     /**
      * insert_into() alias
-     * @param String $table
-     * @param mixed $keys_and_values
-     * @param String $on_duplicate_key_update
-     * @param String $insert_options
+     * @param String $table Table name
+     * @param mixed $keys_and_values Column(s) and value(s) to add
+     * @param String $on_duplicate_key_update Standard ''
+     * @param String $insert_options Standard ''
      * @return \Insert
      */
     public function insert($table, $keys_and_values, $on_duplicate_key_update = '', $insert_options = '') {
@@ -71,9 +71,9 @@ class Insert extends Delete {
 
     /**
      * Ignore on insert
-     * @param String $table
-     * @param mixed $keys_and_values
-     * @param String $on_duplicate_key_update
+     * @param String $table Table name
+     * @param mixed $keys_and_values Column(s) and value(s) to add
+     * @param String $on_duplicate_key_update Standard ''
      * @return \Insert
      */
     public function insert_ignore($table, $keys_and_values, $on_duplicate_key_update = '') {
@@ -82,10 +82,10 @@ class Insert extends Delete {
 
     /**
      * Insert new registry
-     * @param String $table
-     * @param mixed $keys_and_values
-     * @param String $on_duplicate_key_update
-     * @param String $insert_options
+     * @param String $table Table name
+     * @param mixed $keys_and_values Column(s) and value(s) to add
+     * @param String $on_duplicate_key_update Standard ''
+     * @param String $insert_options Standard ''
      * @return \Insert
      */
     public function insert_into($table, $keys_and_values, $on_duplicate_key_update = '', $insert_options = '') {
@@ -126,9 +126,9 @@ class Insert extends Delete {
 
     /**
      * alias insert_multiple()
-     * @param String $table
-     * @param String $keys
-     * @param mixed $values
+     * @param String $table Table name
+     * @param String $keys Column name
+     * @param mixed $values Values to add
      * @return \Insert
      */
     public function inserts($table, $keys, $values) {
@@ -137,10 +137,10 @@ class Insert extends Delete {
 
     /**
      * Inserts a new record in the database
-     * @param String $table
-     * @param String $keys
-     * @param mixed $values
-     * @param String $on_duplicate_key_update
+     * @param String $table Table name
+     * @param String $keys Column names
+     * @param mixed $values Values to add
+     * @param String $on_duplicate_key_update Standard ''
      * @return \Insert
      */
     public function insert_multiple($table, $keys, $values, $on_duplicate_key_update = '') {
@@ -171,7 +171,7 @@ class Insert extends Delete {
                 '';
         return $this;
     }
-
+    
     private function _on_duplicate_key_update($on_duplicate_key_update) {
         $this->on_duplicate_key_update = '';
         if ('' !== $on_duplicate_key_update && is_array($on_duplicate_key_update)) {
