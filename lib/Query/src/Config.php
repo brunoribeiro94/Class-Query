@@ -6,8 +6,9 @@
  * @version 2.3
  *
  */
-class Config extends Run {
-
+class Config extends Run
+  {
+    
     /**
      * Multiple Database Conection
      * DB_HOST - database host, usually it's "127.0.0.1" or "localhost", some servers also need port info
@@ -17,72 +18,69 @@ class Config extends Run {
      * DB_PASS - the password of the above user
      * @var Array 
      */
-    public $Connections_Settings = array(
-        'Data1' => array(
-            'DB_HOST' => '127.0.0.1',
-            'DB_NAME' => 'class_Query',
-            'DB_USER' => 'root',
-            'DB_PASS' => '',
-            'DB_CHARSET' => 'utf8'
-        ),
-        'Data2' => array(
-            'DB_HOST' => 'localhost',
-            'DB_NAME' => 'class_Query_dev',
-            'DB_USER' => 'root',
-            'DB_PASS' => '',
-            'DB_CHARSET' => 'utf8'
-        )
-    );
-
+    public $Connections_Settings = array('Data1' => array('DB_HOST' => '127.0.0.1', 'DB_NAME' => 'class_Query', 'DB_USER' => 'root', 'DB_PASS' => '', 'DB_CHARSET' => 'utf8'), 'Data2' => array('DB_HOST' => 'localhost', 'DB_NAME' => 'class_Query_dev', 'DB_USER' => 'root', 'DB_PASS' => '', 'DB_CHARSET' => 'utf8'));
+    
     /**
      * Link mysqli please no put nothing here
      * @var Array 
      */
     protected $link_mysqi = array();
-
+    
     /**
      * Make a conection or multiples conections Mysqi (recommended)
      * @access Private
      * @return Void
      */
-    private function mysqli_connection() {
-        foreach ($this->Connections_Settings as $key => $value) {
-            try {
+    private function mysqli_connection()
+      {
+        foreach ($this->Connections_Settings as $key => $value)
+          {
+            try
+              {
                 $mysqli = new mysqli($value['DB_HOST'], $value['DB_USER'], $value['DB_PASS'], $value['DB_NAME']);
                 $mysqli->set_charset($value['DB_CHARSET']);
                 $this->link_mysqi[] = $mysqli;
-            } catch (Exception $e) {
+              }
+            catch (Exception $e)
+              {
                 exit($this->TEXT_DB_NAME . $e->message);
-            }
-        }
-    }
-
+              }
+          }
+      }
+    
     /**
      * checks which connection is active and returns the correct (no errors)
      * @param array $value
      * @param mixed $value
      * @return array
      */
-    protected function _check_link_mysqli($value) {
-        if (count($this->Connections_Settings) == 1) {
+    protected function _check_link_mysqli($value)
+      {
+        if (count($this->Connections_Settings) == 1)
+          {
             return mysqli_real_escape_string($this->link_mysqi[0], $value);
-        } else {
-            for ($i = 0; $i < count($this->Connections_Settings); $i++) {
+          }
+        else
+          {
+            for ($i = 0; $i < count($this->Connections_Settings); $i++)
+              {
                 $link = $this->link_mysqi[$i];
-                if (mysqli_real_escape_string($link, $value)) {
+                if (mysqli_real_escape_string($link, $value))
+                  {
                     $result = mysqli_real_escape_string($link, $value);
-                }
-            }
-        }
+                  }
+              }
+          }
         return $result;
-    }
-
+      }
+    
     /**
      * Make Conection
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+      {
         $this->mysqli_connection();
-    }
-
-}
+      }
+    
+  }
