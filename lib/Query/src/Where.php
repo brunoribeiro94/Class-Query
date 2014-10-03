@@ -1,7 +1,8 @@
 <?php
 
-class Where extends Replace {
-
+class Where extends Replace
+  {
+    
     /**
      * Function Query where between
      * 
@@ -21,11 +22,12 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_between($where_between) {
+    public function where_between($where_between)
+      {
         $this->where_between = $where_between;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query where equal
      * 
@@ -45,11 +47,12 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_equal($where_equal) {
+    public function where_equal($where_equal)
+      {
         // alias for where_equal_to()
         return self::where_equal_to($where_equal);
-    }
-
+      }
+    
     /**
      * Function Query where equal or
      * 
@@ -72,11 +75,12 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_equal_or($where_equal_or) {
+    public function where_equal_or($where_equal_or)
+      {
         $this->where_equal_or = $where_equal_or;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query where equal to
      * 
@@ -96,11 +100,12 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_equal_to($where_equal_to) {
+    public function where_equal_to($where_equal_to)
+      {
         $this->where_equal_to = $where_equal_to;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query where greater than
      * 
@@ -120,11 +125,12 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_greater_than($where_greater_than) {
+    public function where_greater_than($where_greater_than)
+      {
         $this->where_greater_than = $where_greater_than;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query where greater than or equal to
      * 
@@ -144,11 +150,12 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_greater_than_or_equal_to($where_greater_than_or_equal_to) {
+    public function where_greater_than_or_equal_to($where_greater_than_or_equal_to)
+      {
         $this->where_greater_than_or_equal_to = $where_greater_than_or_equal_to;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query where in
      * 
@@ -168,11 +175,12 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_in($where_in) {
+    public function where_in($where_in)
+      {
         $this->where_in = $where_in;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query where less than
      * 
@@ -192,11 +200,12 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_less_than($where_less_than) {
+    public function where_less_than($where_less_than)
+      {
         $this->where_less_than = $where_less_than;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query where less than or equal to
      * 
@@ -216,11 +225,12 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_less_than_or_equal_to($where_less_than_or_equal_to) {
+    public function where_less_than_or_equal_to($where_less_than_or_equal_to)
+      {
         $this->where_less_than_or_equal_to = $where_less_than_or_equal_to;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query where like
      * 
@@ -240,10 +250,11 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_like($where_like) {
+    public function where_like($where_like)
+      {
         return self::where_like_both($where_like);
-    }
-
+      }
+    
     /**
      * Function Query where like after
      * 
@@ -263,11 +274,12 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_like_after($where_like_after) {
+    public function where_like_after($where_like_after)
+      {
         $this->where_like_after = $where_like_after;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query where like before
      * 
@@ -287,11 +299,12 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_like_before($where_like_before) {
+    public function where_like_before($where_like_before)
+      {
         $this->where_like_before = $where_like_before;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query where like both
      *
@@ -312,11 +325,12 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_like_both($where_like_both) {
+    public function where_like_both($where_like_both)
+      {
         $this->where_like_both = $where_like_both;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query where like binary
      *
@@ -336,11 +350,12 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_like_binary($where_like_binary) {
+    public function where_like_binary($where_like_binary)
+      {
         $this->where_like_binary = $where_like_binary;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query where like or
      *
@@ -364,11 +379,12 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_like_or($where_like_or) {
+    public function where_like_or($where_like_or)
+      {
         $this->where_like_or = $where_like_or;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query where <> Not equal to
      *
@@ -392,11 +408,12 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_not_equal_or($where_not_equal_or) {
+    public function where_not_equal_or($where_not_equal_or)
+      {
         $this->where_not_equal_or = $where_not_equal_or;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query where != Not equal to
      *
@@ -419,10 +436,11 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_not_equal_to($where_not_equal_to) {
+    public function where_not_equal_to($where_not_equal_to)
+      {
         $this->where_not_equal_to = $where_not_equal_to;
         return $this;
-    }
+      }
     
     /**
      * Function Query where not in
@@ -443,11 +461,12 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_not_in($where_not_in) {
+    public function where_not_in($where_not_in)
+      {
         $this->where_not_in = $where_not_in;
         return $this;
-    }
-
+      }
+    
     /**
      * Function Query where not like
      *
@@ -467,11 +486,10 @@ class Where extends Replace {
      * @access public
      * @return \Query
      */
-    public function where_not_like($where_not_like) {
+    public function where_not_like($where_not_like)
+      {
         $this->where_not_like = $where_not_like;
         return $this;
-    }
-
+      }
     
-
-}
+  }
