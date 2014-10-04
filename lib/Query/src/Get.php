@@ -455,11 +455,11 @@ class Get extends Insert
                 $max = $this->_check_link_mysqli($v[1]);
                 if (is_array($v))
                   {
-                    $where_between[] = $k . ' BETWEEN ' . $min . ' AND ' . $max;
+                    $where_between[] = $k . " BETWEEN '" . $min . "' AND '" . $max . "'";
                   }
                 else
                   {
-                    $where_between[] = $k . ' BETWEEN ' . $v;
+                    $where_between[] = $k . " BETWEEN '" . $v . "'";
                   }
               }
             return implode(' AND' . "\n\t", $where_between) . ' ';
