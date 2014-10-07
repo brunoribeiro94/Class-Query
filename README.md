@@ -9,7 +9,7 @@ This script connects to the database using mysqli method further down has some u
 * added multiple connection to the database
 * Builds pagination numbering added
 * Queries using the class-Query is simple and practical
-* Can use $q>show() and shows the SQL query
+* Can use *$q>show()* and shows the SQL query
 * Taken almost all functions have already been implemented in SQL
 * Main functions are already mentioned with an example of SQL
 
