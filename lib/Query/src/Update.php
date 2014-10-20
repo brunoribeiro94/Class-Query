@@ -26,13 +26,13 @@ class Update extends Where
     
     /**
      * Function Query update
-     * @param string $update
-     * @param array $set
+     * @param string $table Table
+     * @param array $set Array colletion columns and value
      * @return \Update
      */
-    public function update($update, $set = array())
+    public function update($table, $set = array())
       {
-        $this->update = $update;
+        $this->update = $table;
         if (!empty($set))
           {
             self::set($set);
