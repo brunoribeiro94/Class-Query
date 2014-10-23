@@ -21,7 +21,7 @@ This script connects to the database using mysqli method further down has some u
 #### ON YOUR SERVER (we use Linux Mint 17 Qiana here):
 1. install Apache, MySQL, PHP and eventually PHPMyAdmin: [How to setup a LAMP stack on Ubuntu 12.04](http://www.dev-metal.com/setup-basic-lamp-stack-linux-apache-mysql-php-ubuntu-12-04/)
 2. copy the contents of the extracted class-query repository into */var/www/your-project* ! for organizational purposes we recommend that you extract to libs folder of your project example */var/www/your-project/libs/*.
-Best way to do is cloning via git: `git clone https://github.com/offboard/class-query.git /var/www`
+Best way to do is cloning via git: `git clone https://github.com/offboard/class-query.git /var/www/your-project/libs/`
 3. Run the three SQL statements in the *_installation/sql_statements/* run in the right order
 
 #### CONFIGS IN THE CODE:
