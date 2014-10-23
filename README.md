@@ -20,30 +20,28 @@ This script connects to the database using mysqli method further down has some u
 
 #### ON YOUR SERVER (we use Linux Mint 17 Qiana here):
 1. install Apache, MySQL, PHP and eventually PHPMyAdmin: [How to setup a LAMP stack on Ubuntu 12.04](http://www.dev-metal.com/setup-basic-lamp-stack-linux-apache-mysql-php-ubuntu-12-04/)
-2. remove all files from the */var/www* (should only be Apache's index.html and your phpinfo()-containing .php right now) with `rm -r /var/www/*`,
-otherwise things will get messy and git won't download the repo into a non-empty folder
-3. copy the contents of the extracted class-query repository into /var/www ! In this tutorial we don't use a sub-folder,  so your index.php should go into /var/www !
+2. copy the contents of the extracted class-query repository into */var/www/your-project* ! for organizational purposes we recommend that you extract to libs folder of your project example */var/www/your-project/libs/*.
 Best way to do is cloning via git: `git clone https://github.com/offboard/class-query.git /var/www`
-4. Run the three SQL statements in the *_installation/sql_statements/* run in the right order
+3. Run the three SQL statements in the *_installation/sql_statements/* run in the right order
 
 #### CONFIGS IN THE CODE:
 
 In *lib/Query/src/Config.php*:
-5. enter you array conection in $Conections_Settings
-6. enter your database credentials in key DB_USER, DB_PASS etc.
-7. enter your charset in key charset.
+4. enter you array conection in $Conections_Settings
+5. enter your database credentials in key DB_USER, DB_PASS etc.
+6. enter your charset in key charset.
 
 In *lib/Query/src/Pagination.php*:
 
-8. you can set the default settings for paging numbered below.
-9. in $li you can Use true to enable li tag in your page with pagination.
-10. in $after you decide whether to show the "after" button.
-11. in $before you decide whether to show the "before" button.
-12. in $message put true if you do not want the button before and after receive text messages put false will show symbols.
-13. in $class_active is the class name of your stylesheet, if your page is active paging (put null if you want to put anything).
-14. in $class_inactive is the class name of your stylesheet, if your page is inactive paging (put null if you want to put anything).
-15. in $class_before use a class on the "before" (put null if you want to put anything).
-16. in $class_after use a class on the "after" (put null if you want to put anything).
+7. you can set the default settings for paging numbered below.
+8. in ```php $li``` you can Use true to enable li tag in your page with pagination.
+9. in ```php $after``` you decide whether to show the "after" button.
+10. in ```php $before``` you decide whether to show the "before" button.
+11. in ```php $message``` put true if you do not want the button before and after receive text messages put false will show symbols.
+12. in ```php $class_active``` is the class name of your stylesheet, if your page is active paging (put null if you want to put anything).
+13. in ```php $class_inactive``` is the class name of your stylesheet, if your page is inactive paging (put null if you want to put anything).
+14. in ```php $class_before``` use a class on the "before" (put null if you want to put anything).
+15. in ```php $class_after``` use a class on the "after" (put null if you want to put anything).
 
 
 ## Quick Install
