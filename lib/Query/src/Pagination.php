@@ -65,7 +65,7 @@ class Pagination extends Language
      * show page numbers?
      * @var boolean 
      */
-    var $show_numbering = false;
+    var $show_numbering = true;
     
     public function get_page()
       {
