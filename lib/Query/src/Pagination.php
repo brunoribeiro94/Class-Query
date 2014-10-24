@@ -38,6 +38,20 @@ class Pagination extends Language
     var $message = true;
     
     /**
+     * Message before buttom
+     * if false symbol inserts the symbol, remember to leave $message as false
+     * @var mixed 
+     */
+    var $message_before = false;
+
+    /**
+     * Message after buttom
+     * if false symbol inserts the symbol, remember to leave $message as false
+     * @var mixed 
+     */
+    var $message_after = false;
+    
+    /**
      * Class name for element active, use NULL if you want not put nothing
      * @var String 
      */
@@ -147,7 +161,8 @@ class Pagination extends Language
                   }
                 else
                   {
-                    $result = '<li' . $class_last . '><a href="' . $URL . $return . '"> &#171; </a></li>';
+                    $msg = ($this->message_before == false) ? '&#171;' : $this->message_before;
+                    $result = '<li' . $class_last . '><a href="' . $URL . $return . '"> ' . $msg . ' </a></li>';
                   }
               }
             else
@@ -158,7 +173,8 @@ class Pagination extends Language
                   }
                 else
                   {
-                    $result = '<a' . $class_last . ' href="' . $URL . $return . '"> &#171; </a>';
+                    $msg = ($this->message_before == false) ? '&#171;' : $this->message_before;
+                    $result = '<a' . $class_last . ' href="' . $URL . $return . '"> ' . $msg . ' </a>';
                   }
               }
           }
@@ -188,7 +204,8 @@ class Pagination extends Language
                   }
                 else
                   {
-                    $result = '<li' . $class_before . '><a href="' . $URL . $return . '"> &#187; </a></li>';
+                    $msg = ($this->message_after == false) ? '&#187;' : $this->message_after;
+                    $result = '<li' . $class_before . '><a href="' . $URL . $return . '"> ' . $msg . ' </a></li>';
                   }
               }
             else
@@ -199,7 +216,8 @@ class Pagination extends Language
                   }
                 else
                   {
-                    $result = '<a' . $class_before . ' href="' . $URL . $return . '"> &#187; </a>';
+                    $msg = ($this->message_after == false) ? '&#187;' : $this->message_after;
+                    $result = '<a' . $class_before . ' href="' . $URL . $return . '"> ' . $msg . ' </a>';
                   }
               }
           }
