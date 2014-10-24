@@ -32,7 +32,6 @@ class Pagination extends Language
     
     /**
      * put true if you do not want the button before and after receive text messages put false will show symbols.
-     * @see <code>lamguage.php</code>
      * @var Boolean 
      */
     var $message = true;
@@ -81,6 +80,7 @@ class Pagination extends Language
      */
     var $show_numbering = true;
     
+
     public function get_page()
       {
         return $this->page;
