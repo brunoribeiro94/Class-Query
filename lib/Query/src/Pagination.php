@@ -61,6 +61,12 @@ class Pagination extends Language
      */
     var $class_after = NULL;
     
+    /**
+     * show page numbers?
+     * @var boolean 
+     */
+    var $show_numbering = false;
+    
     public function get_page()
       {
         return $this->page;
@@ -221,6 +227,10 @@ class Pagination extends Language
      */
     private function loop($URL, $page_param)
       {
+        if ($this->show_numbering == false) 
+        {
+            return NULL;
+        }
         $result = '';
         if ($this->li == true)
           {
