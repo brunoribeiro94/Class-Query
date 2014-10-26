@@ -149,35 +149,29 @@ class Pagination extends Language
      */
     function make_button_before($URL, $value)
       {
-        $return     = $value - 1;
+        $return = $value - 1;
         $class_last = isset($this->class_after) ? ' class="' . $this->class_before . '"' : NULL;
-        if ($value > 1)
-          {
-            if ($this->li == true)
-              {
-                if ($this->message == true)
-                  {
-                    $result = '<li' . $class_last . '><a href="' . $URL . $return . '"> ' . $this->PAGINATION_TEXT_BEFORE . ' </a></li>';
-                  }
-                else
-                  {
-                    $msg = ($this->message_before == false) ? '&#171;' : $this->message_before;
-                    $result = '<li' . $class_last . '><a href="' . $URL . $return . '"> ' . $msg . ' </a></li>';
-                  }
-              }
-            else
-              {
-                if ($this->message == true)
-                  {
-                    $result = '<a' . $class_last . ' href="' . $URL . $return . '"> ' . $this->PAGINATION_TEXT_BEFORE . ' </a>';
-                  }
-                else
-                  {
-                    $msg = ($this->message_before == false) ? '&#171;' : $this->message_before;
-                    $result = '<a' . $class_last . ' href="' . $URL . $return . '"> ' . $msg . ' </a>';
-                  }
-              }
-          }
+        if ($value > 1) 
+        {
+            // check message
+            if ($this->message == true) 
+            {
+                $msg = $this->PAGINATION_TEXT_BEFORE;
+            } 
+            else 
+            {
+                $msg = $this->message_before == false ? '&#171;' : $this->message_before;
+            }
+            // check li tag
+            if ($this->li == true) 
+            {
+                $result = '<li' . $class_last . '><a href="' . $URL . $return . '"> ' . $msg . ' </a></li>';
+            } 
+            else 
+            {
+                $result = '<a' . $class_last . ' href="' . $URL . $return . '"> ' . $msg . ' </a>';
+            }
+        }
         return isset($result) ? $result : false;
       }
     
