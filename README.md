@@ -27,8 +27,8 @@ Best way to do is cloning via git: `git clone https://github.com/offboard/class-
 #### CONFIGS IN THE CODE:
 
 In *lib/Query/src/Config.php*:
-4. enter you array conection in $Conections_Settings
-5. enter your database credentials in key DB_USER, DB_PASS etc.
+4. enter you array conection in *$Conections_Settings*
+5. enter your database credentials in key *DB_USER*, *DB_PASS* etc.
 6. enter your charset in key charset.
 
 In *lib/Query/src/Pagination.php*:
@@ -236,6 +236,64 @@ $q->class_after = 'page';
 $q->class_before = 'page';
 $q->message = true;
 print $q->make_pages('page.php?id=', $id_post);
+?>
+```
+
+## Example Insert Into
+```php
+<?php
+// Loading all required classes
+require_once( __DIR__ . '/lib/autoload.php');
+
+$name = 'user'.rand();
+$email = $name.'@example.com';
+$q = new Query;
+$q
+	->insert_into(
+		'user',
+		array(
+			'name' => $name,
+			'email' => $email
+		)
+	)
+	->run();
+	
+if (!$q) {
+    echo 'sorry, was not possible to insert a new user';
+} else {
+    echo 'User successfully added.';
+}
+?>
+```
+
+## Example Update Table With Criteria And Limit
+```php
+<?php
+// Loading all required classes
+require_once( __DIR__ . '/lib/autoload.php');
+
+$q = new Query;
+$q
+        ->update('user')
+        ->set(
+                array(
+                        'name' => 'new_user_name',
+                        'email' => 'new_email@example.com'
+                )
+        )
+        ->where_equal_to(
+                array(
+                        'user_id' => 123456
+                )
+        )
+        ->limit(1)
+        ->run();
+	
+if (!$q) {
+      echo 'Sorry, could not update user.';
+} else {
+      echo 'User updated.';
+}
 ?>
 ```
 
