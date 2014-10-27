@@ -1,7 +1,16 @@
 <?php
+/**
+ * Class Query Replace
+ * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
+ * @author Zachbor       <zachborboa@gmail.com>
+ * 
+ * @version 1.1
+ * @access public
+ * @package Replace
+ * @subpackage Pagination
+ */
 class Replace extends Pagination
   {
-    /* REPLACE */
     /**
      * returns last get replaced
      * @return array
@@ -10,10 +19,11 @@ class Replace extends Pagination
       {
         return self::get_affected();
       }
+      
     /**
      * Function Query replace
-     * @param String $table
-     * @param mixed $keys_and_values
+     * @param String $table Table name
+     * @param array $keys_and_values Array column key and value to replacement
      * @return \Replace
      */
     public function replace($table, $keys_and_values)
@@ -28,10 +38,11 @@ class Replace extends Pagination
         $this->replace_into = "\n" . 'REPLACE INTO ' . $table . ' (' . "\n" . "\t" . implode(',' . "\n\t", $replace_keys) . "\n" . ')' . "\n" . 'VALUES (' . "\n" . "\t" . implode(',' . "\n\t", $replace_values) . "\n" . ')' . "\n" . '';
         return $this;
       }
+      
     /**
      * alias for replace()
-     * @param string $table
-     * @param mixed $keys_and_values
+     * @param string $table Table name
+     * @param array $keys_and_values Array column key and value to replacement
      * @return \Replace
      */
     public function replace_into($table, $keys_and_values)
