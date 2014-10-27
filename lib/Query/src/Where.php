@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Class Query Where
+ * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
+ * @author Zachbor       <zachborboa@gmail.com>
+ * 
+ * @version 1.0
+ * @access public
+ * @package Where
+ * @subpackage Replace
+ */
 class Where extends Replace
   {
     
