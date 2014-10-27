@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Class Query Running Query Application
+ * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
+ * @author Zachbor       <zachborboa@gmail.com>
+ * 
+ * @version 1.2
+ * @access public
+ * @package Run
+ * @subpackage Pagination
+ */
 class Run extends Get
   {
     
