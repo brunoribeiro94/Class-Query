@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Class Query Insert
+ * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
+ * @author Zachbor       <zachborboa@gmail.com>
+ * 
+ * @version 0.4
+ * @access public
+ * @package Insert
+ * @subpackage Delete
+ */
 class Insert extends Delete {
 
     /**
