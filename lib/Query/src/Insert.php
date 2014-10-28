@@ -70,7 +70,7 @@ class Insert extends Delete {
     /**
      * insert_into() alias
      * @param String $table Table name
-     * @param mixed $keys_and_values Column(s) and value(s) to add
+     * @param array $keys_and_values Array colletion column and value to add
      * @param String $on_duplicate_key_update Standard ''
      * @param String $insert_options Standard ''
      * @return \Insert
@@ -82,7 +82,7 @@ class Insert extends Delete {
     /**
      * Ignore on insert
      * @param String $table Table name
-     * @param mixed $keys_and_values Column(s) and value(s) to add
+     * @param array $keys_and_values Array colletion column and value to add
      * @param String $on_duplicate_key_update Standard ''
      * @return \Insert
      */
@@ -93,7 +93,7 @@ class Insert extends Delete {
     /**
      * Insert new registry
      * @param String $table Table name
-     * @param mixed $keys_and_values Column(s) and value(s) to add
+     * @param array $keys_and_values Array colletion column and value to add
      * @param String $on_duplicate_key_update Standard ''
      * @param String $insert_options Standard ''
      * @return \Insert
