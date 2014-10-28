@@ -1,8 +1,16 @@
 <?php
 
+/**
+ * Class Query Update Query
+ * @author Zachbor       <zachborboa@gmail.com>
+ * 
+ * @version 0.1
+ * @access public
+ * @package Update
+ * @subpackage Where
+ */
 class Update extends Where
   {
-    /* UPDATE */
     
     /**
      * return last get updated
@@ -26,7 +34,7 @@ class Update extends Where
     
     /**
      * Function Query update
-     * @param string $table Table
+     * @param string $table Table name
      * @param array $set Array colletion columns and value
      * @return \Update
      */
