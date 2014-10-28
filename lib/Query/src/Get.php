@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * Class Query Get Query
+ * @author Zachbor       <zachborboa@gmail.com>
+ * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
+ * 
+ * @version 0.3
+ * @access public
+ * @package Get
+ * @subpackage Insert
+ * @todo Finish Query Get Distinct
+ */
 class Get extends Insert
   {
     
