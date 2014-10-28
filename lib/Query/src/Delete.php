@@ -1,8 +1,16 @@
 <?php
 
+/**
+ * Class Query Delete Query
+ * @author Zachbor       <zachborboa@gmail.com>
+ * 
+ * @version 0.1
+ * @access public
+ * @package Delete
+ * @subpackage Update
+ */
 class Delete extends Update
   {
-    /* DELETE */
     
     /**
      * alias delete_from() 
