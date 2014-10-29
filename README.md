@@ -259,7 +259,7 @@ $q
 	->run();
 	
 if (!$q) {
-    echo 'sorry, was not possible to insert a new user';
+    echo 'sorry, was not possible to insert a new user.';
 } else {
     echo 'User successfully added.';
 }
@@ -296,7 +296,25 @@ if (!$q) {
 }
 ?>
 ```
-
+## Example Delete Table With Criteria
+```php
+ $id = rand(1,10);
+ $q = new Query();
+            $q
+                    ->delete('user')
+                    ->where_equal_to(
+                            array(
+                                'id' => $id
+                            )
+                    )
+                    ->run();
+            if ($q) {
+                echo 'User successfully deleted.';
+            }else{
+            	echo 'sorry, it was not possible to delete the user.';
+            }
+?>
+```      
 ## Contribute
 
 Please commit only in *develop* branch. The *master* branch will always contain the stable version.
