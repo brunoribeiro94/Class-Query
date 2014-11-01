@@ -440,6 +440,7 @@ class autoloadManager {
 
 }
 
+// require all files in libs folder
 $autoloadManager = new autoloadManager(null, autoloadManager::SCAN_ONCE);
 $autoloadManager->addFolder(__DIR__ . '/lib/');
 $autoloadManager->register();
