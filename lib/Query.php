@@ -1,6 +1,6 @@
 <?php
 
-// autoload function call all classes from src folder
+// add folder Query_src
 $autoloadManager = new autoloadManager(null, autoloadManager::SCAN_ONCE);
 $autoloadManager->addFolder(__DIR__ . '/Query_src/');
 $autoloadManager->register();
