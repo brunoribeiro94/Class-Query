@@ -46,15 +46,15 @@ In *lib/Query/src/Pagination.php*:
 
 ## Quick Install
 ```php
-// Loading all required classes
-require_once( __DIR__ . '/lib/autoload.php');
+// Loading all classes in lib folder
+require_once('autoload.php');
 ```
 
 ## Example Select From Table
 ```php
 <?php
 // Loading all required classes
-require_once( __DIR__ . '/lib/autoload.php');
+require_once('autoload.php');
 
 $q=new Query;
 $q
@@ -74,7 +74,7 @@ $q
 ```php
 <?php
 // Loading all required classes
-require_once( __DIR__ . '/lib/autoload.php');
+require_once('autoload.php');
 
 // Find the user_id, name and email for all users from the `user` table
 $q=new Query;
@@ -123,7 +123,7 @@ else{
 ```php
 <?php
 // Loading all required classes
-require_once( __DIR__ . '/lib/autoload.php');
+require_once('autoload.php');
 
 $id = 'BRA';
 $q = new Query;
@@ -156,7 +156,7 @@ if (!($data && $count > 0)) {
 ```php
 <?php
 // Loading all required classes
-require_once( __DIR__ . '/lib/autoload.php');
+require_once('autoload.php');
 
 $q = new Query;
 $q
