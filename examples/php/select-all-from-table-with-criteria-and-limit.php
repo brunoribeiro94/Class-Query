@@ -17,7 +17,7 @@
             <hr>
             <?php
             // Loading all required classes
-            require_once( __DIR__ . '/../../lib/autoload.php');
+            require_once( __DIR__ . '/../../autoload.php');
 
             $id = 'BRA';
             $q = new Query;
@@ -53,6 +53,8 @@
             <h1><a name="Select_From_Table"></a>Example of executing code<a class="section_anchor"></a></h1>
             <a href="#Live_Example">Example of executing code</a>
             <pre class="prettyprint">
+// Loading all required classes
+require_once( __DIR__ . '/../../autoload.php');
 $id = 'BRA';
 $q = new Query;
 $q

@@ -17,7 +17,7 @@
             <hr>
             <?php
             // Loading all required classes
-            require_once( __DIR__ . '/../../lib/autoload.php');
+            require_once( __DIR__ . '/../../autoload.php');
             $q = new Query;
             $q
                     ->select(
@@ -59,7 +59,7 @@
             <a href="#Live_Example">Example of executing code</a>
             <pre class="prettyprint">
 // Loading all required classes
-require_once( __DIR__ . '/../../lib/autoload.php');
+require_once( __DIR__ . '/../../autoload.php');
 $q = new Query;
 $q
         ->select(

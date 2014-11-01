@@ -109,7 +109,7 @@
             <hr>
             <?php
             // Loading all required classes
-            require_once( __DIR__ . '/../../lib/autoload.php');
+            require_once( __DIR__ . '/../../autoload.php');
 
             // get id of pagination
             $id_post = filter_input(INPUT_GET, 'id');
@@ -172,7 +172,7 @@
             <a href="#Live_Example">Example of executing code</a>
             <pre class="prettyprint">
 // Loading all required classes
-require_once( __DIR__ . '/../../lib/autoload.php');
+require_once( __DIR__ . '/../../autoload.php');
 
 // get id of pagination
 $id_post = filter_input(INPUT_GET, 'id');
