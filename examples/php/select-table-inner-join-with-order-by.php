@@ -26,7 +26,6 @@
                             )
                     )
                     ->from('country as c')
-                    #->inner_join('city ON city.`CountryCode` = c.`Code`')
                     ->inner_join(
                             array(
                                 'city ON city.`CountryCode` = c.`Code`',
@@ -68,7 +67,6 @@ $q
                 )
         )
         ->from('country as c')
-        #->inner_join('city ON city.`CountryCode` = c.`Code`')
         ->inner_join(
                 array(
                     'city ON city.`CountryCode` = c.`Code`',
