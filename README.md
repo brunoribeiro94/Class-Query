@@ -298,6 +298,9 @@ if (!$q) {
 ```
 ## Example Delete Table With Criteria
 ```php
+<?php
+// Loading all required classes
+require_once( __DIR__ . '/lib/autoload.php');
  $id = rand(1,10);
  $q = new Query();
             $q
