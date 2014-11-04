@@ -1,5 +1,5 @@
 <?php
-
+//namespace to organize 
 namespace Query_src;
 
 // use mysqli connection
@@ -9,7 +9,6 @@ use mysqli as mysqli;
  * Configuration for: Database Connection
  * This is the place where your database constants are saved
  * @version 2.3
- *
  */
 class Config extends Run {
 
