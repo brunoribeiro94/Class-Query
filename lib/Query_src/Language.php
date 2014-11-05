@@ -1,5 +1,5 @@
 <?php
-
+//namespace to organize
 namespace Query_src;
 
 /**
