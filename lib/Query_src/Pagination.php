@@ -116,15 +116,20 @@ class Pagination extends Language {
             case (isset($this->class_active)):
                 if ($value == $param) {
                     $result = ' class="' . $this->class_active . '"';
+                }else{
+                    $result = false;
                 }
                 break;
             case (isset($this->class_inative)):
                 if ($value == $param) {
                     $result = ' class="' . $this->class_inative . '"';
+                }else{
+                    $result = false;
                 }
                 break;
             default:
                 $result = NULL;
+                break;
         }
         return $result;
     }
