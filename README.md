@@ -1,30 +1,34 @@
 # PHP Class-Query
+-----------------
 This is a script to make life easier for beginners, medium and advanced programmers.
 This script connects to the database using mysqli method further down has some usage examples. 
 
 ### Key Features
-* Uses Mysqli to check for database access (more security)
-* added Where between
-* added Inner join
-* added multiple connection to the database
-* Builds pagination numbering added
-* Queries using the class-Query is simple and practical
-* Can use *$q>show()* and shows the SQL query
-* Taken almost all functions have already been implemented in SQL
-* Main functions are already mentioned with an example of SQL
+-----------------
+* Uses Mysqli (more security)
+* Paging records.
+* No SQL Injection.
+* Functions and classes very well documented.
+* Queries using the class-Query is simple and practical.
+* Can use *$q>show()* to show the code SQL executed.
+* Taken almost all functions have already been implemented in SQL.
+* Main functions already mentioned with an example of SQL.
 
 ## Requirements
-
+-----------------
 * **PHP 5.3.7+**, PHP 5.4+ or PHP 5.5+
 * **MySQL 5** database
 
 #### ON YOUR SERVER (we use Linux Mint 17 Qiana here):
+-----------------
+
 1. install Apache, MySQL, PHP and eventually PHPMyAdmin: [How to setup a LAMP stack on Ubuntu 12.04](http://www.dev-metal.com/setup-basic-lamp-stack-linux-apache-mysql-php-ubuntu-12-04/)
 2. copy the contents of the extracted class-query repository into */var/www/your-project* ! for organizational purposes we recommend that you extract to libs folder of your project example */var/www/your-project/libs/*.
 Best way to do is cloning via git: `git clone https://github.com/offboard/class-query.git /var/www/your-project/libs/`
 3. Run the three SQL statements in the *_installation/sql_statements/* run in the right order
 
 #### CONFIGS IN THE CODE:
+-----------------
 
 In *lib/Query/src/Config.php*:
 4. enter you array conection in *$Conections_Settings*
@@ -45,12 +49,14 @@ In *lib/Query/src/Pagination.php*:
 
 
 ## Quick Install
+-----------------
 ```php
 // Loading all classes in lib folder
 require_once('autoload.php');
 ```
 
 ## Example Select From Table
+-----------------
 ```php
 <?php
 // Loading all required classes
@@ -71,6 +77,7 @@ $q
 ```
 
 ## Example Select With Order By And Limit
+-----------------
 ```php
 <?php
 // Loading all required classes
@@ -120,6 +127,7 @@ else{
 ```
 
 ## Example Select With Criteria And Limit
+-----------------
 ```php
 <?php
 // Loading all required classes
@@ -153,6 +161,7 @@ if (!($data && $count > 0)) {
 ```
 
 ## Example Select With where between
+-----------------
 ```php
 <?php
 // Loading all required classes
@@ -187,6 +196,7 @@ if (!($data && $count > 0)) {
 ```
 
 ## Example Select With pagination
+-----------------
 ```php
 <?php
 // Loading all required classes
@@ -240,6 +250,7 @@ print $q->make_pages('page.php?id=', $id_post);
 ```
 
 ## Example Insert Into
+-----------------
 ```php
 <?php
 // Loading all required classes
@@ -267,6 +278,7 @@ if (!$q) {
 ```
 
 ## Example Update Table With Criteria And Limit
+-----------------
 ```php
 <?php
 // Loading all required classes
@@ -297,6 +309,7 @@ if (!$q) {
 ?>
 ```
 ## Example Delete Table With Criteria
+-----------------
 ```php
 <?php
 // Loading all required classes
@@ -319,14 +332,17 @@ require_once( __DIR__ . '/lib/autoload.php');
 ?>
 ```      
 ## Contribute
+-----------------
 
 Please commit only in *develop* branch. The *master* branch will always contain the stable version.
 
 ## Current and further development
+-----------------
 
 See active issues and requested features here:
 https://github.com/offboard/class-query/issues?state=open
 
 ## License
+-----------------
 
 Licensed under [MIT](http://www.opensource.org/licenses/mit-license.php). Totally free for private or commercial projects.
