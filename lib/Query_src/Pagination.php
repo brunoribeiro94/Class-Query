@@ -7,39 +7,50 @@ namespace Query_src;
  * Class query - Pagination
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 1.3
+ * @version 1.4
  * @access public
  * @package Language
  * */
 class Pagination extends Language {
 
     /**
-     * put true if you for use tag li also put false
+     * Set this variable to false if you don't using tag <li>
+     * 
+     * @access public
      * @var Boolean 
      */
     var $li = false;
 
     /**
-     * put false if you no want the button after
+     * Set this variable to false if you don't want the pagination button after
+     * 
+     * @access public
      * @var Boolean 
      */
     var $after = true;
 
     /**
-     * put false if you no want the button before
+     * Set this variable to false if you don't want the pagination button before 
+     * 
+     * @access public
      * @var Boolean 
      */
     var $before = true;
 
     /**
-     * put true if you do not want the button before and after receive text messages put false will show symbols.
+     * Set this variable to true if you don't want the button before and after receive text messages.
+     * Set this variable to false if you want show symbols.
+     * 
+     * @access public
      * @var Boolean 
      */
     var $message = true;
 
     /**
-     * Message before buttom
-     * if false symbol inserts the symbol, remember to leave $message as false
+     * Set this variable to true if  you don't want inserts the symbol, remember to leave $message as false
+     * 
+     * @see $message
+     * @access public
      * @var mixed 
      */
     var $message_before = false;
@@ -47,12 +58,16 @@ class Pagination extends Language {
     /**
      * Message after buttom
      * if false symbol inserts the symbol, remember to leave $message as false
+     * 
+     * @access public
      * @var mixed 
      */
     var $message_after = false;
 
     /**
      * Class name for element active, use NULL if you want not put nothing
+     * 
+     * @access public
      * @var String 
      */
     var $class_active = NULL;
@@ -65,21 +80,27 @@ class Pagination extends Language {
 
     /**
      * Class name for element before, use NULL if you want not put nothing
+     * 
+     * @access public
      * @var String 
      */
     var $class_before = NULL;
 
     /**
      * Class name for element after, use NULL if you want not put nothing
+     * 
+     * @access public
      * @var String 
      */
     var $class_after = NULL;
 
     /**
-     * show page numbers?
+     * Set this variable to false if  you don't want show page numbers.
+     * 
+     * @access public
      * @var boolean 
      */
-    var $show_numbering = true;
+    var $pagination_show_numbering = true;
 
     public function get_page() {
         return $this->page;
@@ -146,13 +167,13 @@ class Pagination extends Language {
         $class_last = isset($this->class_after) ? ' class="' . $this->class_before . '"' : NULL;
         if ($value > 1) {
             // check message
-            if ($this->message == true) {
+            if ($this->message) {
                 $msg = $this->PAGINATION_TEXT_BEFORE;
             } else {
-                $msg = $this->message_before == false ? '&#171;' : $this->message_before;
+                $msg = !$this->message_before ? '&#171;' : $this->message_before;
             }
             // check li tag
-            if ($this->li == true) {
+            if ($this->li) {
                 $result = '<li' . $class_last . '><a href="' . $URL . $return . '"> ' . $msg . ' </a></li>';
             } else {
                 $result = '<a' . $class_last . ' href="' . $URL . $return . '"> ' . $msg . ' </a>';
@@ -175,13 +196,13 @@ class Pagination extends Language {
         $class_before = isset($this->class_after) ? ' class="' . $this->class_after . '"' : NULL;
         if ($value < $total) {
             // check message
-            if ($this->message == true) {
+            if ($this->message) {
                 $msg = $this->PAGINATION_TEXT_AFTER;
             } else {
                 $msg = $this->message_after == false ? '&#187;' : $this->message_after;
             }
             // check li tag
-            if ($this->li == true) {
+            if ($this->li) {
                 $result = '<li' . $class_before . '><a href="' . $URL . $return . '"> ' . $msg . ' </a></li>';
             } else {
                 $result = '<a' . $class_before . ' href="' . $URL . $return . '"> ' . $msg . ' </a>';
@@ -209,11 +230,11 @@ class Pagination extends Language {
      * @return Object
      */
     private function loop($URL, $page_param) {
-        if ($this->show_numbering == false) {
+        if (!$this->pagination_show_numbering) {
             return NULL;
         }
         $result = '';
-        if ($this->li == true) {
+        if ($this->li) {
             for ($i = 1; $i <= $this->get_pages(); $i++) {
                 $result .= '<li' . $this->verify_current($i, $page_param) . '><a href="' . $URL . $i . '">' . $i . '</a></li>';
             }
@@ -244,7 +265,7 @@ class Pagination extends Language {
      * @return string
      */
     private function check_limit($URL, $page_param) {
-        if ($this->verify_limit($page_param) == true) {
+        if ($this->verify_limit($page_param)) {
             return $this->call_all_object_pagination($URL, $page_param);
         }
     }
@@ -259,7 +280,7 @@ class Pagination extends Language {
      * @return Object
      */
     public function make_pages($URL, $page_param) {
-        if ($this->get_pages() == 1) {
+        if ($this->get_pages()) {
             return false;
         } else {
             return isset($page_param) ? $this->check_limit($URL, $page_param) : $this->check_limit($URL, 1);
