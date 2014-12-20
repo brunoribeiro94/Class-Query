@@ -1,10 +1,5 @@
 <?php
 
-// add folder Query_src
-$autoloadManager = new autoloadManager(null, autoloadManager::SCAN_ONCE);
-$autoloadManager->addFolder(__DIR__ . '/Query_src/');
-$autoloadManager->register();
-
 // Use Config class query
 use Query_src\Config as Config;
 
