@@ -19,13 +19,41 @@ This script connects to the database using mysqli method further down has some u
 * **PHP 5.3.7+**, PHP 5.4+ or PHP 5.5+
 * **MySQL 5** database
 
-#### ON YOUR SERVER (we use Linux Mint 17 Qiana here):
+## Installation / Usage
 -----------------
 
-1. install Apache, MySQL, PHP and eventually PHPMyAdmin: [How to setup a LAMP stack on Ubuntu 12.04](http://www.dev-metal.com/setup-basic-lamp-stack-linux-apache-mysql-php-ubuntu-12-04/)
-2. copy the contents of the extracted class-query repository into */var/www/your-project* ! for organizational purposes we recommend that you extract to libs folder of your project example */var/www/your-project/libs/*.
-Best way to do is cloning via git: `git clone https://github.com/offboard/class-query.git /var/www/your-project/libs/`
-3. Run the three SQL statements in the *_installation/sql_statements/* run in the right order
+1. Download the [`composer.phar`](https://getcomposer.org/composer.phar) executable or use the installer.
+
+    ``` sh
+    $ curl -sS https://getcomposer.org/installer | php
+    ```
+    
+2. Create a composer.json defining your dependencies. Note that this example is
+a short version for applications that are not meant to be published as packages
+themselves. To create libraries/packages please read the
+[documentation](http://getcomposer.org/doc/02-libraries.md).
+
+    ``` json
+    {
+        "require": {  
+            "offboard/class-query": "dev-master"
+        }
+    }
+    ```
+3. Run Composer: `php composer.phar install`
+4. Browse for more packages on [Packagist](https://packagist.org).
+
+## Updating Composer
+-----------------
+
+Running `php composer.phar self-update` or equivalent will update a phar
+install with the latest version.
+
+## Installation from Source
+------------------------
+
+1. Run `git clone https://github.com/offboard/class-query.git /var/www/your-project/libs/`
+3. Include the class in your project file: `include('./libs/autoload.php');`
 
 #### CONFIGS IN THE CODE:
 -----------------
