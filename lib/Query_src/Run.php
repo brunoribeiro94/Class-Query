@@ -147,7 +147,7 @@ class Run extends Get {
         $this->result = $result;
         if (!$this->result) {
             $this->mysql_error = mysqli_error($mysqli);
-            $this->error = $this->TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
+            $this->error = sprintf($this->TEXT_ERRO_TYPE_QUERY, $this->from, $this->mysql_error);
 
             if (function_exists('error')) {
                 error($this->error);

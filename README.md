@@ -35,6 +35,9 @@ themselves. To create libraries/packages please read the
 
     ``` json
     {
+	"repositories": [
+	    { "type": "git", "url": "https://github.com/offboard/Class-Query"}
+	], 
         "require": {  
             "offboard/class-query": "dev-master"
         }

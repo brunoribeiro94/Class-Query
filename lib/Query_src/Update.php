@@ -15,6 +15,8 @@ class Update extends Where {
 
     /**
      * return last get updated
+     * 
+     * @access public
      * @return array
      */
     public function get_updated() {
@@ -23,6 +25,8 @@ class Update extends Where {
 
     /**
      * values set for update Query function
+     * 
+     * @access public
      * @param mixed $set
      * @return \Update
      */
@@ -33,6 +37,8 @@ class Update extends Where {
 
     /**
      * Function Query update
+     * 
+     * @access public
      * @param string $table Table name
      * @param array $set Array colletion columns and value
      * @return \Update

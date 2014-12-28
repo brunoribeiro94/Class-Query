@@ -17,6 +17,8 @@ class Get extends Insert {
 
     /**
      * returns select, insert or update query
+     * 
+     * @access public
      * @param boolean $use_limit standard false
      * @return boolean
      */
@@ -51,6 +53,8 @@ class Get extends Insert {
 
     /**
      * get delete query
+     * 
+     * @access protected
      * @return boolean
      */
     protected function _get_delete_query() {
@@ -75,7 +79,7 @@ class Get extends Insert {
     }
 
     /**
-     * GROUP BY Determines how the records should be grouped.
+     * get GROUP BY Determines how the records should be grouped.
      * @return string
      */
     private function _get_group_by() {
@@ -88,7 +92,8 @@ class Get extends Insert {
     }
 
     /**
-     * INNER JOIN to records.
+     * get INNER JOIN to records.
+     * Check the value on the type of data provided.
      * 
      * @return string
      * @version 2.0
@@ -106,6 +111,8 @@ class Get extends Insert {
 
     /**
      * get insert query
+     * Check the value on the type of data provided.
+     * 
      * @return boolean
      */
     private function _get_insert_query() {
@@ -123,6 +130,8 @@ class Get extends Insert {
 
     /**
      * get insert multiple
+     * Check the value on the type of data provided.
+     * 
      * @return boolean
      */
     private function _get_insert_multiple() {
@@ -144,6 +153,8 @@ class Get extends Insert {
 
     /**
      * get limit
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_limit() {
@@ -159,6 +170,8 @@ class Get extends Insert {
 
     /**
      * ORDER BY to order the records.
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_order_by() {
@@ -173,8 +186,10 @@ class Get extends Insert {
     }
 
     /**
-     * get results
-     * @return Void
+     * get total records
+     * 
+     * @access protected
+     * @return void
      */
     protected function _get_results() {
         $this->results = mysqli_num_rows($this->result);
@@ -182,6 +197,7 @@ class Get extends Insert {
 
     /**
      * get replace query
+     * 
      * @return boolean
      */
     private function _get_replace_query() {
@@ -195,6 +211,8 @@ class Get extends Insert {
 
     /**
      * get select
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_select() {
@@ -231,6 +249,8 @@ class Get extends Insert {
 
     /**
      * get set
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_set() {
@@ -357,6 +377,8 @@ class Get extends Insert {
 
     /**
      * between min AND max
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_between() {
@@ -379,6 +401,8 @@ class Get extends Insert {
 
     /**
      * get where equal or
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_equal_or() {
@@ -411,6 +435,8 @@ class Get extends Insert {
 
     /**
      * = Equal to
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_equal_to() {
@@ -439,6 +465,8 @@ class Get extends Insert {
 
     /**
      * > greater than
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_greater_than() {
@@ -463,6 +491,8 @@ class Get extends Insert {
 
     /**
      * Select Query >= greater than or equal to
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_greater_than_or_equal_to() {
@@ -487,6 +517,8 @@ class Get extends Insert {
 
     /**
      * IN Checks for values in a list
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_in() {
@@ -521,6 +553,8 @@ class Get extends Insert {
 
     /**
      * < Less than
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_less_than() {
@@ -545,6 +579,8 @@ class Get extends Insert {
 
     /**
      * <= Less than or equal to
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_less_than_or_equal_to() {
@@ -569,6 +605,8 @@ class Get extends Insert {
 
     /**
      * get where like after
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_like_after() {
@@ -591,6 +629,8 @@ class Get extends Insert {
 
     /**
      * get where like before
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_like_before() {
@@ -613,6 +653,8 @@ class Get extends Insert {
 
     /**
      * get where like both
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_like_both() {
@@ -635,6 +677,8 @@ class Get extends Insert {
 
     /**
      * get where like binary
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_like_binary() {
@@ -653,6 +697,8 @@ class Get extends Insert {
 
     /**
      * get where like or
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_like_or() {
@@ -675,6 +721,8 @@ class Get extends Insert {
 
     /**
      * <> Not equal to | != Not equal to
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_not_equal_or() {
@@ -697,6 +745,8 @@ class Get extends Insert {
 
     /**
      * <> Not equal to | != Not equal to
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_not_equal_to() {
@@ -720,6 +770,8 @@ class Get extends Insert {
 
     /**
      * NOT IN Ensures the value is not in the list
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_not_in() {
@@ -754,6 +806,8 @@ class Get extends Insert {
 
     /**
      * NOT LIKE Used to compare strings
+     * Check the value on the type of data provided.
+     * 
      * @return string
      */
     private function _get_where_not_like() {
@@ -776,6 +830,8 @@ class Get extends Insert {
 
     /**
      * Function Query get affected
+     * 
+     * @access public
      * @return Integer Returns number of affected rows by the last INSERT, UPDATE, REPLACE or DELETE 
      */
     public function get_affected() {
