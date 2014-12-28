@@ -16,6 +16,8 @@ class Insert extends Delete {
 
     /**
      * alias for get_inserted_id()
+     * 
+     * @access public
      * @param String $select Standard ''
      * @return Integer
      */
@@ -25,6 +27,8 @@ class Insert extends Delete {
 
     /**
      * alias for get_inserted_id()
+     * 
+     * @access public
      * @param String $select Standard ''
      * @return Integer
      */
@@ -34,6 +38,8 @@ class Insert extends Delete {
 
     /**
      * Return last id inserted
+     * 
+     * @access public
      * @param mixed $select Standard ''
      * @return Integer
      */
@@ -71,6 +77,8 @@ class Insert extends Delete {
 
     /**
      * insert_into() alias
+     * 
+     * @access public
      * @param String $table Table name
      * @param array $keys_and_values Array colletion column and value to add
      * @param String $on_duplicate_key_update Standard ''
@@ -83,6 +91,8 @@ class Insert extends Delete {
 
     /**
      * Ignore on insert
+     * 
+     * @access public
      * @param String $table Table name
      * @param array $keys_and_values Array colletion column and value to add
      * @param String $on_duplicate_key_update Standard ''
@@ -94,6 +104,8 @@ class Insert extends Delete {
 
     /**
      * Insert new registry
+     * 
+     * @access public
      * @param String $table Table name
      * @param array $keys_and_values Array colletion column and value to add
      * @param String $on_duplicate_key_update Standard ''
@@ -138,6 +150,8 @@ class Insert extends Delete {
 
     /**
      * alias insert_multiple()
+     * 
+     * @access public
      * @param String $table Table name
      * @param String $keys Column name
      * @param mixed $values Values to add
@@ -149,6 +163,8 @@ class Insert extends Delete {
 
     /**
      * Inserts a new record in the database
+     * 
+     * @access public
      * @param String $table Table name
      * @param String $keys Column names
      * @param mixed $values Values to add
@@ -184,6 +200,14 @@ class Insert extends Delete {
         return $this;
     }
 
+    /**
+     * 
+     * Duplacate key update
+     * 
+     * @access private
+     * @param type $on_duplicate_key_update
+     * @return void
+     */
     private function _on_duplicate_key_update($on_duplicate_key_update) {
         $this->on_duplicate_key_update = '';
         if ('' !== $on_duplicate_key_update && is_array($on_duplicate_key_update)) {
@@ -214,18 +238,46 @@ class Insert extends Delete {
 
     /* Get helpers */
 
+    /**
+     * Set keys
+     * 
+     * @access private
+     * @param mixed $keys
+     * @return void
+     */
     private function _set_keys($keys) {
         $this->keys = $keys;
     }
 
+    /**
+     * Set table
+     * 
+     * @access private
+     * @param string $table Table name
+     * @return void
+     */
     private function _set_table($table) {
         $this->table = $table;
     }
 
+    /**
+     * Set keys and value
+     * 
+     * @access private
+     * @param array $keys_and_values Key array is the database column the value of the array is the value that will be inserted.
+     * @return void
+     */
     private function _set_keys_and_values($keys_and_values) {
         $this->keys_and_values = $keys_and_values;
     }
 
+    /**
+     * Set value
+     * 
+     * @access private
+     * @param mixed $values Value to insert
+     * @return void
+     */
     private function _set_values($values) {
         $this->values = $values;
     }
