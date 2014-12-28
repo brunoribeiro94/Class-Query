@@ -19,7 +19,9 @@ class Config extends Run {
      * DB_USER - for your database. the user needs to have rights for SELECT, UPDATE, DELETE and INSERT.
      * by the way, it's bad style to use "root", but for development it will work.
      * DB_PASS - the password of the above user
-     * @var Array 
+     * 
+     * @access public
+     * @var array 
      */
     public $Connections_Settings = array(
         'Data1' => array(
@@ -40,13 +42,16 @@ class Config extends Run {
 
     /**
      * Link mysqli please no put nothing here
-     * @var Array 
+     * 
+     * @access protected
+     * @var array 
      */
     protected $link_mysqi = array();
 
     /**
      * Make a conection or multiples conections Mysqi (recommended)
-     * @access Private
+     * 
+     * @access private
      * @return Void
      */
     private function mysqli_connection() {
@@ -63,6 +68,8 @@ class Config extends Run {
 
     /**
      * checks which connection is active and returns the correct (no errors)
+     * 
+     * @access protected
      * @param array $value
      * @param mixed $value
      * @return array
@@ -82,7 +89,9 @@ class Config extends Run {
     }
 
     /**
-     * Make Conection
+     * Method magic create connection with database
+     * 
+     * @access public
      * @return void
      */
     public function __construct() {
