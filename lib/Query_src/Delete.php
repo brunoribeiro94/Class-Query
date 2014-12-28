@@ -15,7 +15,9 @@ class Delete extends Update {
 
     /**
      * alias delete_from() 
-     * @param String $table used for define table
+     * 
+     * @access public
+     * @param string $table Used to define table name
      * @return \Query
      */
     public function delete($table) {
@@ -24,7 +26,9 @@ class Delete extends Update {
 
     /**
      * Delete table
-     * @param String $table used for define table
+     * 
+     * @access public
+     * @param string $table Used to define table name
      * @return \Query
      */
     public function delete_from($table) {
@@ -34,6 +38,8 @@ class Delete extends Update {
 
     /**
      * returns get affected last registry delete
+     * 
+     * @access public
      * @return array
      */
     public function get_deleted() {
@@ -42,7 +48,9 @@ class Delete extends Update {
 
     /**
      * Function Query get affected
-     * @return Integer Returns number of affected rows by the last INSERT, UPDATE, REPLACE or DELETE 
+     * 
+     * @access public
+     * @return integer Returns number of affected rows by the last INSERT, UPDATE, REPLACE or DELETE 
      */
     public function get_affected() {
         for ($i = 0; $i < count($this->Connections_Settings); $i++) {
