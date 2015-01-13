@@ -18,6 +18,8 @@ class Query extends Config {
 
     /**
      * Method Magic
+     * 
+     * @access public
      * @return void
      */
     public function __construct() {
@@ -28,6 +30,8 @@ class Query extends Config {
 
     /**
      * alias for get_selected_count()
+     * 
+     * @access public
      * @return Integer
      */
     public function count() {
@@ -36,6 +40,8 @@ class Query extends Config {
 
     /**
      * Returns the number of records
+     * 
+     * @access public
      * @return Integer
      */
     public function get_selected_count() {
@@ -44,6 +50,8 @@ class Query extends Config {
 
     /**
      * returns an array of the SELECT result(s)
+     * 
+     * @access public
      * @return Array
      */
     public function get_selected() {
@@ -71,6 +79,8 @@ class Query extends Config {
 
     /**
      * SELECT Retrieves fields from one or more tables.
+     * 
+     * @access public
      * @param String $select standard *
      * @return \Query
      */
@@ -81,6 +91,8 @@ class Query extends Config {
 
     /**
      * alias for select() instead of using both select() && from()
+     * 
+     * @access public
      * @param array $select Select Column is key and Value to add is value
      * @param String $table Table name
      * @return \Query
@@ -101,6 +113,8 @@ class Query extends Config {
     /**
      * Function Query
      * FROM target the specifed tables.
+     * 
+     * @access public
      * @param String $from Used to specify the table
      * @return \Query
      */
@@ -128,6 +142,8 @@ class Query extends Config {
      *           `email`
      * </code>
      * </pre>
+     * 
+     * @access public
      * @param Array $group_by A string can be used if only one column
      * @return \Query 
      */
@@ -139,10 +155,12 @@ class Query extends Config {
     /**
      * Function Query having
      * Used with GROUP BY to specify the criteria for the grouped records.
+     * 
+     * @access public
      * @param Array $having The data type can be string
      * @param String $comparison Used for comparison 
      * @param String $boolean_operator Used for operator
-     * @access public
+     * 
      * @return \Query
      */
     public function having($having = '', $comparison = '=', $boolean_operator = 'AND') {
@@ -185,8 +203,9 @@ class Query extends Config {
      *           countrylanguage ON countrylanguage.`CountryCode` = c.`Code`
      * </code>
      * </pre>
-     * @param Array $inner_join string can be used
+     * 
      * @access public
+     * @param array $inner_join string can be used
      * @return \Query
      */
     public function inner_join($inner_join) {
@@ -209,8 +228,9 @@ class Query extends Config {
      *           1
      * </code>
      * </pre>
-     * @param Integer $limit Used to limit the records per page
+     * 
      * @access public
+     * @param Integer $limit Used to limit the records per page
      * @return \Query
      */
     public function limit($limit) {
@@ -233,8 +253,9 @@ class Query extends Config {
      *           1</b>, 10
      * </code>
      * </pre>
-     * @param Integer $offset Used to get starting at offset, number of items to get
+     * 
      * @access public
+     * @param integer $offset Used to get starting at offset, number of items to get
      * @return \Query
      */
     public function offset($offset) {
@@ -257,15 +278,23 @@ class Query extends Config {
      *           `Value ASC`
      * </code>
      * </pre>
-     * @param String $order_by Used 'value ASC' or DESC.
+     * 
      * @access public
+     * @param String $order_by Used 'value ASC' or DESC.
      * @return \Query
      */
     public function order_by($order_by) {
         $this->order_by = $order_by;
         return $this;
     }
-
+    
+    /**
+     * Function to define page used in paginations of registry
+     * 
+     * @access public
+     * @param integer $page
+     * @return \Query
+     */
     public function page($page) {
         $this->page = (int) $page;
         return $this;
@@ -273,6 +302,8 @@ class Query extends Config {
 
     /**
      * alias instead of using both limit() && offset()
+     * 
+     * @access public
      * @param Integer $limit
      * @param Integer $offset
      * @return \Query
@@ -284,6 +315,7 @@ class Query extends Config {
     }
 
     /**
+     * 
      * 
      * @param String $key
      * @param mixed $value
@@ -298,9 +330,10 @@ class Query extends Config {
     }
 
     /**
-     * * Displaying SQL
-     * * @access public
-     * * @return String
+     *  Displaying SQL
+     * 
+     *  @access public
+     *  @return String
      */
     public function show() {
         echo "<pre>" . self::get(true) . "</pre>";
@@ -309,6 +342,8 @@ class Query extends Config {
 
     /**
      * alias show() 
+     * 
+     * @access public
      * @return String
      */
     public function display() {
