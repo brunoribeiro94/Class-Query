@@ -9,7 +9,7 @@ use Query_src\Config as Config;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 2.3
+ * @version 2.4
  * @access public
  * @package Config
  * @todo Finish the functions : SUM, DISTINCT, and commands of tools to database.
@@ -304,8 +304,8 @@ class Query extends Config {
      * alias instead of using both limit() && offset()
      * 
      * @access public
-     * @param Integer $limit
-     * @param Integer $offset
+     * @param Integer $limit Limit page
+     * @param Integer $offset Limit to show
      * @return \Query
      */
     public function range($limit, $offset) {
@@ -315,7 +315,7 @@ class Query extends Config {
     }
 
     /**
-     * 
+     * deprecated function
      * 
      * @param String $key
      * @param mixed $value
@@ -332,22 +332,29 @@ class Query extends Config {
     /**
      *  Displaying SQL
      * 
-     *  @access public
-     *  @return String
+     * @access public
+     * @param boolean $echo Use false to return string or true to print
+     * @version 0.2
+     * @return \Query|String
      */
-    public function show() {
-        echo "<pre>" . self::get(true) . "</pre>";
-        return $this;
+    public function show($echo = true) {
+        if ($echo) {
+            echo self::get(true);
+            return $this;
+        }
+        return self::get(true);
     }
 
     /**
      * alias show() 
      * 
      * @access public
-     * @return String
+     * @param boolean $echo Use false to return string or true to print
+     * @version 0.2
+     * @return Object
      */
-    public function display() {
-        return self::show();
+    public function display($echo = true) {
+        return self::show($echo);
     }
 
 }
