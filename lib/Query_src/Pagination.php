@@ -7,7 +7,7 @@ namespace Query_src;
  * Class query - Pagination
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 1.4
+ * @version 1.5
  * @access public
  * @package Language
  * */
@@ -102,18 +102,42 @@ class Pagination extends Language {
      */
     var $pagination_show_numbering = true;
 
+    /**
+     * Alias page()
+     * 
+     * @access public 
+     * @return integer
+     */
     public function get_page() {
         return $this->page;
     }
 
+    /**
+     * Alias pages()
+     * 
+     * @access public 
+     * @return integer
+     */
     public function get_pages() {
         return $this->pages;
     }
 
+    /**
+     * Alias perpage()
+     * 
+     * @access public 
+     * @return integer
+     */
     public function get_perpage() {
         return $this->perpage;
     }
 
+    /**
+     * Alias total()
+     * 
+     * @access public 
+     * @return integer
+     */
     public function get_total() {
         return $this->total;
     }
@@ -168,7 +192,7 @@ class Pagination extends Language {
         if ($value > 1) {
             // check message
             if ($this->message) {
-                $msg = $this->PAGINATION_TEXT_BEFORE;
+                $msg = self::$PAGINATION_TEXT_BEFORE;
             } else {
                 $msg = !$this->message_before ? '&#171;' : $this->message_before;
             }
@@ -197,7 +221,7 @@ class Pagination extends Language {
         if ($value < $total) {
             // check message
             if ($this->message) {
-                $msg = $this->PAGINATION_TEXT_AFTER;
+                $msg = self::$PAGINATION_TEXT_AFTER;
             } else {
                 $msg = $this->message_after == false ? '&#187;' : $this->message_after;
             }
