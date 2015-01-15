@@ -7,7 +7,7 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.3
+ * @version 0.4
  * @access public
  * @package Get
  * @subpackage Insert
@@ -67,11 +67,16 @@ class Get extends Insert {
     }
 
     /**
-     * get from
+     * Get name of a table or many tables
+     * 
+     * @access private
      * @return string
      */
     private function _get_from() {
         if (isset($this->from)) {
+            if (is_array($this->from)) {
+                $this->from = implode(',' . "\n\t", $this->from);
+            }
             return 'FROM' . "\n" . "\t" . $this->from . "\n" . '';
         } else {
             return '';
