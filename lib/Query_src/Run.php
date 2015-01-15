@@ -7,7 +7,7 @@ namespace Query_src;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 1.2
+ * @version 1.3
  * @access public
  * @package Run
  * @subpackage Pagination
@@ -64,7 +64,7 @@ class Run extends Get {
                     }
                     break;
                 default:
-                    die($this->TEXT_ERRO_QUERY . $this->query_type);
+                    die(self::$TEXT_ERRO_QUERY . $this->query_type);
                     break;
             }
         }
@@ -147,7 +147,8 @@ class Run extends Get {
         $this->result = $result;
         if (!$this->result) {
             $this->mysql_error = mysqli_error($mysqli);
-            $this->error = sprintf($this->TEXT_ERRO_TYPE_QUERY, $this->from, $this->mysql_error);
+            $this->error = self::$TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
+            $this->error.= "<br>" . self::$TEXT_OUTPUT_QUERY . "<hr>" . $this->show(false);
 
             if (function_exists('error')) {
                 error($this->error);
