@@ -205,7 +205,7 @@ class Query extends Config {
      * </pre>
      * 
      * @access public
-     * @param array $inner_join string can be used
+     * @param array|string $inner_join string can be used
      * @return \Query
      */
     public function inner_join($inner_join) {
@@ -213,6 +213,30 @@ class Query extends Config {
         return $this;
     }
 
+    /**
+     * Function Query left join
+     * 
+     * Example Query output :
+     * 
+     * <pre>
+     * <code>
+     * SELECT 
+     *          c.*
+     * FROM
+     *          `table` AS c
+     * <b>LEFT JOIN</b>
+     *           countrylanguage ON countrylanguage.`CountryCode` = c.`Code`
+     * </code>
+     * </pre>
+     * @param array|string $left_join string can be used
+     * @access public
+     * @return \Query
+     */
+    public function left_join($left_join) {
+        $this->left_join = $left_join;
+        return $this;
+    }
+    
     /**
      * Function Query limit
      * 
