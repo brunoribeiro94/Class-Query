@@ -115,6 +115,23 @@ class Get extends Insert {
     }
 
     /**
+     * LEFT JOIN to records.
+     * 
+     * @return string
+     * @version 0.1
+     */
+    private function _get_left_join() {
+        if (!isset($this->left_join) || empty($this->left_join)) {
+            return '';
+        } else {
+            if (is_array($this->left_join)) {
+                $this->left_join = implode("\n" . 'LEFT JOIN' . "\n\t", $this->left_join);
+            }
+            return 'LEFT JOIN' . "\n" . "\t" . $this->left_join . "\n" . '';
+        }
+    }
+    
+    /**
      * get insert query
      * Check the value on the type of data provided.
      * 
@@ -149,11 +166,11 @@ class Get extends Insert {
     }
 
     /**
-     * Alias to _get_inner_join
+     * Alias to load _get_inner_join() && _get_left_join()
      * @return Object
      */
     private function _get_join() {
-        return self::_get_inner_join();
+        return self::_get_inner_join() . self::_get_left_join();
     }
 
     /**
