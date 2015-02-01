@@ -1,5 +1,7 @@
 <?php
+
 //namespace to organize
+
 namespace Query_src;
 
 /**
@@ -39,8 +41,19 @@ class Get extends Insert {
         return false;
     }
 
+    /**
+     * get select distinct
+     * 
+     * @return string
+     */
     private function _get_distinct() {
-        // FINISH
+        if (isset($this->distinct)) {
+            if (is_array($this->distinct)) {
+                $this->distinct = implode(',' . "\n\t", $this->distinct);
+            }
+            return 'SELECT DISTINCT' . "\n" . "\t(" . $this->distinct . ") \n" . '';
+        }
+        return NULL;
     }
 
     /**
@@ -130,7 +143,7 @@ class Get extends Insert {
             return 'LEFT JOIN' . "\n" . "\t" . $this->left_join . "\n" . '';
         }
     }
-    
+
     /**
      * get insert query
      * Check the value on the type of data provided.
@@ -238,6 +251,11 @@ class Get extends Insert {
      * @return string
      */
     private function _get_select() {
+        // checks distinct if exist ignore this function
+        if (!empty(self::_get_distinct())) {
+            return self::_get_distinct();
+        }
+
         if (is_array($this->select)) {
             $selects = array();
             foreach ($this->select as $k => $v) {
@@ -318,77 +336,62 @@ class Get extends Insert {
 
     /**
      * load all where's options
+     * 
+     * @version 2.0
      * @return string
      */
     private function _get_where() {
         $wheres = array();
-        $where_greater_than = self::_get_where_greater_than();
-        $where_greater_than_or_equal_to = self::_get_where_greater_than_or_equal_to();
-        $where_in = self::_get_where_in();
-        $where_less_than = self::_get_where_less_than();
-        $where_less_than_or_equal_to = self::_get_where_less_than_or_equal_to();
-        $where_equal_or = self::_get_where_equal_or();
-        $where_equal_to = self::_get_where_equal_to();
-        $where_not_in = self::_get_where_not_in();
-        $where_not_equal_or = self::_get_where_not_equal_or();
-        $where_not_equal_to = self::_get_where_not_equal_to();
-        $where_like_after = self::_get_where_like_after();
-        $where_like_before = self::_get_where_like_before();
-        $where_like_both = self::_get_where_like_both();
-        $where_like_or = self::_get_where_like_or();
-        $where_not_like = self::_get_where_not_like();
-        $where_like_binary = self::_get_where_like_binary();
-        $where_between = self::_get_where_between();
-        if (!empty($where_greater_than)) {
-            $wheres[] = $where_greater_than;
+        if (!empty(self::_get_where_greater_than())) {
+            $wheres[] = self::_get_where_greater_than();
         }
-        if (!empty($where_between)) {
-            $wheres[] = $where_between;
+        if (!empty(self::_get_where_between())) {
+            $wheres[] = self::_get_where_between();
         }
-        if (!empty($where_in)) {
-            $wheres[] = $where_in;
+        if (!empty(self::_get_where_in())) {
+            $wheres[] = self::_get_where_in();
         }
-        if (!empty($where_greater_than_or_equal_to)) {
-            $wheres[] = $where_greater_than_or_equal_to;
+        if (!empty(self::_get_where_greater_than_or_equal_to())) {
+            $wheres[] = self::_get_where_greater_than_or_equal_to();
         }
-        if (!empty($where_less_than)) {
-            $wheres[] = $where_less_than;
+        if (!empty(self::_get_where_less_than())) {
+            $wheres[] = self::_get_where_less_than();
         }
-        if (!empty($where_less_than_or_equal_to)) {
-            $wheres[] = $where_less_than_or_equal_to;
+        if (!empty(self::_get_where_less_than_or_equal_to())) {
+            $wheres[] = self::_get_where_less_than_or_equal_to();
         }
-        if (!empty($where_equal_or)) {
-            $wheres[] = $where_equal_or;
+        if (!empty(self::_get_where_equal_or())) {
+            $wheres[] = self::_get_where_equal_or();
         }
-        if (!empty($where_equal_to)) {
-            $wheres[] = $where_equal_to;
+        if (!empty(self::_get_where_equal_to())) {
+            $wheres[] = self::_get_where_equal_to();
         }
-        if (!empty($where_not_equal_or)) {
-            $wheres[] = $where_not_equal_or;
+        if (!empty(self::_get_where_not_equal_or())) {
+            $wheres[] = self::_get_where_not_equal_or();
         }
-        if (!empty($where_not_in)) {
-            $wheres[] = $where_not_in;
+        if (!empty(self::_get_where_not_in())) {
+            $wheres[] = self::_get_where_not_in();
         }
-        if (!empty($where_not_equal_to)) {
-            $wheres[] = $where_not_equal_to;
+        if (!empty(self::_get_where_not_equal_to())) {
+            $wheres[] = self::_get_where_not_equal_to();
         }
-        if (!empty($where_like_after)) {
-            $wheres[] = $where_like_after;
+        if (!empty(self::_get_where_like_after())) {
+            $wheres[] = self::_get_where_like_after();
         }
-        if (!empty($where_like_before)) {
-            $wheres[] = $where_like_before;
+        if (!empty(self::_get_where_like_before())) {
+            $wheres[] = self::_get_where_like_before();
         }
-        if (!empty($where_like_both)) {
-            $wheres[] = $where_like_both;
+        if (!empty(self::_get_where_like_both())) {
+            $wheres[] = self::_get_where_like_both();
         }
-        if (!empty($where_like_or)) {
-            $wheres[] = $where_like_or;
+        if (!empty(self::_get_where_like_or())) {
+            $wheres[] = self::_get_where_like_or();
         }
-        if (!empty($where_not_like)) {
-            $wheres[] = $where_not_like;
+        if (!empty(self::_get_where_not_like())) {
+            $wheres[] = self::_get_where_not_like();
         }
-        if (!empty($where_like_binary)) {
-            $wheres[] = $where_like_binary;
+        if (!empty(self::_get_where_like_binary())) {
+            $wheres[] = self::_get_where_like_binary();
         }
         if (empty($wheres)) {
             return '';
@@ -440,11 +443,11 @@ class Get extends Insert {
                 } elseif (is_array($v)) {
                     foreach ($v as $key => $value) {
                         if (is_null($value)) {
-                            $where_equal_or[] = $k . ' IS NULL';
+                            $where_equal_or[] = $key . ' IS NULL';
                         } elseif (is_int($k)) {
                             $where_equal_or[] = $value;
                         } else {
-                            $where_equal_or[] = sprintf($k . ' = "%s"', $this->_check_link_mysqli($value));
+                            $where_equal_or[] = sprintf($key . ' = "%s"', $this->_check_link_mysqli($value));
                         }
                     }
                 } else {
@@ -475,7 +478,7 @@ class Get extends Insert {
                     $where_equal_to[] = sprintf($k . ' = %s', $this->_check_link_mysqli($v));
                 } elseif (is_array($v)) {
                     foreach ($v as $key => $value) {
-                        $where_equal_to[] = sprintf($k . ' = "%s"', $this->_check_link_mysqli($value));
+                        $where_equal_to[] = sprintf($key . ' = "%s"', $this->_check_link_mysqli($value));
                     }
                 } else {
                     $where_equal_to[] = sprintf($k . ' = "%s"', $this->_check_link_mysqli($v));
