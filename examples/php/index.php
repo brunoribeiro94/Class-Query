@@ -22,33 +22,33 @@
 
 
     <script>
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
 
             jQuery('#style-switcher ,#theme-switcher ,#plugin-switcher').hide();
-            jQuery('#style-switcher-button').click(function() {
+            jQuery('#style-switcher-button').click(function () {
                 jQuery('#style-switcher').show();
                 jQuery('#style-switcher-button').hide();
             });
 
-            jQuery('#theme-switcher-button').click(function() {
+            jQuery('#theme-switcher-button').click(function () {
                 jQuery('#theme-switcher').show();
                 jQuery('#theme-switcher-button').hide();
             });
 
-            jQuery('#style-switcher').click(function() {
+            jQuery('#style-switcher').click(function () {
                 jQuery('#style-switcher').hide();
                 jQuery('#style-switcher-button').show();
             });
-            jQuery('#theme-switcher').click(function() {
+            jQuery('#theme-switcher').click(function () {
                 jQuery('#theme-switcher').hide();
                 jQuery('#theme-switcher-button').show();
             });
 
-            jQuery('#plugin-switcher-button').click(function() {
+            jQuery('#plugin-switcher-button').click(function () {
                 jQuery('#plugin-switcher').show();
                 jQuery('#plugin-switcher-button').hide();
             });
-            jQuery('#plugin-switcher').click(function() {
+            jQuery('#plugin-switcher').click(function () {
                 jQuery('#plugin-switcher').hide();
                 jQuery('#plugin-switcher-button').show();
             });
@@ -61,7 +61,7 @@
              */
 
             jQuery("#frame").attr("height", (jQuery(window).height() - 60) + 'px');
-            jQuery("#frame").load(function() {
+            jQuery("#frame").load(function () {
                 jQuery("#frame").contents().find("#stylesheet").attr('href', '/bar/css/' + getCookie('style'));
 
 
@@ -100,6 +100,11 @@
                     <ul>  
                         <li>
                             <a href="index.php?page=select-from-table">From Table                     
+                                <span class="creativeBar">Select</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="index.php?page=select-distinct-from-table">Distinct From Table                  
                                 <span class="creativeBar">Select</span>
                             </a>
                         </li>
@@ -143,8 +148,8 @@
                                 <span class="creativeBar">Select</span>
                             </a>
                         </li>
-                        
-                        
+
+
                     </ul>  
                 </div> 		
             </div>
