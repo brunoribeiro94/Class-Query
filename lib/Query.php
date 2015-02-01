@@ -174,7 +174,7 @@ class Query extends Config {
                 foreach ($having as $k => $v) {
                     if (is_array($v)) {
                         foreach ($v as $key => $value) {
-                            $array[] = sprintf($k . ' NOT LIKE "%%%s%%"', $this->_check_link_mysqli($value));
+                            $array[] = sprintf($key . ' NOT LIKE "%%%s%%"', $this->_check_link_mysqli($value));
                         }
                     } else {
                         $array[] = sprintf($k . ' NOT LIKE "%%%s%%"', $this->_check_link_mysqli($v));
@@ -349,8 +349,8 @@ class Query extends Config {
      */
     private function _key_value($key, $value, $operator = '=') {
         $mysqli = $this->link_mysqi;
-        $value = (substr($value, 0, 1) == '!' ? substr($value, 1) : '"' . $value . '"');
-        return sprintf($key . $operator . ' %s ', mysqli_real_escape_string($mysqli, $value));
+        $v = (substr($value, 0, 1) == '!' ? substr($value, 1) : '"' . $value . '"');
+        return sprintf($key . $operator . ' %s ', mysqli_real_escape_string($mysqli, $v));
     }
 
     /**
