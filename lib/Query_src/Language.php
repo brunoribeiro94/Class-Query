@@ -8,18 +8,19 @@ namespace Query_src;
  * Text used in class Query
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.2
+ * @version 0.3
  * @access public
  * @package text_class
+ * @subpackage Reserved_words
  */
-class Language {
+class Language extends Reserved {
 
     /**
      * Error connect database
      * 
      * @static
      * @access protected
-     * @var String
+     * @var string
      */
     protected static $TEXT_DB_NAME = 'Unable to connect to database: ';
 
@@ -28,7 +29,7 @@ class Language {
      * 
      * @static
      * @access protected
-     * @var String
+     * @var string
      */
     protected static $TEXT_ERRO_QUERY = 'Error: bad query type: ';
 
@@ -37,7 +38,7 @@ class Language {
      * 
      * @static
      * @access protected
-     * @var String
+     * @var string
      */
     protected static $TEXT_ERRO_TYPE_QUERY = 'Error in query: ';
 
@@ -46,7 +47,7 @@ class Language {
      * 
      * @static
      * @access protected
-     * @var String
+     * @var string
      */
     protected static $TEXT_OUTPUT_QUERY = 'SQL executed: ';
 
@@ -55,7 +56,7 @@ class Language {
      * 
      * @static
      * @access protected
-     * @var String
+     * @var string
      */
     protected static $PAGINATION_TEXT_BEFORE = 'Before';
 
@@ -64,7 +65,7 @@ class Language {
      * 
      * @static
      * @access protected
-     * @var String
+     * @var string
      */
     protected static $PAGINATION_TEXT_AFTER = 'After';
 
