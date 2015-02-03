@@ -9,11 +9,10 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.4
+ * @version 0.5
  * @access public
  * @package Get
  * @subpackage Insert
- * @todo Finish Query Get Distinct
  */
 class Get extends Insert {
 
@@ -412,6 +411,8 @@ class Get extends Insert {
         } else {
             $where_between = array();
             foreach ($this->where_between as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
                 $min = $this->_check_link_mysqli($v[0]);
                 $max = $this->_check_link_mysqli($v[1]);
                 if (is_array($v)) {
@@ -436,6 +437,8 @@ class Get extends Insert {
         } else {
             $where_equal_or = array();
             foreach ($this->where_equal_or as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
                 if (is_null($v)) {
                     $where_equal_or[] = $k . ' IS NULL';
                 } elseif (is_int($k)) {
@@ -470,6 +473,8 @@ class Get extends Insert {
         } else {
             $where_equal_to = array();
             foreach ($this->where_equal_to as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
                 if (is_null($v)) {
                     $where_equal_to[] = $k . ' IS NULL';
                 } elseif (is_int($k)) {
@@ -500,6 +505,8 @@ class Get extends Insert {
         } else {
             $where_greater_than = array();
             foreach ($this->where_greater_than as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
                 if (is_null($v)) {
                     $where_greater_than[] = $k . ' IS NULL';
                 } elseif (is_int($k)) {
@@ -526,6 +533,8 @@ class Get extends Insert {
         } else {
             $where_greater_than_or_equal_to = array();
             foreach ($this->where_greater_than_or_equal_to as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
                 if (is_null($v)) {
                     $where_greater_than_or_equal_to[] = $k . ' IS NULL';
                 } elseif (is_int($k)) {
@@ -551,8 +560,9 @@ class Get extends Insert {
             return '';
         } else {
             $where_in = array();
-
             foreach ($this->where_in as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
                 if (is_null($v)) {
                     $where_in[] = $k . ' IS NULL';
                 } elseif (is_int($k)) {
@@ -588,6 +598,8 @@ class Get extends Insert {
         } else {
             $where_less_than = array();
             foreach ($this->where_less_than as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
                 if (is_null($v)) {
                     $where_less_than[] = $k . ' IS NULL';
                 } elseif (is_int($k)) {
@@ -614,6 +626,8 @@ class Get extends Insert {
         } else {
             $where_less_than_or_equal_to = array();
             foreach ($this->where_less_than_or_equal_to as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
                 if (is_null($v)) {
                     $where_less_than_or_equal_to[] = $k . ' IS NULL';
                 } elseif (is_int($k)) {
@@ -640,6 +654,8 @@ class Get extends Insert {
         } else {
             $where_like_after = array();
             foreach ($this->where_like_after as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
                         $where_like_after[] = sprintf($k . ' LIKE "%s%%"', $this->_check_link_mysqli($value));
@@ -664,6 +680,8 @@ class Get extends Insert {
         } else {
             $where_like_before = array();
             foreach ($this->where_like_before as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
                         $where_like_before[] = sprintf($k . ' LIKE "%%%s"', $this->_check_link_mysqli($value));
@@ -688,6 +706,8 @@ class Get extends Insert {
         } else {
             $where_like_both = array();
             foreach ($this->where_like_both as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
                         $where_like_both[] = sprintf($k . ' LIKE "%%%s%%"', $this->_check_link_mysqli($value));
@@ -712,6 +732,8 @@ class Get extends Insert {
         } else {
             $where_like_binary = array();
             foreach ($this->where_like_binary as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
                 if (!is_null($v)) {
                     $where_like_binary[] = sprintf($k . ' LIKE BINARY "%s"', $this->_check_link_mysqli($v));
                 }
@@ -732,6 +754,8 @@ class Get extends Insert {
         } else {
             $where_like_or = array();
             foreach ($this->where_like_or as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
                         $where_like_or[] = sprintf($k . ' LIKE "%%%s%%"', $this->_check_link_mysqli($value));
@@ -756,6 +780,8 @@ class Get extends Insert {
         } else {
             $where_not_equal_or = array();
             foreach ($this->where_not_equal_or as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
                         $where_not_equal_or[] = sprintf($k . ' <> "%%%s%%"', $this->_check_link_mysqli($value));
@@ -780,6 +806,8 @@ class Get extends Insert {
         } else {
             $where_not_equal_to = array();
             foreach ($this->where_not_equal_to as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
                 // check type the data received
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
@@ -806,6 +834,9 @@ class Get extends Insert {
             $where_not_in = array();
 
             foreach ($this->where_not_in as $key => $values) {
+                $key = $this->replaceReservedWords($key);
+                $values = $this->replaceReservedWords($values);
+
                 if (is_array($values)) {
                     $vs = array();
 
@@ -841,6 +872,8 @@ class Get extends Insert {
         } else {
             $where_not_like = array();
             foreach ($this->where_not_like as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
                         $where_not_like[] = sprintf($k . ' NOT LIKE "%%%s%%"', $this->_check_link_mysqli($value));
