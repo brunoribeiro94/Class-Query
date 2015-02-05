@@ -1,5 +1,7 @@
 <?php
+
 //namespace to organize
+
 namespace Query_src;
 
 /**
@@ -7,7 +9,7 @@ namespace Query_src;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 1.0
+ * @version 1.1
  * @access public
  * @package Where
  * @subpackage Replace
@@ -31,7 +33,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_between Used to compare strings, the second element have another array indicating the minimum and maximum.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_between($where_between) {
         $this->where_between = $where_between;
@@ -55,11 +57,41 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_equal Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_equal($where_equal) {
         // alias for where_equal_to()
         return self::where_equal_to($where_equal);
+    }
+
+    /**
+     * Function Query where equal or
+     * 
+     * Note: This function is diferrent of where_equal_or()
+     * 
+     * Example Query output :
+     * 
+     * <pre>
+     * <code>
+     * SELECT 
+     *          *
+     * FROM
+     *          `table`
+     * WHERE
+     *           <b>(</b>`columnA` <b> = </b> `valueA` AND
+     *           `columnB` <b> = </b> `valueB` <b>)</b> <b>OR</b>
+     *           <b>(</b>`columnC` <b> = </b> `valueC` AND
+     *           `columnD` <b> = </b> `valueD` <b>)</b>
+     * </code>
+     * </pre>
+     * @param array $equal Collection array data in column name and value
+     * @param array $orEqual Collection array data in column name and value to compare or
+     * @access public
+     * @return \Query_src\Where_src\Where
+     */
+    public function where_equal_to_and_or(array $equal, array $orEqual) {
+        $this->where_equal_to_and_or = array($equal, $orEqual);
+        return $this;
     }
 
     /**
@@ -82,7 +114,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_equal_or Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_equal_or($where_equal_or) {
         $this->where_equal_or = $where_equal_or;
@@ -106,7 +138,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_equal_to Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_equal_to($where_equal_to) {
         $this->where_equal_to = $where_equal_to;
@@ -130,7 +162,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_greater_than Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_greater_than($where_greater_than) {
         $this->where_greater_than = $where_greater_than;
@@ -154,7 +186,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_greater_than_or_equal_to Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_greater_than_or_equal_to($where_greater_than_or_equal_to) {
         $this->where_greater_than_or_equal_to = $where_greater_than_or_equal_to;
@@ -178,7 +210,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_in Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_in($where_in) {
         $this->where_in = $where_in;
@@ -202,7 +234,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_less_than Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_less_than($where_less_than) {
         $this->where_less_than = $where_less_than;
@@ -226,7 +258,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_less_than_or_equal_to Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_less_than_or_equal_to($where_less_than_or_equal_to) {
         $this->where_less_than_or_equal_to = $where_less_than_or_equal_to;
@@ -250,7 +282,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_like Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_like($where_like) {
         return self::where_like_both($where_like);
@@ -273,7 +305,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_like_after Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_like_after($where_like_after) {
         $this->where_like_after = $where_like_after;
@@ -297,7 +329,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_like_before Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_like_before($where_like_before) {
         $this->where_like_before = $where_like_before;
@@ -322,7 +354,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_like_both Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_like_both($where_like_both) {
         $this->where_like_both = $where_like_both;
@@ -346,7 +378,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_like_binary Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_like_binary($where_like_binary) {
         $this->where_like_binary = $where_like_binary;
@@ -374,7 +406,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_like_or Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_like_or($where_like_or) {
         $this->where_like_or = $where_like_or;
@@ -402,7 +434,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_not_equal_or Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_not_equal_or($where_not_equal_or) {
         $this->where_not_equal_or = $where_not_equal_or;
@@ -429,7 +461,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_not_equal_to Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_not_equal_to($where_not_equal_to) {
         $this->where_not_equal_to = $where_not_equal_to;
@@ -453,7 +485,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_in Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_not_in($where_not_in) {
         $this->where_not_in = $where_not_in;
@@ -477,7 +509,7 @@ class Where extends Replace {
      * </pre>
      * @param Array $where_not_like Used to compare strings.
      * @access public
-     * @return \Query
+     * @return \Query_src\Where
      */
     public function where_not_like($where_not_like) {
         $this->where_not_like = $where_not_like;
