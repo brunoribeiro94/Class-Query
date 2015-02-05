@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.5
+ * @version 0.6
  * @access public
  * @package Get
  * @subpackage Insert
@@ -362,6 +362,9 @@ class Get extends Insert {
         if (!empty(self::_get_where_equal_or())) {
             $wheres[] = self::_get_where_equal_or();
         }
+        if (!empty(self::_get_where_equal_to_and_or())) {
+            $wheres[] = self::_get_where_equal_to_and_or();
+        }
         if (!empty(self::_get_where_equal_to())) {
             $wheres[] = self::_get_where_equal_to();
         }
@@ -490,6 +493,54 @@ class Get extends Insert {
                 }
             }
             return implode(' AND' . "\n\t", $where_equal_to) . ' ';
+        }
+    }
+
+    /**
+     * = Equal to
+     * Check the value on the type of data provided.
+     * 
+     * Note: this function is used only in _get_where_equal_to_and_or()
+     * @param array $dataType Array collection
+     * @return string
+     */
+    private function _get_where_equal_to_or($dataType) {
+        if (!isset($dataType) || !is_array($dataType) || empty($dataType)) {
+            return '';
+        } else {
+            $where_equal_to = array();
+            foreach ($dataType as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
+                if (is_null($v)) {
+                    $where_equal_to[] = $k . ' IS NULL';
+                } elseif (is_int($k)) {
+                    $where_equal_to[] = $v;
+                } elseif (is_int($v)) {
+                    $where_equal_to[] = sprintf($k . ' = %s', $this->_check_link_mysqli($v));
+                } elseif (is_array($v)) {
+                    foreach ($v as $key => $value) {
+                        $where_equal_to[] = sprintf($key . ' = "%s"', $this->_check_link_mysqli($value));
+                    }
+                } else {
+                    $where_equal_to[] = sprintf($k . ' = "%s"', $this->_check_link_mysqli($v));
+                }
+            }
+            return implode(' AND' . "\n\t", $where_equal_to) . ' ';
+        }
+    }
+    
+    /**
+     * collection data <b>= Equal to</b> and another collection <b>data = Equal to</b>
+     * Check the value on the type of data provided.
+     * 
+     * @return string
+     */
+    private function _get_where_equal_to_and_or() {
+        if (!isset($this->where_equal_to_and_or) || !is_array($this->where_equal_to_and_or) || empty($this->where_equal_to_and_or)) {
+            return '';
+        } else {
+            return self::_get_where_equal_to_or($this->where_equal_to_and_or[0]) . " OR \n\t" . self::_get_where_equal_to_or($this->where_equal_to_and_or[1]);
         }
     }
 
