@@ -46,7 +46,7 @@
             <pre class="prettyprint">
 // Loading all required classes
 require_once( __DIR__ . '/../../autoload.php');
-$q = new Query();
+$q = new Query('Data2');
 $q
         ->select()
         ->from('menu')
