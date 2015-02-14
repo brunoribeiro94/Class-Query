@@ -1,13 +1,14 @@
 <?php
 
 //namespace to organize
+
 namespace Query_src;
 
 /**
  * fix reserved words in MySQL
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.1
+ * @version 0.3
  * @access public
  * @package Reserved_words
  * @author offboard
@@ -38,9 +39,9 @@ class Reserved {
             $key = str_replace("`", "", $key);
         }
         // checks if exist any reserved word by the MYSQL
-        if ($this->strposa($key, self::$reserved_words)) {
+        if (in_array($key, self::$reserved_words)) {
             // check if already exist `` in data string
-            if ($this->strposa($key, '`')) {
+            if (strpos($key, '`')) {
                 return $key;
             } else {
                 return (string) '`' . $key . '`';
@@ -49,29 +50,6 @@ class Reserved {
             // ok no was found reserved word just return the data string
             return $key;
         }
-    }
-
-    /**
-     * 
-     * Checks if exist any value from possible arraylist
-     * this function is a function improved strpos
-     * 
-     * @access protected
-     * @param string $haystack
-     * @param mixed $needle
-     * @param int $offset
-     * @return boolean
-     */
-    protected function strposa($haystack, $needle, $offset = 0) {
-        if (!is_array($needle)) {
-            $needle = array($needle);
-        }
-        foreach ($needle as $query) {
-            if (strpos($haystack, $query, $offset) !== false) {
-                return true;
-            } // stop on first true result
-        }
-        return false;
     }
 
 }
