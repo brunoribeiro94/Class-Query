@@ -1,5 +1,7 @@
 <?php
+
 //namespace to organize 
+
 namespace Query_src;
 
 // use mysqli connection
@@ -8,7 +10,7 @@ use mysqli as mysqli;
 /**
  * Configuration for: Database Connection
  * This is the place where your database constants are saved
- * @version 2.3
+ * @version 2.4
  */
 class Config extends Run {
 
@@ -54,15 +56,19 @@ class Config extends Run {
      * @access private
      * @return Void
      */
-    private function mysqli_connection() {
-        foreach ($this->Connections_Settings as $key => $value) {
-            try {
-                $mysqli = new mysqli($value['DB_HOST'], $value['DB_USER'], $value['DB_PASS'], $value['DB_NAME']);
-                $mysqli->set_charset($value['DB_CHARSET']);
-                $this->link_mysqi[] = $mysqli;
-            } catch (Exception $e) {
-                exit($this->TEXT_DB_NAME . $e->message);
-            }
+    private function mysqli_connection($database) {
+        if (empty($database)) {
+            $value = array_shift($this->Connections_Settings);
+        } else {
+            $value = $this->Connections_Settings[$database];
+        }
+
+        try {
+            $mysqli = new mysqli($value['DB_HOST'], $value['DB_USER'], $value['DB_PASS'], $value['DB_NAME']);
+            $mysqli->set_charset($value['DB_CHARSET']);
+            $this->link_mysqi[] = $mysqli;
+        } catch (Exception $e) {
+            exit($this->TEXT_DB_NAME . $e->message);
         }
     }
 
@@ -75,17 +81,7 @@ class Config extends Run {
      * @return array
      */
     protected function _check_link_mysqli($value) {
-        if (count($this->Connections_Settings) == 1) {
-            return mysqli_real_escape_string($this->link_mysqi[0], $value);
-        } else {
-            for ($i = 0; $i < count($this->Connections_Settings); $i++) {
-                $link = $this->link_mysqi[$i];
-                if (mysqli_real_escape_string($link, $value)) {
-                    $result = mysqli_real_escape_string($link, $value);
-                }
-            }
-        }
-        return $result;
+        return mysqli_real_escape_string($this->link_mysqi[0], $value);
     }
 
     /**
@@ -94,8 +90,8 @@ class Config extends Run {
      * @access public
      * @return void
      */
-    public function __construct() {
-        $this->mysqli_connection();
+    public function __construct($database) {
+        $this->mysqli_connection($database);
     }
 
 }
