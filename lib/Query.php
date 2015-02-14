@@ -9,7 +9,7 @@ use Query_src\Config as Config;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 2.4
+ * @version 2.5
  * @access public
  * @package Config
  * @todo Finish the functions : SUM, DISTINCT, and commands of tools to database.
@@ -17,13 +17,16 @@ use Query_src\Config as Config;
 class Query extends Config {
 
     /**
+     * 
      * Method Magic
      * 
      * @access public
+     * @param string $database Database ID see : config.php
      * @return void
+     * 
      */
-    public function __construct() {
-        parent::__construct(); // conect database
+    public function __construct($database = NULL) {
+        parent::__construct($database); // conect database
         $this->debug = defined('DEBUG') && DEBUG === true;
         $this->having = '';
     }
