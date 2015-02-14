@@ -1,5 +1,7 @@
 <?php
+
 //namespace to organize
+
 namespace Query_src;
 
 /**
@@ -7,7 +9,7 @@ namespace Query_src;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 1.3
+ * @version 1.4
  * @access public
  * @package Run
  * @subpackage Pagination
@@ -128,23 +130,12 @@ class Run extends Get {
     /**
      * Run Query
      * @param type $query
-     * @version 1.3
+     * @version 1.4
      * @return Object
      */
     private function _run_query($query) {
-        if (count($this->Connections_Settings) == 1) {
-            $result = mysqli_query($this->link_mysqi[0], $query);
-            $mysqli = $this->link_mysqi[0];
-        } else {
-            for ($i = 0; $i < count($this->Connections_Settings); $i++) {
-                $link = $this->link_mysqi[$i];
-                if (mysqli_query($link, $query)) {
-                    $result = mysqli_query($link, $query);
-                    $mysqli = $link;
-                }
-            }
-        }
-        $this->result = $result;
+        $mysqli = $this->link_mysqi[0];
+        $this->result = mysqli_query($mysqli, $query);
         if (!$this->result) {
             $this->mysql_error = mysqli_error($mysqli);
             $this->error = self::$TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
