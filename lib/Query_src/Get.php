@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.6
+ * @version 0.7
  * @access public
  * @package Get
  * @subpackage Insert
@@ -705,8 +705,6 @@ class Get extends Insert {
         } else {
             $where_like_after = array();
             foreach ($this->where_like_after as $k => $v) {
-                $k = $this->replaceReservedWords($k);
-                $v = $this->replaceReservedWords($v);
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
                         $where_like_after[] = sprintf($k . ' LIKE "%s%%"', $this->_check_link_mysqli($value));
@@ -731,8 +729,6 @@ class Get extends Insert {
         } else {
             $where_like_before = array();
             foreach ($this->where_like_before as $k => $v) {
-                $k = $this->replaceReservedWords($k);
-                $v = $this->replaceReservedWords($v);
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
                         $where_like_before[] = sprintf($k . ' LIKE "%%%s"', $this->_check_link_mysqli($value));
@@ -757,8 +753,6 @@ class Get extends Insert {
         } else {
             $where_like_both = array();
             foreach ($this->where_like_both as $k => $v) {
-                $k = $this->replaceReservedWords($k);
-                $v = $this->replaceReservedWords($v);
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
                         $where_like_both[] = sprintf($k . ' LIKE "%%%s%%"', $this->_check_link_mysqli($value));
@@ -783,8 +777,6 @@ class Get extends Insert {
         } else {
             $where_like_binary = array();
             foreach ($this->where_like_binary as $k => $v) {
-                $k = $this->replaceReservedWords($k);
-                $v = $this->replaceReservedWords($v);
                 if (!is_null($v)) {
                     $where_like_binary[] = sprintf($k . ' LIKE BINARY "%s"', $this->_check_link_mysqli($v));
                 }
@@ -805,8 +797,6 @@ class Get extends Insert {
         } else {
             $where_like_or = array();
             foreach ($this->where_like_or as $k => $v) {
-                $k = $this->replaceReservedWords($k);
-                $v = $this->replaceReservedWords($v);
                 if (is_array($v)) {
                     foreach ($v as $key => $value) {
                         $where_like_or[] = sprintf($k . ' LIKE "%%%s%%"', $this->_check_link_mysqli($value));
@@ -944,7 +934,17 @@ class Get extends Insert {
      * @return Integer Returns number of affected rows by the last INSERT, UPDATE, REPLACE or DELETE 
      */
     public function get_affected() {
-         return mysqli_affected_rows($this->link_mysqi[0]);
+        if (count($this->Connections_Settings) == 1) {
+            $mysqli = $this->link_mysqi[0];
+        } else {
+            for ($i = 0; $i < count($this->Connections_Settings); $i++) {
+                $link = $this->link_mysqi[$i];
+                if (mysqli_affected_rows($link)) {
+                    $mysqli = $link;
+                }
+            }
+        }
+        return mysqli_affected_rows($mysqli);
     }
 
 }
