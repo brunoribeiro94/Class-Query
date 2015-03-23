@@ -934,17 +934,7 @@ class Get extends Insert {
      * @return Integer Returns number of affected rows by the last INSERT, UPDATE, REPLACE or DELETE 
      */
     public function get_affected() {
-        if (count($this->Connections_Settings) == 1) {
-            $mysqli = $this->link_mysqi[0];
-        } else {
-            for ($i = 0; $i < count($this->Connections_Settings); $i++) {
-                $link = $this->link_mysqi[$i];
-                if (mysqli_affected_rows($link)) {
-                    $mysqli = $link;
-                }
-            }
-        }
-        return mysqli_affected_rows($mysqli);
+         return mysqli_affected_rows($this->link_mysqi[0]);
     }
 
 }
