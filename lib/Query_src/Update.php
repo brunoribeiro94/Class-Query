@@ -1,12 +1,15 @@
 <?php
+
 //namespace to organize
+
 namespace Query_src;
 
 /**
  * Class Query Update Query
  * @author Zachbor       <zachborboa@gmail.com>
+ * @author Bruno         <bruno.espertinho@gmail.com>
  * 
- * @version 0.1
+ * @version 0.2
  * @access public
  * @package Update
  * @subpackage Where
@@ -46,7 +49,11 @@ class Update extends Where {
     public function update($table, $set = array()) {
         $this->update = $table;
         if (!empty($set)) {
-            self::set($set);
+            $arr = array();
+            foreach ($set as $key => $value) {
+                $arr[$this->replaceReservedWords($key)] = $this->replaceReservedWords($value);
+            }
+            self::set($arr);
         }
         return $this;
     }
