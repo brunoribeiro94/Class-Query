@@ -1,12 +1,14 @@
 <?php
+
 //namespace to organize
 namespace Query_src;
 
 /**
  * Class Query Delete Query
  * @author Zachbor       <zachborboa@gmail.com>
+ * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.1
+ * @version 0.2
  * @access public
  * @package Delete
  * @subpackage Update
@@ -53,13 +55,7 @@ class Delete extends Update {
      * @return integer Returns number of affected rows by the last INSERT, UPDATE, REPLACE or DELETE 
      */
     public function get_affected() {
-        for ($i = 0; $i < count($this->Connections_Settings); $i++) {
-            $link = $this->link_mysqi[$i];
-            if (mysqli_affected_rows($link)) {
-                $result = mysqli_affected_rows($link);
-            }
-        }
-        return $result;
+        return mysqli_affected_rows($this->link_mysqi[0]);
     }
 
 }
