@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.7
+ * @version 0.8
  * @access public
  * @package Get
  * @subpackage Insert
@@ -21,25 +21,52 @@ class Get extends Insert {
      * 
      * @access public
      * @param boolean $use_limit standard false
+     * @version 0.2.1
      * @return boolean
      */
     public function get($use_limit = false) {
-        if (self::_get_delete_query()) {
-            return $this->delete_query;
-        } elseif (self::_get_insert_query()) {
-            return $this->insert_query;
-        } elseif (self::_get_select_query($use_limit)) {
-            return $this->select_query;
-        } elseif (self::_get_replace_query()) {
-            return $this->replace_query;
-        } elseif (self::_get_update_query()) {
-            return $this->update_query;
-        } elseif (self::_get_insert_multiple()) {
-            return $this->insert_multiple_query;
+        switch (true) {
+            case self::_get_custom_sql():
+                $execute = $this->customSQL;
+                break;
+            case self::_get_delete_query():
+                $execute = $this->delete_query;
+                break;
+            case self::_get_insert_query():
+                $execute = $this->insert_query;
+                break;
+            case self::_get_select_query($use_limit):
+                $execute = $this->select_query;
+                break;
+            case self::_get_replace_query():
+                $execute = $this->replace_query;
+                break;
+            case self::_get_update_query():
+                $execute = $this->update_query;
+                break;
+            case self::_get_insert_multiple():
+                $execute = $this->insert_multiple_query;
+                break;
+            default:
+                $execute = FALSE;
+                break;
         }
-        return false;
+        return $execute;
     }
-
+    
+    /**
+     * get select distinct
+     * 
+     * @return string
+     */
+    private function _get_custom_sql() {
+        if (isset($this->customSQL)) {
+            $this->query_type = 'customSQL';
+            return $this->customSQL;
+        }
+        return NULL;
+    }
+    
     /**
      * get select distinct
      * 

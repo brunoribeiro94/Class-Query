@@ -9,7 +9,7 @@ use Query_src\Config as Config;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 2.5
+ * @version 2.6
  * @access public
  * @package Config
  * @todo Finish the functions : SUM, DISTINCT, and commands of tools to database.
@@ -106,6 +106,17 @@ class Query extends Config {
         return $this;
     }
 
+    /**
+     * Execute custom SQL lines
+     * 
+     * @param string $sql FULL SQL
+     * @return \Query
+     */
+    public function customSQL($sql) {
+        $this->customSQL = $sql;
+        return $this;
+    }
+    
     /* Query helpers */
 
     public function distinct($distinct) {
