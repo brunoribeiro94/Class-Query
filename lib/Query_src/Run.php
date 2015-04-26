@@ -141,7 +141,7 @@ class Run extends Get {
      * checks what action was called
      * 
      * @param string $param query type
-     * @version 0.2
+     * @version 0.2.1
      * @return Object
      */
     private function _run_query_query_type($param) {
@@ -159,10 +159,7 @@ class Run extends Get {
                 return self::get_affected();
             case 'select':
                 self::_get_results();
-                if ($this->result && $this->results > 0) {
-                    return $this->result;
-                }
-                return false;
+                return ($this->result && $this->results > 0) ? $this->result : false;
             case 'update':
                 return self::get_affected();
         }
@@ -171,7 +168,7 @@ class Run extends Get {
     /**
      * Run Query
      * @param type $query
-     * @version 1.4
+     * @version 1.4.1
      * @return Object
      */
     private function _run_query($query) {
@@ -184,6 +181,8 @@ class Run extends Get {
 
             if (function_exists('error')) {
                 error($this->error);
+            }else{
+                error_log($this->error);
             }
             die($this->error);
         }
