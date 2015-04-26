@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 1.5
+ * @version 1.5.1
  * @access public
  * @package Run
  * @subpackage Pagination
@@ -81,15 +81,6 @@ class Run extends Get {
      */
     private function _run_delete() {
         return self::_run_query($this->delete_query);
-    }
-
-    /**
-     * alias _run_insert_into()
-     * @deprecated since version 1.5
-     * @return Object
-     */
-    private function _run_insert_ignore_into() {
-        return self::_run_query($this->insert_query);
     }
 
     /**
