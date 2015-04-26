@@ -9,7 +9,7 @@ use Query_src\Config as Config;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 2.6
+ * @version 2.6.1
  * @access public
  * @package Config
  * @todo Finish the functions : SUM, DISTINCT, and commands of tools to database.
@@ -350,21 +350,6 @@ class Query extends Config {
         self::limit($limit);
         self::offset($offset);
         return $this;
-    }
-
-    /**
-     * deprecated function
-     * 
-     * @param String $key
-     * @param mixed $value
-     * @param String $operator
-     * @return mixed
-     * @deprecated since version 2.2
-     */
-    private function _key_value($key, $value, $operator = '=') {
-        $mysqli = $this->link_mysqi;
-        $v = (substr($value, 0, 1) == '!' ? substr($value, 1) : '"' . $value . '"');
-        return sprintf($key . $operator . ' %s ', mysqli_real_escape_string($mysqli, $v));
     }
 
     /**

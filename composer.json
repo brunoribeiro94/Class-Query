@@ -1,24 +1,18 @@
 {
     "name": "offboard/Class-Query",
     "type": "library",
-    "description": "This is a script to make life easier for beginners, medium and advanced programmers. This script connects to the database using mysqli method further down has some usage examples.",
+    "description": "This is a script to make life easier for programmers beginners, medium or advanced. This script connects to the database using mysqli method check out the README.md there has some usage examples.",
     "keywords": ["Easy Class Query.", "php class query"],
     "homepage": "http://github.com/offboard/Class-Query",
     "license": "MIT",
-    "authors": [
-        {
+    "authors": [{
             "name": "Bruno Ribeiro",
             "email": "brunowribeiroo@facebook.com"
-        },
-        {
+        },{
             "name": "Zachbor",
             "email": "zachborboa@gmail.com"
-        }
-    ],
+    }],
     "require": {
         "php": ">=5.3.0"
-    },
-    "autoload": {
-        "psr-0": {"Class-Query\\": "src/"}
     }
 }
