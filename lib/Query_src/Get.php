@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.7
+ * @version 0.8
  * @access public
  * @package Get
  * @subpackage Insert
@@ -17,14 +17,17 @@ namespace Query_src;
 class Get extends Insert {
 
     /**
-     * returns select, insert or update query
+     * returns select, insert, update query or custom SQL
      * 
      * @access public
      * @param boolean $use_limit standard false
+     * @version 0.2
      * @return boolean
      */
     public function get($use_limit = false) {
-        if (self::_get_delete_query()) {
+        if (self::_get_custom_sql()) {
+            return $this->customSQL;
+        } elseif (self::_get_delete_query()) {
             return $this->delete_query;
         } elseif (self::_get_insert_query()) {
             return $this->insert_query;
@@ -39,7 +42,20 @@ class Get extends Insert {
         }
         return false;
     }
-
+    
+    /**
+     * get select distinct
+     * 
+     * @return string
+     */
+    private function _get_custom_sql() {
+        if (isset($this->customSQL)) {
+            $this->query_type = 'customSQL';
+            return $this->customSQL;
+        }
+        return NULL;
+    }
+    
     /**
      * get select distinct
      * 
