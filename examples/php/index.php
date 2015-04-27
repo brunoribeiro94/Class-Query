@@ -99,6 +99,11 @@
                     <div id="closetheme"></div><h4>Examples</h4> 
                     <ul>  
                         <li>
+                            <a href="index.php?page=custom-sql">Custom SQL                    
+                                <span class="creativeBar">Custom SQL</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="index.php?page=select-from-table">From Table                     
                                 <span class="creativeBar">Select</span>
                             </a>
