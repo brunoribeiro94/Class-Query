@@ -188,10 +188,10 @@ class Query extends Config {
                 foreach ($having as $k => $v) {
                     if (is_array($v)) {
                         foreach ($v as $key => $value) {
-                            $array[] = sprintf($key . ' NOT LIKE "%%%s%%"', $this->_check_link_mysqli($value));
+                            $array[] = sprintf('%1$s %2$s "%3$s"',$key, $comparison, $this->_check_link_mysqli($value));
                         }
                     } else {
-                        $array[] = sprintf($k . ' NOT LIKE "%%%s%%"', $this->_check_link_mysqli($v));
+                        $array[] = sprintf('%1$s %2$s "%3$s"',$k, $comparison, $this->_check_link_mysqli($v));
                     }
                 }
 
