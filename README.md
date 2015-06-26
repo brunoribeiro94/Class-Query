@@ -371,7 +371,7 @@ if ($q) {
 require_once( __DIR__ . '/lib/autoload.php');
 $q = new Query();
 $q
-        ->customSQL("SELECT COUNT(*) FROM country")
+        ->customSQL("SELECT * FROM country")
         ->run();
 $data = $q->get_selected();
 $count = $q->get_selected_count();
