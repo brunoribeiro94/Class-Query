@@ -345,23 +345,51 @@ if (!$q) {
 <?php
 // Loading all required classes
 require_once( __DIR__ . '/lib/autoload.php');
- $id = rand(1,10);
- $q = new Query();
-            $q
-                    ->delete('user')
-                    ->where_equal_to(
-                            array(
-                                'id' => $id
-                            )
-                    )
-                    ->run();
-            if ($q) {
-                echo 'User successfully deleted.';
-            }else{
-            	echo 'sorry, it was not possible to delete the user.';
-            }
+$id = rand(1,10);
+$q = new Query();
+$q
+        ->delete('user')
+        ->where_equal_to(
+                array(
+                        'id' => $id
+                )
+        )
+        ->run();
+if ($q) {
+    echo 'User successfully deleted.';
+}else{
+    echo 'sorry, it was not possible to delete the user.';
+}
 ?>
 ```      
+
+## Example Custom SQL
+-----------------
+```php
+<?php
+// Loading all required classes
+require_once( __DIR__ . '/lib/autoload.php');
+$q = new Query();
+$q
+        ->customSQL("SELECT COUNT(*) FROM country")
+        ->run();
+$data = $q->get_selected();
+$count = $q->get_selected_count();
+
+if (!($count > 0)) {
+    echo 'Countries not found.' . "\n";
+} else {
+    foreach ($data as $dados) {
+        echo
+        'Code: ' . $dados['Code'] . "<br>" .
+        'Name: ' . $dados['Name'] . "<br>" .
+        'Population: ' . $dados['Population'] . "<br>" .
+        "<hr>";
+    }
+}
+?>
+```      
+
 ## Contribute
 -----------------
 
