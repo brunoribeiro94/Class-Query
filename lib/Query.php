@@ -271,7 +271,7 @@ class Query extends Config {
      * @param Integer $limit Used to limit the records per page
      * @return \Query
      */
-    public function limit($limit) {
+    public function limit($limit = 1) {
         $this->limit = (int) $limit; // LIMIT Limit the number of records selected or deleted.
         return $this;
     }
