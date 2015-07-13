@@ -110,6 +110,9 @@ class Insert extends Delete {
         $insert_keys = array();
         $insert_values = array();
         foreach ($keys_and_values as $key => $value) {
+            if (in_array($key, self::$reserved_words)) {
+                $key = $this->replaceReservedWords($key);
+            }
             $insert_keys[] = $key;
             if (is_null($value)) {
                 $insert_values[] = 'NULL';
