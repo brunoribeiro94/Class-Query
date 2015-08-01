@@ -48,7 +48,7 @@ class Query extends Config {
      * @return Integer
      */
     public function get_selected_count() {
-        return $this->results;
+        return empty($this->results) ? 0 : $this->results;
     }
 
     /**
