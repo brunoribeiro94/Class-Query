@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.8
+ * @version 0.9
  * @access public
  * @package Get
  * @subpackage Insert
@@ -53,7 +53,7 @@ class Get extends Insert {
         }
         return $execute;
     }
-    
+
     /**
      * get select distinct
      * 
@@ -66,7 +66,7 @@ class Get extends Insert {
         }
         return NULL;
     }
-    
+
     /**
      * get select distinct
      * 
@@ -374,6 +374,9 @@ class Get extends Insert {
         if (!empty(self::_get_where_between())) {
             $wheres[] = self::_get_where_between();
         }
+        if (!empty(self::_get_where_between_columns())) {
+            $wheres[] = self::_get_where_between_columns();
+        }
         if (!empty(self::_get_where_in())) {
             $wheres[] = self::_get_where_in();
         }
@@ -449,6 +452,32 @@ class Get extends Insert {
                     $where_between[] = $k . " BETWEEN '" . $min . "' AND '" . $max . "'";
                 } else {
                     $where_between[] = $k . " BETWEEN '" . $v . "'";
+                }
+            }
+            return implode(' AND' . "\n\t", $where_between) . ' ';
+        }
+    }
+
+    /**
+     * between min AND max
+     * Check the value on the type of data provided.
+     * 
+     * @return string
+     */
+    private function _get_where_between_columns() {
+        if (!isset($this->where_between_columns) || !is_array($this->where_between_columns) || empty($this->where_between_columns)) {
+            return '';
+        } else {
+            $where_between = array();
+            foreach ($this->where_between_columns as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
+                $min = $this->_check_link_mysqli($v[0]);
+                $max = $this->_check_link_mysqli($v[1]);
+                if (is_array($v)) {
+                    $where_between[] = "'{$k}' BETWEEN {$min} AND {$max}";
+                } else {
+                    $where_between[] = "'{$k}' BETWEEN {$v}";
                 }
             }
             return implode(' AND' . "\n\t", $where_between) . ' ';
@@ -556,7 +585,7 @@ class Get extends Insert {
             return implode(' AND' . "\n\t", $where_equal_to) . ' ';
         }
     }
-    
+
     /**
      * collection data <b>= Equal to</b> and another collection <b>data = Equal to</b>
      * Check the value on the type of data provided.
@@ -961,7 +990,7 @@ class Get extends Insert {
      * @return Integer Returns number of affected rows by the last INSERT, UPDATE, REPLACE or DELETE 
      */
     public function get_affected() {
-         return mysqli_affected_rows($this->link_mysqi[0]);
+        return mysqli_affected_rows($this->link_mysqi[0]);
     }
 
 }
