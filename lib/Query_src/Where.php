@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 1.1
+ * @version 1.2
  * @access public
  * @package Where
  * @subpackage Replace
@@ -37,6 +37,30 @@ class Where extends Replace {
      */
     public function where_between($where_between) {
         $this->where_between = $where_between;
+        return $this;
+    }
+
+    /**
+     * Function Query where between
+     * 
+     * Example Query output :
+     * 
+     * <pre>
+     * <code>
+     * SELECT 
+     *          *
+     * FROM
+     *          `table`
+     * WHERE
+     *           `value` <b> BETWEEN </b> `columnA` AND `columnB`
+     * </code>
+     * </pre>
+     * @param Array $where_between Used to compare strings, the second element have another array indicating the minimum and maximum.
+     * @access public
+     * @return \Query_src\Where
+     */
+    public function where_between_columns($where_between) {
+        $this->where_between_columns = $where_between;
         return $this;
     }
 
