@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.9
+ * @version 0.10
  * @access public
  * @package Get
  * @subpackage Insert
@@ -377,6 +377,9 @@ class Get extends Insert {
         if (!empty(self::_get_where_between_columns())) {
             $wheres[] = self::_get_where_between_columns();
         }
+        if (!empty(self::_get_where_between_columns_or())) {
+            $wheres[] = self::_get_where_between_columns_or();
+        }
         if (!empty(self::_get_where_in())) {
             $wheres[] = self::_get_where_in();
         }
@@ -481,6 +484,32 @@ class Get extends Insert {
                 }
             }
             return implode(' AND' . "\n\t", $where_between) . ' ';
+        }
+    }
+
+    /**
+     * between min AND max
+     * Check the value on the type of data provided.
+     * 
+     * @return string
+     */
+    private function _get_where_between_columns_or() {
+        if (!isset($this->where_between_columns_or) || !is_array($this->where_between_columns_or) || empty($this->where_between_columns_or)) {
+            return '';
+        } else {
+            $where_between_or = array();
+            foreach ($this->where_between_columns_or as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
+                $min = $this->_check_link_mysqli($v[0]);
+                $max = $this->_check_link_mysqli($v[1]);
+                if (is_array($v)) {
+                    $where_between_or[] = "'{$k}' BETWEEN {$min} AND {$max}";
+                } else {
+                    $where_between_or[] = "'{$k}' BETWEEN {$v}";
+                }
+            }
+            return implode(' OR' . "\n\t", $where_between_or) . ' ';
         }
     }
 
