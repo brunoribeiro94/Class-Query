@@ -363,7 +363,7 @@ class Get extends Insert {
     /**
      * load all where's options
      * 
-     * @version 2.0
+     * @version 2.1
      * @return string
      */
     private function _get_where() {
@@ -373,12 +373,6 @@ class Get extends Insert {
         }
         if (!empty(self::_get_where_between())) {
             $wheres[] = self::_get_where_between();
-        }
-        if (!empty(self::_get_where_between_columns())) {
-            $wheres[] = self::_get_where_between_columns();
-        }
-        if (!empty(self::_get_where_between_columns_or())) {
-            $wheres[] = self::_get_where_between_columns_or();
         }
         if (!empty(self::_get_where_in())) {
             $wheres[] = self::_get_where_in();
@@ -427,6 +421,12 @@ class Get extends Insert {
         }
         if (!empty(self::_get_where_like_binary())) {
             $wheres[] = self::_get_where_like_binary();
+        }
+        if (!empty(self::_get_where_between_columns())) {
+            $wheres[] = self::_get_where_between_columns();
+        }
+        if (!empty(self::_get_where_between_columns_or())) {
+            $wheres[] = self::_get_where_between_columns_or();
         }
         if (empty($wheres)) {
             return '';
