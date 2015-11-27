@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 1.5.2
+ * @version 1.5.3
  * @access public
  * @package Run
  * @subpackage Pagination
@@ -33,7 +33,8 @@ class Run extends Get {
                 case 'insert_into':
                 case 'insert_multiple':
                 case 'replace_into':
-                case 'update' || 'customSQL':
+                case 'update' :
+                case 'customSQL':
                     return self::$function();
                 case 'select':
                     if (!(isset($this->page) || isset($this->offset))) {
@@ -80,7 +81,7 @@ class Run extends Get {
      * @return Object
      */
     private function _run_delete() {
-        return self::_run_query();
+        return self::_run_query($this->delete_query);
     }
 
     /**
@@ -89,7 +90,7 @@ class Run extends Get {
      * @return Object
      */
     private function _run_insert_into() {
-        return self::_run_query();
+        return self::_run_query($this->insert_query);
     }
 
     /**
@@ -98,7 +99,7 @@ class Run extends Get {
      * @return Object
      */
     private function _run_insert_multiple() {
-        return self::_run_query();
+        return self::_run_query($this->insert_multiple_query);
     }
 
     /**
@@ -107,7 +108,7 @@ class Run extends Get {
      * @return Object
      */
     private function _run_replace_into() {
-        return self::_run_query();
+        return self::_run_query($this->replace_into);
     }
 
     /**
@@ -116,7 +117,7 @@ class Run extends Get {
      * @return Object
      */
     private function _run_select() {
-        return self::_run_query();
+        return self::_run_query($this->select_query);
     }
 
     /**
@@ -125,7 +126,7 @@ class Run extends Get {
      * @return Object
      */
     private function _run_update() {
-        return self::_run_query();
+        return self::_run_query($this->update_query);
     }
 
     /**
@@ -134,14 +135,14 @@ class Run extends Get {
      * @return Object
      */
     private function _run_customSQL() {
-        return self::_run_query();
+        return self::_run_query($this->customSQL);
     }
-    
+
     /**
      * checks what action was called
      * 
      * @param string $param query type
-     * @version 0.2.1
+     * @version 0.2.2
      * @return Object
      */
     private function _run_query_query_type($param) {
@@ -168,12 +169,12 @@ class Run extends Get {
     /**
      * Run Query
      * @param type $query
-     * @version 1.4.2
+     * @version 1.4.3
      * @return Object
      */
-    private function _run_query() {
+    private function _run_query($query) {
         $mysqli = $this->link_mysqi[0];
-        $this->result = mysqli_query($mysqli, self::get(true));
+        $this->result = mysqli_query($mysqli, $query);
         if (!$this->result) {
             $this->mysql_error = mysqli_error($mysqli);
             $this->error = self::$TEXT_ERRO_TYPE_QUERY . $this->mysql_error;
@@ -181,7 +182,7 @@ class Run extends Get {
 
             if (function_exists('error')) {
                 error($this->error);
-            }else{
+            } else {
                 error_log($this->error);
             }
             die($this->error);
