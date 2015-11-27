@@ -219,7 +219,7 @@ $q->class_inative = 'page';
 $q->class_after = 'page';
 $q->class_before = 'page';
 $q->message = true;
-print $q->make_pages('select-from-table-with-pagination.php?id=', $id_post);
+print $q->make_pages('select-from-table-with-pagination.php?id=', $id);
 
 // Dark Mode
 $q->class_active = 'page dark active';
@@ -228,7 +228,7 @@ $q->class_after = 'page dark';
 $q->class_before = 'page dark';
 $q->message = false;
 
-print $q->make_pages('select-from-table-with-pagination.php?id=', $id_post);
+print $q->make_pages('select-from-table-with-pagination.php?id=', $id);
 /* $q->show();
 
         SELECT
