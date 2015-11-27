@@ -1,5 +1,7 @@
 <?php
+
 //namespace to organize
+
 namespace Query_src;
 
 /**
@@ -7,7 +9,7 @@ namespace Query_src;
  * Class query - Pagination
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 1.5
+ * @version 1.6
  * @access public
  * @package Language
  * */
@@ -68,13 +70,13 @@ class Pagination extends Language {
      * Class name for element active, use NULL if you want not put nothing
      * 
      * @access public
-     * @var String 
+     * @var string 
      */
     var $class_active = NULL;
 
     /**
      * Class name for element inactive, use NULL if you want not put nothing
-     * @var String 
+     * @var string 
      */
     var $class_inactive = NULL;
 
@@ -82,7 +84,7 @@ class Pagination extends Language {
      * Class name for element before, use NULL if you want not put nothing
      * 
      * @access public
-     * @var String 
+     * @var string 
      */
     var $class_before = NULL;
 
@@ -90,7 +92,7 @@ class Pagination extends Language {
      * Class name for element after, use NULL if you want not put nothing
      * 
      * @access public
-     * @var String 
+     * @var string 
      */
     var $class_after = NULL;
 
@@ -144,9 +146,10 @@ class Pagination extends Language {
 
     /**
      * check to see if the parameter is equal to the selected mark as if the class as active
+     * 
      * @access private
-     * @param String $value Asset value of the pagination loop function
-     * @param Integer $param Page parameter
+     * @param string $value Asset value of the pagination loop function
+     * @param int $param Page parameter
      * @return string
      */
     private function verify_current($value, $param) {
@@ -161,14 +164,14 @@ class Pagination extends Language {
             case (isset($this->class_active)):
                 if ($value == $param) {
                     $result = ' class="' . $this->class_active . '"';
-                }else{
+                } else {
                     $result = false;
                 }
                 break;
             case (isset($this->class_inative)):
                 if ($value == $param) {
                     $result = ' class="' . $this->class_inative . '"';
-                }else{
+                } else {
                     $result = false;
                 }
                 break;
@@ -181,9 +184,10 @@ class Pagination extends Language {
 
     /**
      * checks if the first page if not showing "Previous" and linked up with - 1
+     * 
      * @access private
-     * @param String $URL Full URL to the point of parameter pages
-     * @param Iteger $value Asset value of the pagination loop function
+     * @param string $URL Full URL to the point of parameter pages
+     * @param int $value Asset value of the pagination loop function
      * @return string
      */
     function make_button_before($URL, $value) {
@@ -209,11 +213,12 @@ class Pagination extends Language {
     /**
      * checks if it is the last page if it does not show "Next" and linked up with + 1
      * added rules configuration class
+     * 
      * @access private
-     * @param String $URL Full URL to the point of parameter pages
-     * @param $value Value of the asset page for pagination
-     * @param $total Asset value of the pagination loop function
-     * @return String
+     * @param string $URL Full URL to the point of parameter pages
+     * @param int $value Value of the asset page for pagination
+     * @param int $total Asset value of the pagination loop function
+     * @return string
      */
     function make_button_after($URL, $value, $total) {
         $return = $value + 1;
@@ -238,8 +243,9 @@ class Pagination extends Language {
     /**
      * checks whether the page border is greater than or equal to paramentro pages
      * this function is not to show the page if the set limit is less
+     * 
      * @access private
-     * @param String $URL Full URL to the point of parameter pages
+     * @param string $page_param Full URL to the point of parameter pages
      * @return Object
      * */
     private function verify_limit($page_param) {
@@ -249,8 +255,8 @@ class Pagination extends Language {
     /**
      * create a loop with the numbering and put the link
      * @access private
-     * @param String $URL Full URL to the point of parameter pages
-     * @param Integer $page_param ID of the page
+     * @param string $URL Full URL to the point of parameter pages
+     * @param int $page_param ID of the page
      * @return Object
      */
     private function loop($URL, $page_param) {
@@ -273,8 +279,8 @@ class Pagination extends Language {
     /**
      * call objects for pagination
      * @access private
-     * @param String $URL Full URL to the point of parameter pages
-     * @param Integer $page_param ID of the page
+     * @param string $URL Full URL to the point of parameter pages
+     * @param int $page_param ID of the page
      * @return Object
      */
     private function call_all_object_pagination($URL, $page_param) {
@@ -284,8 +290,8 @@ class Pagination extends Language {
     /**
      * check limit page
      * @access private
-     * @param String $URL Full URL to the point of parameter pages
-     * @param Integer $page_param ID of the page
+     * @param string $URL Full URL to the point of parameter pages
+     * @param int $page_param ID of the page
      * @return string
      */
     private function check_limit($URL, $page_param) {
@@ -298,13 +304,14 @@ class Pagination extends Language {
      * create the new paging-numbered
      * bug fix. if the last page shows the pagination, now the query has the lowest records than the limit
      * does not show pagination
+     * 
      * @access public
-     * @param String $URL Full URL to the point of parameter pages
-     * @param Integer $page_param ID of the page
+     * @param string $URL Full URL to the point of parameter pages
+     * @param int $page_param ID of the page
      * @return Object
      */
     public function make_pages($URL, $page_param) {
-        if ($this->get_pages()) {
+        if (!$this->get_pages()) {
             return false;
         } else {
             return isset($page_param) ? $this->check_limit($URL, $page_param) : $this->check_limit($URL, 1);
