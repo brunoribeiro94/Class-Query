@@ -311,7 +311,7 @@ class Pagination extends Language {
      * @return Object
      */
     public function make_pages($URL, $page_param) {
-        if (!$this->get_pages()) {
+        if ($this->get_pages() == 1) {
             return false;
         } else {
             return isset($page_param) ? $this->check_limit($URL, $page_param) : $this->check_limit($URL, 1);
