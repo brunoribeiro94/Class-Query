@@ -8,7 +8,7 @@ namespace Query_src;
  * fix reserved words in MySQL
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.3
+ * @version 0.4
  * @access public
  * @package Reserved_words
  * @author offboard
@@ -27,6 +27,7 @@ class Reserved {
      * This function handles the string to not return any error on the reserved words in MySQL
      * 
      * @param mixed $key Data
+     * @version 0.2
      * @return mixed
      */
     protected function replaceReservedWords($key) {
@@ -38,8 +39,13 @@ class Reserved {
         if (substr_count($key, '`') == 1) {
             $key = str_replace("`", "", $key);
         }
+        $new = array();
+        foreach (self::$reserved_words as $v) {
+            $new[] = strtoupper($v);
+            $new[] = $v;
+        }
         // checks if exist any reserved word by the MYSQL
-        if (in_array($key, self::$reserved_words)) {
+        if (in_array($key, $new)) {
             // check if already exist `` in data string
             if (strpos($key, '`')) {
                 return $key;
