@@ -509,7 +509,7 @@ class Get extends Insert {
                     $where_between_or[] = "'{$k}' BETWEEN {$v}";
                 }
             }
-            return implode(' OR' . "\n\t", $where_between_or) . ' ';
+            return '(' . "\n" . "\t\t" . implode(' OR' . "\n\t", $where_between_or) . "\n" . "\t" . ') ';
         }
     }
 
