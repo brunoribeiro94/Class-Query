@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * Note : Code is released under the GNU LGPL
  *
@@ -44,7 +45,7 @@ if (!defined('T_TRAIT')) {
  *
  * Read documentation for more information.
  */
-class autoloadManager {
+class autoloadManagerClassQuery {
 
     /**
      * Constants used by the checkClass method
@@ -232,10 +233,10 @@ class autoloadManager {
             // recheck if the class exists again in the reloaded classes
             $loaded = $this->checkClass($className, $this->_classes);
             if (!$loaded && (self::SCAN_CACHE & $this->_scanOptions)) {
-            // set it to null to flag that it was not found
-            // This behaviour fixes the problem with infinite
-            // loop if we have a class_exists() for an inexistant
-            // class.
+                // set it to null to flag that it was not found
+                // This behaviour fixes the problem with infinite
+                // loop if we have a class_exists() for an inexistant
+                // class.
                 $this->_classes[$className] = null;
             }
             // write to a single file
@@ -441,6 +442,6 @@ class autoloadManager {
 }
 
 // require all files in libs folder
-$autoloadManager = new autoloadManager(null, autoloadManager::SCAN_ONCE);
+$autoloadManager = new autoloadManagerClassQuery(null, autoloadManagerClassQuery::SCAN_ONCE);
 $autoloadManager->addFolder(__DIR__ . '/lib/');
 $autoloadManager->register();
