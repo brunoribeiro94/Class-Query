@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 1.5.3
+ * @version 1.5.4
  * @access public
  * @package Run
  * @subpackage Pagination
@@ -21,7 +21,7 @@ class Run extends Get {
      * runs query, returns mysql result
      * 
      * @access public
-     * @version 0.2
+     * @version 0.3
      * @return \Query
      */
     public function run() {
@@ -67,6 +67,7 @@ class Run extends Get {
                             return self::_run_select();
                         }
                     }
+                    break;
                 default:
                     die(self::$TEXT_ERRO_QUERY . $this->query_type);
                     break;
