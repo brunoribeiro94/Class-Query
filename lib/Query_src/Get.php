@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.10
+ * @version 0.11
  * @access public
  * @package Get
  * @subpackage Insert
@@ -253,7 +253,7 @@ class Get extends Insert {
      * @return void
      */
     protected function _get_results() {
-        $this->results = mysqli_num_rows($this->result);
+        $this->results = @mysqli_num_rows($this->result);
     }
 
     /**
@@ -562,7 +562,6 @@ class Get extends Insert {
             $where_equal_to = array();
             foreach ($this->where_equal_to as $k => $v) {
                 $k = $this->replaceReservedWords($k);
-                $v = $this->replaceReservedWords($v);
                 if (is_null($v)) {
                     $where_equal_to[] = $k . ' IS NULL';
                 } elseif (is_int($k)) {
@@ -574,7 +573,7 @@ class Get extends Insert {
                         $where_equal_to[] = sprintf($key . ' = "%s"', $this->_check_link_mysqli($value));
                     }
                 } else {
-                    $where_equal_to[] = sprintf($k . ' = "%s"', $this->_check_link_mysqli($v));
+                    $where_equal_to[] = sprintf($k . ' = "%s"', $v);
                 }
             }
             return implode(' AND' . "\n\t", $where_equal_to) . ' ';
