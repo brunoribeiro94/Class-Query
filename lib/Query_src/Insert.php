@@ -1,5 +1,7 @@
 <?php
+
 //namespace to organize
+
 namespace Query_src;
 
 /**
@@ -7,7 +9,7 @@ namespace Query_src;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 0.4
+ * @version 0.5
  * @access public
  * @package Insert
  * @subpackage Delete
@@ -44,7 +46,7 @@ class Insert extends Delete {
      * @return Integer
      */
     public function get_inserted_id($select = '') {
-        $this->inserted =  mysqli_insert_id($this->link_mysqi[0]);
+        $this->inserted = mysqli_insert_id($this->link_mysqi[0]);
         if ('' == $select && 'insert_multiple' != $this->query_type) {
             return $this->inserted;
         } else {
@@ -110,16 +112,14 @@ class Insert extends Delete {
         $insert_keys = array();
         $insert_values = array();
         foreach ($keys_and_values as $key => $value) {
-            if (in_array($key, self::$reserved_words)) {
-                $key = $this->replaceReservedWords($key);
-            }
+            $key = $this->replaceReservedWords($key);
             $insert_keys[] = $key;
             if (is_null($value)) {
                 $insert_values[] = 'NULL';
             } elseif (is_int($key)) {
                 $insert_values[] = $value;
             } elseif (is_array($value)) {
-                foreach ($value as $k => $v) {
+                foreach ($value as $v) {
                     $insert_values[] = sprintf('%s', $this->_check_link_mysqli($v));
                 }
             } else {
@@ -208,12 +208,13 @@ class Insert extends Delete {
         if ('' !== $on_duplicate_key_update && is_array($on_duplicate_key_update)) {
             $update = array();
             foreach ($on_duplicate_key_update as $k => $v) {
+                $k = $this->replaceReservedWords($k);
                 if (is_null($v)) {
                     $update[] = $k . ' = NULL';
                 } elseif (is_int($k)) {
                     $update[] = $v;
                 } elseif (is_array($v)) {
-                    foreach ($v as $key => $value) {
+                    foreach ($v as $value) {
                         if (is_null($value)) {
                             $update[] = $k . ' = NULL';
                         } elseif (is_int($k)) {
