@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.11
+ * @version 0.12
  * @access public
  * @package Get
  * @subpackage Insert
@@ -368,6 +368,12 @@ class Get extends Insert {
      */
     private function _get_where() {
         $wheres = array();
+        if (!empty(self::_get_where_not_exists())) {
+            $wheres[] = self::_get_where_not_exists();
+        }
+        if (!empty(self::_get_where_exists())) {
+            $wheres[] = self::_get_where_exists();
+        }
         if (!empty(self::_get_where_greater_than())) {
             $wheres[] = self::_get_where_greater_than();
         }
@@ -428,6 +434,7 @@ class Get extends Insert {
         if (!empty(self::_get_where_between_columns_or())) {
             $wheres[] = self::_get_where_between_columns_or();
         }
+
         if (empty($wheres)) {
             return '';
         } else {
@@ -510,6 +517,50 @@ class Get extends Insert {
                 }
             }
             return '(' . "\n" . "\t\t" . implode(' OR' . "\n\t", $where_between_or) . "\n" . "\t" . ') ';
+        }
+    }
+
+    /**
+     * get where not exists
+     * 
+     * @return string
+     */
+    private function _get_where_not_exists() {
+        if (!isset($this->where_not_exists) || empty($this->where_not_exists)) {
+            return '';
+        } else {
+            if (is_array($this->where_not_exists)) {
+                $where_not_exists = array();
+                foreach ($this->where_not_exists as $v) {
+                    $where_not_exists[] = $v;
+                }
+                $this->where_not_exists = implode("\n" . 'AND ' . "\n\t", $where_not_exists);
+            } else {
+                $this->where_not_exists = $this->where_not_exists;
+            }
+            return "\n" . " NOT EXISTS \t\t" . $this->where_not_exists . "\n" . "\t";
+        }
+    }
+
+    /**
+     * get where exists
+     * 
+     * @return string
+     */
+    private function _get_where_exists() {
+        if (!isset($this->where_exists) || empty($this->where_exists)) {
+            return '';
+        } else {
+            if (is_array($this->where_exists)) {
+                $where_exists = array();
+                foreach ($this->where_exists as $v) {
+                    $where_exists[] = $v;
+                }
+                $this->where_exists = implode("\n" . 'AND ' . "\n\t", $where_exists);
+            } else {
+                $this->where_exists = $this->where_exists;
+            }
+            return "\n" . " EXISTS \t\t" . $this->where_exists . "\n" . "\t";
         }
     }
 
