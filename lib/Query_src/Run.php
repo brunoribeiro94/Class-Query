@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 1.5.4
+ * @version 1.5.5
  * @access public
  * @package Run
  * @subpackage Pagination
@@ -67,6 +67,15 @@ class Run extends Get {
                             return self::_run_select();
                         }
                     }
+                    break;
+                case 'customMultipleSQL':
+                    @mysqli_multi_query($this->link_mysqi[0], $this->customMultipleSQL);
+                    do {
+                        if ($result = mysqli_store_result($this->link_mysqi[0])) {
+                            mysqli_free_result($result);
+                            return false;
+                        }
+                    } while (mysqli_next_result($this->link_mysqi[0]));
                     break;
                 default:
                     die(self::$TEXT_ERRO_QUERY . $this->query_type);
