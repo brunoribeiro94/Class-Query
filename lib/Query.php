@@ -9,7 +9,7 @@ use Query_src\Config as Config;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 2.6.1
+ * @version 2.6.2
  * @access public
  * @package Config
  * @todo Finish the functions : SUM, DISTINCT, and commands of tools to database.
@@ -61,9 +61,7 @@ class Query extends Config {
         if (isset($this->limit) && 1 == $this->limit) {
             // for use when selecting with limit(1)
             $result = array();
-            while ($this->result && $result[] = mysqli_fetch_assoc($this->result)) {
-                
-            }
+            while ($this->result && $result[] = mysqli_fetch_assoc($this->result)) {}
             array_pop($result);
             $results = array();
             foreach ($result as $values) {
@@ -72,9 +70,7 @@ class Query extends Config {
         } else {
             // for use when selecting with no limit or a limit > 1
             $results = array();
-            while ($this->result && $results[] = mysqli_fetch_assoc($this->result)) {
-                
-            }
+            while ($this->result && $results[] = mysqli_fetch_assoc($this->result)) {}
             array_pop($results);
         }
         return $results;
@@ -116,7 +112,18 @@ class Query extends Config {
         $this->customSQL = $sql;
         return $this;
     }
-    
+
+    /**
+     * Execute custom SQL lines
+     * 
+     * @param string $sql FULL SQL
+     * @return \Query
+     */
+    public function customMultiplesSQL($sql) {
+        $this->customMultipleSQL = $sql;
+        return $this;
+    }
+
     /* Query helpers */
 
     public function distinct($distinct) {
@@ -188,10 +195,10 @@ class Query extends Config {
                 foreach ($having as $k => $v) {
                     if (is_array($v)) {
                         foreach ($v as $key => $value) {
-                            $array[] = sprintf('%1$s %2$s "%3$s"',$key, $comparison, $this->_check_link_mysqli($value));
+                            $array[] = sprintf('%1$s %2$s "%3$s"', $key, $comparison, $this->_check_link_mysqli($value));
                         }
                     } else {
-                        $array[] = sprintf('%1$s %2$s "%3$s"',$k, $comparison, $this->_check_link_mysqli($v));
+                        $array[] = sprintf('%1$s %2$s "%3$s"', $k, $comparison, $this->_check_link_mysqli($v));
                     }
                 }
 
@@ -250,7 +257,7 @@ class Query extends Config {
         $this->left_join = $left_join;
         return $this;
     }
-    
+
     /**
      * Function Query limit
      * 
@@ -325,7 +332,7 @@ class Query extends Config {
         $this->order_by = $order_by;
         return $this;
     }
-    
+
     /**
      * Function to define page used in paginations of registry
      * 
