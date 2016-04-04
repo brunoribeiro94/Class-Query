@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.12
+ * @version 0.13
  * @access public
  * @package Get
  * @subpackage Insert
@@ -28,6 +28,9 @@ class Get extends Insert {
         switch (true) {
             case self::_get_custom_sql():
                 $execute = $this->customSQL;
+                break;
+            case self::_get_multiples_custom_sql():
+                $execute = $this->customMultipleSQL;
                 break;
             case self::_get_delete_query():
                 $execute = $this->delete_query;
@@ -63,6 +66,19 @@ class Get extends Insert {
         if (isset($this->customSQL)) {
             $this->query_type = 'customSQL';
             return $this->customSQL;
+        }
+        return NULL;
+    }
+
+    /**
+     * get select distinct
+     * 
+     * @return string
+     */
+    private function _get_multiples_custom_sql() {
+        if (isset($this->customMultipleSQL)) {
+            $this->query_type = 'customMultipleSQL';
+            return $this->customMultipleSQL;
         }
         return NULL;
     }
