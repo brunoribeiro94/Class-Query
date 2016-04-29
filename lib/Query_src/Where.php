@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 1.3
+ * @version 1.4
  * @access public
  * @package Where
  * @subpackage Replace
@@ -167,6 +167,56 @@ class Where extends Replace {
      */
     public function where_equal_or($where_equal_or) {
         $this->where_equal_or = $where_equal_or;
+        return $this;
+    }
+
+    /**
+     * Function Query where not exist
+     * 
+     * Example Query output :
+     * 
+     * <pre>
+     * <code>
+     * SELECT 
+     *          *
+     * FROM
+     *          `table`
+     * WHERE NOT EXISTS
+     *           `SQL` AND
+     *           `SQL`
+     * </code>
+     * </pre>
+     * @param array $where_not_exists Used to compare strings.
+     * @access public
+     * @return \Query_src\Where
+     */
+    public function where_not_exists($where_not_exists) {
+        $this->where_not_exists = $where_not_exists;
+        return $this;
+    }
+
+    /**
+     * Function Query where not exist
+     * 
+     * Example Query output :
+     * 
+     * <pre>
+     * <code>
+     * SELECT 
+     *          *
+     * FROM
+     *          `table`
+     * WHERE EXISTS
+     *           `SQL` AND
+     *           `SQL`
+     * </code>
+     * </pre>
+     * @param array $where_not_exists Used to compare strings.
+     * @access public
+     * @return \Query_src\Where
+     */
+    public function where_exists($where_not_exists) {
+        $this->where_exists = $where_not_exists;
         return $this;
     }
 
