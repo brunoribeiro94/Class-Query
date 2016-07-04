@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno         <bruno.espertinho@gmail.com>
  * 
- * @version 0.2
+ * @version 0.3
  * @access public
  * @package Update
  * @subpackage Where
@@ -51,7 +51,7 @@ class Update extends Where {
         if (!empty($set)) {
             $arr = array();
             foreach ($set as $key => $value) {
-                $arr[$this->replaceReservedWords($key)] = $this->replaceReservedWords($value);
+                $arr[$this->replaceReservedWords($key)] = $value;
             }
             self::set($arr);
         }
