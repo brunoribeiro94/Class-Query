@@ -9,7 +9,7 @@ use Query_src\Config as Config;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 2.6.2
+ * @version 2.6.3
  * @access public
  * @package Config
  * @todo Finish the functions : SUM, DISTINCT, and commands of tools to database.
@@ -61,7 +61,9 @@ class Query extends Config {
         if (isset($this->limit) && 1 == $this->limit) {
             // for use when selecting with limit(1)
             $result = array();
-            while ($this->result && $result[] = mysqli_fetch_assoc($this->result)) {}
+            while ($this->result && $result[] = mysqli_fetch_assoc($this->result)) {
+                
+            }
             array_pop($result);
             $results = array();
             foreach ($result as $values) {
@@ -70,7 +72,9 @@ class Query extends Config {
         } else {
             // for use when selecting with no limit or a limit > 1
             $results = array();
-            while ($this->result && $results[] = mysqli_fetch_assoc($this->result)) {}
+            while ($this->result && $results[] = mysqli_fetch_assoc($this->result)) {
+                
+            }
             array_pop($results);
         }
         return $results;
@@ -330,6 +334,29 @@ class Query extends Config {
      */
     public function order_by($order_by) {
         $this->order_by = $order_by;
+        return $this;
+    }
+
+    /**
+     * Function Query order RAND
+     * 
+     * Example Query output :
+     * 
+     * <pre>
+     * <code>
+     * SELECT 
+     *          *
+     * FROM
+     *          `table`
+     * <b>ORDER RAND()</b>
+     * </code>
+     * </pre>
+     * 
+     * @access public
+     * @return \Query
+     */
+    public function order_rand() {
+        $this->order_by = "RAND()";
         return $this;
     }
 
