@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * @author Zachbor       <zachborboa@gmail.com>
  * 
- * @version 1.4
+ * @version 1.5
  * @access public
  * @package Where
  * @subpackage Replace
@@ -167,6 +167,32 @@ class Where extends Replace {
      */
     public function where_equal_or($where_equal_or) {
         $this->where_equal_or = $where_equal_or;
+        return $this;
+    }
+
+    /**
+     * Function Query custom where
+     * 
+     * Example Query output :
+     * 
+     * <pre>
+     * <code>
+     * SELECT 
+     *          *
+     * FROM
+     *          `table`
+     * WHERE
+     *        (
+     *           <b>`column` = `value`</b>
+     *        )
+     * </code>
+     * </pre>
+     * @param string $where custom criteria where
+     * @access public
+     * @return \Query_src\Where
+     */
+    public function where($where) {
+        $this->where = $where;
         return $this;
     }
 
