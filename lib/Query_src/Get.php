@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.13
+ * @version 0.14
  * @access public
  * @package Get
  * @subpackage Insert
@@ -115,7 +115,7 @@ class Get extends Insert {
     protected function _get_delete_query() {
         if (isset($this->delete_from)) {
             $this->query_type = 'delete';
-            $this->delete_query = "\n" . self::_get_delete_from() . self::_get_where() . self::_get_order_by() . self::_get_limit() . '';
+            $this->delete_query = "\n" . self::_get_delete_from() . self::get_where() . self::_get_order_by() . self::_get_limit() . '';
             return true;
         }
         return false;
@@ -316,14 +316,16 @@ class Get extends Insert {
     }
 
     /**
-     * get select query
+     * Get select query
+     * 
      * @param int $use_limit Limit, used null for disable
+     * @version 0.2
      * @return boolean
      */
     protected function _get_select_query($use_limit = null) {
         if (isset($this->select)) {
             $this->query_type = 'select';
-            $this->select_query = "\n" . self::_get_select() . self::_get_from() . self::_get_join() . self::_get_where() . self::_get_group_by() . $this->having . self::_get_order_by() . ($use_limit || (!isset($this->page) && !isset($this->offset)) ? self::_get_limit() : '') . '';
+            $this->select_query = "\n" . self::_get_select() . self::_get_from() . self::_get_join() . self::get_where() . self::_get_group_by() . $this->having . self::_get_order_by() . ($use_limit || (!isset($this->page) && !isset($this->offset)) ? self::_get_limit() : '') . '';
             return true;
         }
         return false;
@@ -356,7 +358,8 @@ class Get extends Insert {
     }
 
     /**
-     * get update
+     * Get update
+     * 
      * @return string
      */
     private function _get_update() {
@@ -364,13 +367,15 @@ class Get extends Insert {
     }
 
     /**
-     * get update query
+     * Get update query
+     * 
+     * @version 0.2
      * @return boolean
      */
     private function _get_update_query() {
         if (isset($this->update)) {
             $this->query_type = 'update';
-            $this->update_query = "\n" . self::_get_update() . self::_get_set() . self::_get_where() . self::_get_limit() . '';
+            $this->update_query = "\n" . self::_get_update() . self::_get_set() . self::get_where() . self::_get_limit() . '';
             return true;
         }
         return false;
@@ -379,11 +384,14 @@ class Get extends Insert {
     /**
      * load all where's options
      * 
-     * @version 2.1
+     * @version 2.2
      * @return string
      */
-    private function _get_where() {
+    private function get_where() {
         $wheres = array();
+        if (!empty(self::_get_where())) {
+            $wheres[] = self::_get_where();
+        }
         if (!empty(self::_get_where_not_exists())) {
             $wheres[] = self::_get_where_not_exists();
         }
@@ -614,6 +622,19 @@ class Get extends Insert {
             }
             return '(' . "\n" . "\t\t" . implode(' OR' . "\n\t\t", $where_equal_or) . "\n" . "\t" . ') ';
         }
+    }
+
+    /**
+     * Custom criteria where
+     * 
+     * @version 0.2
+     * @return string
+     */
+    private function _get_where() {
+        if (!isset($this->where)) {
+            return '';
+        }
+        return $this->where;
     }
 
     /**
