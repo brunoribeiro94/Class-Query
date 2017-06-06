@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.14
+ * @version 0.15
  * @access public
  * @package Get
  * @subpackage Insert
@@ -634,7 +634,10 @@ class Get extends Insert {
         if (!isset($this->where)) {
             return '';
         }
-        return $this->where;
+        if (!is_array($this->where)) {
+            return $this->where;
+        }
+        return implode(' AND' . "\n\t", $this->where) . ' ';
     }
 
     /**
