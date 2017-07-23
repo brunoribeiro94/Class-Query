@@ -1,6 +1,7 @@
 <?php
 
 //namespace to organize
+
 namespace Query_src;
 
 /**
@@ -8,7 +9,7 @@ namespace Query_src;
  * Class query - Pagination
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 1.7
+ * @version 1.7.1
  * @access public
  * @package Language
  * */
@@ -144,7 +145,7 @@ class Pagination extends Language {
      * @access public
      * @var boolean 
      */
-    var $max_previous = 2;
+    var $max_previous = 3;
 
     /**
      * HTML to separate to last pagination
@@ -335,14 +336,30 @@ class Pagination extends Language {
         if ($this->max && $this->get_pages() >= $this->max) {
             $initial = $this->get_page();
             $ending = $this->max + $this->get_page();
+            $reverse = false;
             // check current page if is equal or greater than the value max of pages
             if ($this->get_page() >= $this->max) {
                 $initial = $this->get_page() - $this->max_previous;
                 $ending = $this->max + $initial;
             }
+            // check the lasts pages to show first page
+            if ($this->get_page() === $this->get_pages() || $this->get_page() > ($this->get_pages() - $this->max)) {
+                $initial = $this->get_pages() - $this->max;
+                $ending = $this->get_pages();
+                $reverse = true;
+            }
+            if ($reverse) {
+                if ($this->get_page() !== $this->get_pages())
+                    $ending -= 1;
+                else
+                    $initial += 1;
+
+                $result .= $this->detect_custom_current(1, $page_param, $URL, sprintf($format, 1, $URL . 1, $this->verify_current(1, $page_param))) . $this->max_more;
+            }
+
             for ($i = $initial; $i <= $ending; $i++) {
-                // Show last page if current page is the last of listing
-                if ($i === $ending)
+                // Show last page if current page is the last of listing and reveser is false
+                if (!$reverse && $i === $ending || $i - $i >= $this->max)
                     $result .= $this->detect_custom_current($i, $page_param, $URL, $this->max_more . sprintf($format, $this->get_pages(), $URL . $this->get_pages(), $this->verify_current($this->get_pages(), $page_param)));
                 else
                     $result .= $this->detect_custom_current($i, $page_param, $URL, sprintf($format, $i, $URL . $i, $this->verify_current($i, $page_param)));
