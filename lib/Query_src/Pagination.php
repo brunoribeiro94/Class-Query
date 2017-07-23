@@ -1,7 +1,6 @@
 <?php
 
 //namespace to organize
-
 namespace Query_src;
 
 /**
@@ -9,7 +8,7 @@ namespace Query_src;
  * Class query - Pagination
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 1.6
+ * @version 1.7
  * @access public
  * @package Language
  * */
@@ -30,6 +29,24 @@ class Pagination extends Language {
      * @var Boolean 
      */
     var $after = true;
+
+    /**
+     * Set custom HTML item of page
+     * 
+     * Use <b>%1$d</b> to replace for pagination number.
+     * 
+     * Use <b>%2$s</b> to replace for link of pagination.
+     * 
+     * Use <b>%3$s</b> to replace for <b>$class_active</b>.
+     * 
+     * Example using DIV : <div><a%3$s href="%2$s">%1$d</a></div>
+     * 
+     * Set FALSE to using <b>$li</b> option.
+     * 
+     * @access public
+     * @var Boolean 
+     */
+    var $custom_format = false;
 
     /**
      * Set this variable to false if you don't want the pagination button before 
@@ -103,6 +120,49 @@ class Pagination extends Language {
      * @var boolean 
      */
     var $pagination_show_numbering = true;
+
+    /**
+     * Set max amount to listing the pages
+     * 
+     * Set false to disable this limit
+     * 
+     * @access public
+     * @var boolean 
+     */
+    var $max = 10;
+
+    /**
+     * Set the number of previous pages
+     * when current page is <b>$max</b>
+     * 
+     * Remember the amount from next pages respect <b>$max</b> value.
+     * 
+     * This that next pages is  <$max> - <b>$max_previous</b>
+     *  
+     * Set 0 to don't show previous pages
+     * 
+     * @access public
+     * @var boolean 
+     */
+    var $max_previous = 2;
+
+    /**
+     * HTML to separate to last pagination
+     * 
+     * @var string 
+     */
+    var $max_more = '<span class="page-numbers">[...]</span>';
+
+    /**
+     * Set custom HTML for current item
+     * 
+     * Use <b>%1$d</b> to replace for pagination number and <b>%2$s</b> to replace by link
+     * 
+     * Set FALSE to use default
+     * 
+     * @var string 
+     */
+    var $custom_current = false;
 
     /**
      * Alias page()
@@ -253,27 +313,65 @@ class Pagination extends Language {
     }
 
     /**
-     * create a loop with the numbering and put the link
-     * @access private
+     * Create a loop with the numbering and put the link
+     * 
      * @param string $URL Full URL to the point of parameter pages
      * @param int $page_param ID of the page
-     * @return Object
+     * @return stirng
      */
     private function loop($URL, $page_param) {
         if (!$this->pagination_show_numbering) {
             return NULL;
         }
         $result = '';
-        if ($this->li) {
-            for ($i = 1; $i <= $this->get_pages(); $i++) {
-                $result .= '<li' . $this->verify_current($i, $page_param) . '><a href="' . $URL . $i . '">' . $i . '</a></li>';
+        $format = '<a%3$s href="%2$s">%1$d</a>';
+        // check li format item
+        if ($this->li)
+            $format = '<li%3$s><a href="%2$s">%1$d</a></li>';
+        // check custom format item
+        if ($this->custom_format)
+            $format = $this->custom_format;
+        // check limit of pages is enabled and total pages is greater than or equal the max values of pages
+        if ($this->max && $this->get_pages() >= $this->max) {
+            $initial = $this->get_page();
+            $ending = $this->max + $this->get_page();
+            // check current page if is equal or greater than the value max of pages
+            if ($this->get_page() >= $this->max) {
+                $initial = $this->get_page() - $this->max_previous;
+                $ending = $this->max + $initial;
             }
-        } else {
-            for ($i = 1; $i <= $this->get_pages(); $i++) {
-                $result .= '<a' . $this->verify_current($i, $page_param) . ' href="' . $URL . $i . '">' . $i . '</a>';
+            for ($i = $initial; $i <= $ending; $i++) {
+                // Show last page if current page is the last of listing
+                if ($i === $ending)
+                    $result .= $this->detect_custom_current($i, $page_param, $URL, $this->max_more . sprintf($format, $this->get_pages(), $URL . $this->get_pages(), $this->verify_current($this->get_pages(), $page_param)));
+                else
+                    $result .= $this->detect_custom_current($i, $page_param, $URL, sprintf($format, $i, $URL . $i, $this->verify_current($i, $page_param)));
             }
+        } else { // show all pages
+            for ($i = 1; $i <= $this->get_pages(); $i++)
+                $result .= $this->detect_custom_current($i, $page_param, $URL, sprintf($format, $i, $URL . $i, $this->verify_current($i, $page_param)));
         }
+
         return $result;
+    }
+
+    /**
+     * Use custom current HTML if enabled
+     * 
+     * @param int $index
+     * @param string $page_param
+     * @param string $URL
+     * @param string $item
+     * @return string
+     */
+    private function detect_custom_current($index, $page_param, $URL, $item) {
+        if ($this->custom_current) {
+            if (preg_match("/{$this->class_active}/", $this->verify_current($index, $page_param))) {
+                return sprintf($this->custom_current, (int) $index, $URL . $index);
+            }
+            return $item;
+        }
+        return $item;
     }
 
     /**
