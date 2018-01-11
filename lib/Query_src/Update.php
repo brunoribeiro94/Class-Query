@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno         <bruno.espertinho@gmail.com>
  * 
- * @version 0.3
+ * @version 0.2.1
  * @access public
  * @package Update
  * @subpackage Where
@@ -43,7 +43,7 @@ class Update extends Where {
      * 
      * @access public
      * @param string $table Table name
-     * @param array $set Array colletion columns and value
+     * @param array $set Array collection columns and value
      * @return \Update
      */
     public function update($table, $set = array()) {
@@ -51,7 +51,7 @@ class Update extends Where {
         if (!empty($set)) {
             $arr = array();
             foreach ($set as $key => $value) {
-                $arr[$this->replaceReservedWords($key)] = $value;
+                $arr[$this->replaceReservedWords($key)] = $this->replaceReservedWords($value, true);
             }
             self::set($arr);
         }
