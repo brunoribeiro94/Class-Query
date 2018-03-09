@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.15
+ * @version 0.17
  * @access public
  * @package Get
  * @subpackage Insert
@@ -389,6 +389,7 @@ class Get extends Insert {
      */
     private function get_where() {
         $wheres = array();
+        $wheres_or = array();
         if (!empty(self::_get_where())) {
             $wheres[] = self::_get_where();
         }
@@ -404,9 +405,12 @@ class Get extends Insert {
         if (!empty(self::_get_where_between())) {
             $wheres[] = self::_get_where_between();
         }
-        if (!empty(self::_get_where_in())) {
+        if (!empty(self::_get_where_in()))
             $wheres[] = self::_get_where_in();
-        }
+
+        if (!empty(self::_get_where_in_or()))
+            $wheres_or[] = self::_get_where_in_or();
+
         if (!empty(self::_get_where_greater_than_or_equal_to())) {
             $wheres[] = self::_get_where_greater_than_or_equal_to();
         }
@@ -462,7 +466,11 @@ class Get extends Insert {
         if (empty($wheres)) {
             return '';
         } else {
-            return 'WHERE' . "\n" . "\t" . implode('AND' . "\n\t", $wheres) . "\n" . '';
+            $or = "\n";
+            if (count($wheres_or) > 0) {
+                $or =  count($wheres_or) > 1 ? "\t" .implode('OR' . "\n\t", $wheres_or) . "\n" : "OR \n \t" . implode('OR' . "\n\t", $wheres_or);
+            }
+            return 'WHERE' . "\n" . "\t" . implode('AND' . "\n\t", $wheres) . $or."\n";
         }
     }
 
@@ -715,7 +723,7 @@ class Get extends Insert {
         if (!isset($this->where_equal_to_and_or) || !is_array($this->where_equal_to_and_or) || empty($this->where_equal_to_and_or)) {
             return '';
         } else {
-            return self::_get_where_equal_to_or($this->where_equal_to_and_or[0]) . " OR \n\t" . self::_get_where_equal_to_or($this->where_equal_to_and_or[1]);
+            return "(". self::_get_where_equal_to_or($this->where_equal_to_and_or[0]) . " OR \n\t" . self::_get_where_equal_to_or($this->where_equal_to_and_or[1]).")";
         }
     }
 
@@ -772,6 +780,41 @@ class Get extends Insert {
                 }
             }
             return implode(' AND' . "\n\t", $where_greater_than_or_equal_to) . ' ';
+        }
+    }
+
+    /**
+     * IN Checks for values in a list
+     * Check the value on the type of data provided.
+     * 
+     * @return string
+     */
+    private function _get_where_in_or() {
+        if (!isset($this->where_in_or) || !is_array($this->where_in_or) || empty($this->where_in_or)) {
+            return '';
+        } else {
+            $where_in_or = array();
+            foreach ($this->where_in_or as $k => $v) {
+                $k = $this->replaceReservedWords($k);
+                $v = $this->replaceReservedWords($v);
+                if (is_null($v)) {
+                    $where_in_or[] = $k . ' IS NULL';
+                } elseif (is_int($k)) {
+                    $where_in_or[] = $v;
+                } elseif (is_int($v)) {
+                    $where_in_or[] = sprintf($k . ' IN(%s)', $this->_check_link_mysqli($v));
+                } elseif (is_array($v)) {
+                    $values = array();
+                    foreach ($v as $value) {
+                        $values[] = '"' . $this->_check_link_mysqli($value) . '"';
+                    }
+                    $where_in_or[] = sprintf($k . ' IN(%s)', implode(', ', $values));
+                } else {
+                    $where_in_or[] = sprintf($k . ' IN(%s)', $this->_check_link_mysqli($v));
+                }
+            }
+
+            return implode(' OR' . "\n\t", $where_in_or) . ' ';
         }
     }
 
