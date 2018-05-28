@@ -9,7 +9,7 @@ namespace Query_src;
  * @author Zachbor       <zachborboa@gmail.com>
  * @author Bruno Ribeiro <bruno.espertinho@gmail.com>
  * 
- * @version 0.17
+ * @version 0.18
  * @access public
  * @package Get
  * @subpackage Insert
@@ -375,7 +375,7 @@ class Get extends Insert {
     private function _get_update_query() {
         if (isset($this->update)) {
             $this->query_type = 'update';
-            $this->update_query = "\n" . self::_get_update() . self::_get_set() . self::get_where() . self::_get_limit() . '';
+            $this->update_query = "\n" . self::_get_update() . self::_get_join() . self::_get_set() . self::get_where() . self::_get_limit() . '';
             return true;
         }
         return false;
@@ -468,9 +468,9 @@ class Get extends Insert {
         } else {
             $or = "\n";
             if (count($wheres_or) > 0) {
-                $or =  count($wheres_or) > 1 ? "\t" .implode('OR' . "\n\t", $wheres_or) . "\n" : "OR \n \t" . implode('OR' . "\n\t", $wheres_or);
+                $or = count($wheres_or) > 1 ? "\t" . implode('OR' . "\n\t", $wheres_or) . "\n" : "OR \n \t" . implode('OR' . "\n\t", $wheres_or);
             }
-            return 'WHERE' . "\n" . "\t" . implode('AND' . "\n\t", $wheres) . $or."\n";
+            return 'WHERE' . "\n" . "\t" . implode('AND' . "\n\t", $wheres) . $or . "\n";
         }
     }
 
@@ -723,7 +723,7 @@ class Get extends Insert {
         if (!isset($this->where_equal_to_and_or) || !is_array($this->where_equal_to_and_or) || empty($this->where_equal_to_and_or)) {
             return '';
         } else {
-            return "(". self::_get_where_equal_to_or($this->where_equal_to_and_or[0]) . " OR \n\t" . self::_get_where_equal_to_or($this->where_equal_to_and_or[1]).")";
+            return "(" . self::_get_where_equal_to_or($this->where_equal_to_and_or[0]) . " OR \n\t" . self::_get_where_equal_to_or($this->where_equal_to_and_or[1]) . ")";
         }
     }
 
